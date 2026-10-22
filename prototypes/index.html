@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng ký — BrokerConnect</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', system-ui, sans-serif; }</style>
+</head>
+<body class="bg-base-200 text-base-content min-h-screen">
+
+  <div class="min-h-screen flex items-center justify-center px-4 py-10">
+    <div class="card w-full max-w-xl bg-base-100 shadow-xl">
+      <div class="card-body">
+
+        <div class="text-center mb-6">
+          <div class="text-2xl font-bold text-primary">🤝 BrokerConnect</div>
+          <p class="text-sm text-base-content/60 mt-1">Kết nối môi giới nhà thuê &amp; xe — chia hàng, đồng chốt deal</p>
+        </div>
+
+        <ul class="steps w-full mb-8" id="steps-indicator">
+          <li class="step step-primary" data-step="1">Xác minh SĐT</li>
+          <li class="step" data-step="2">Xác minh CCCD</li>
+          <li class="step" data-step="3">Khu vực &amp; ngành</li>
+        </ul>
+
+        <!-- Step 1 -->
+        <div id="step-1" class="space-y-3">
+          <h2 class="font-semibold text-lg">Bước 1/3 — Xác minh số điện thoại</h2>
+          <div class="form-control">
+            <label class="label"><span class="label-text">Số điện thoại</span></label>
+            <input type="tel" placeholder="09xxxxxxxx" class="input input-bordered" value="0901234567" />
+          </div>
+          <div class="flex gap-2 items-end">
+            <div class="form-control flex-1">
+              <label class="label"><span class="label-text">Mã OTP</span></label>
+              <input type="text" placeholder="123456" class="input input-bordered" value="123456" />
+            </div>
+            <button class="btn btn-outline" onclick="showToast('Đã gửi lại mã OTP (demo)', 'info')">Gửi lại mã</button>
+          </div>
+          <button class="btn btn-primary btn-block mt-4" onclick="goStep(2)">Xác nhận OTP</button>
+        </div>
+
+        <!-- Step 2 -->
+        <div id="step-2" class="space-y-3 hidden">
+          <h2 class="font-semibold text-lg">Bước 2/3 — Xác minh CCCD (tùy chọn)</h2>
+          <p class="text-sm text-base-content/60">Xác minh CCCD để nhận badge "Đã xác minh" — tăng tin cậy khi chia hàng với môi giới khác.</p>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="border-2 border-dashed border-base-300 rounded-box flex flex-col items-center justify-center p-6 cursor-pointer hover:border-primary text-center">
+              <span class="text-3xl mb-2">📄</span>
+              <span class="text-sm">Mặt trước CCCD</span>
+              <input type="file" class="hidden" />
+            </label>
+            <label class="border-2 border-dashed border-base-300 rounded-box flex flex-col items-center justify-center p-6 cursor-pointer hover:border-primary text-center">
+              <span class="text-3xl mb-2">📄</span>
+              <span class="text-sm">Mặt sau CCCD</span>
+              <input type="file" class="hidden" />
+            </label>
+          </div>
+          <div class="flex gap-3 mt-4">
+            <button class="btn btn-ghost flex-1" onclick="goStep(3)">Bỏ qua, làm sau</button>
+            <button class="btn btn-primary flex-1" onclick="showToast('Đã gửi CCCD, chờ admin duyệt', 'success'); goStep(3)">Tải lên &amp; xác minh</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div id="step-3" class="space-y-3 hidden">
+          <h2 class="font-semibold text-lg">Bước 3/3 — Chọn khu vực &amp; ngành</h2>
+          <p class="text-sm text-base-content/60">Bạn sẽ tự động được thêm vào các nhóm tương ứng để xem và đăng tin.</p>
+          <div class="grid grid-cols-2 gap-2" id="group-checkboxes"></div>
+          <button class="btn btn-primary btn-block mt-4" onclick="finishOnboarding()">Hoàn tất, vào nhóm</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script>
+    function goStep(n) {
+      [1, 2, 3].forEach(i => document.getElementById('step-' + i).classList.toggle('hidden', i !== n));
+      document.querySelectorAll('#steps-indicator .step').forEach(li => {
+        li.classList.toggle('step-primary', Number(li.dataset.step) <= n);
+      });
+      if (n === 3) renderGroupCheckboxes();
+    }
+
+    function renderGroupCheckboxes() {
+      const el = document.getElementById('group-checkboxes');
+      const me = api.currentUser();
+      el.innerHTML = api.groups().map(g => {
+        const checked = me.groups.includes(g.id) ? 'checked' : '';
+        const icon = g.category === 'thue' ? '🏠' : '🚗';
+        return '<label class="flex items-center gap-2 border border-base-200 rounded-lg p-3 cursor-pointer hover:bg-base-200">' +
+          '<input type="checkbox" class="checkbox checkbox-sm checkbox-primary" value="' + g.id + '" ' + checked + ' />' +
+          '<span class="text-sm">' + icon + ' ' + g.name + '</span></label>';
+      }).join('');
+    }
+
+    function finishOnboarding() {
+      const selected = Array.from(document.querySelectorAll('#group-checkboxes input:checked')).map(i => i.value);
+      const db = JSON.parse(localStorage.getItem('bc_db_v1') || 'null');
+      if (db) {
+        const me = db.brokers.find(b => b.id === db.currentUserId);
+        me.groups = selected.length ? selected : me.groups;
+        localStorage.setItem('bc_db_v1', JSON.stringify(db));
+      }
+      window.location.href = 'feed.html';
+    }
+  </script>
+</body>
+</html>

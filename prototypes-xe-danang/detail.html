@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết xe — XeDaNang</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5.7.47/daisyui.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', system-ui, sans-serif; }</style>
+</head>
+<body class="bg-base-100 text-base-content">
+
+  <div class="navbar bg-base-100 shadow-sm px-6 sticky top-0 z-40">
+    <div class="flex-1">
+      <a href="index.html" class="text-xl font-bold text-primary">🚗 XeDaNang</a>
+    </div>
+    <div class="hidden md:flex gap-2 items-center">
+      <a href="index.html" class="btn btn-ghost btn-sm">Tìm xe</a>
+      <a href="owner-listing.html" class="btn btn-ghost btn-sm">Đăng xe của bạn</a>
+      <a href="owner-bookings.html" class="btn btn-ghost btn-sm">Quản lý booking</a>
+      <a href="profile.html?id=1" class="btn btn-ghost btn-sm">Hồ sơ</a>
+      <button class="btn btn-primary btn-sm" onclick="openLoginModal()">Đăng nhập</button>
+    </div>
+  </div>
+
+  <div class="px-6 py-4 max-w-6xl mx-auto">
+    <a href="index.html" class="btn btn-ghost btn-sm">← Quay lại tìm kiếm</a>
+  </div>
+
+  <div id="page-content" class="px-6 pb-16 max-w-6xl mx-auto"></div>
+
+  <footer class="bg-base-200 py-10 px-6">
+    <div class="max-w-6xl mx-auto text-center text-sm text-base-content/50">
+      🚗 XeDaNang — nền tảng trung gian kết nối người thuê &amp; chủ xe tại Đà Nẵng.
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const carId = Number(params.get("id")) || getCars()[0].id;
+    const car = getCars().find(c => c.id === carId);
+    const owner = getUserById(car.ownerId);
+    const ownerRating = computeRating(owner.id);
+    const reviews = getReviews().filter(r => r.revieweeId === owner.id);
+
+    function reviewHtml(r) {
+      return `<div class="card bg-base-100 border border-base-200">
+        <div class="card-body p-4">
+          <p class="text-warning text-sm font-medium">${"★".repeat(r.rating)}${"☆".repeat(5-r.rating)}</p>
+          <p class="text-sm">${r.comment}</p>
+          <p class="text-xs text-base-content/50 mt-1">— ${r.authorName}</p>
+        </div>
+      </div>`;
+    }
+
+    document.getElementById("page-content").innerHTML = `
+      <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+          <div class="h-72 bg-base-200 rounded-box flex items-center justify-center text-8xl mb-3">🚙</div>
+          <div class="grid grid-cols-4 gap-2 mb-6">
+            ${[1,2,3,4].map(()=>'<div class="h-16 bg-base-200 rounded-box flex items-center justify-center text-2xl">🚗</div>').join("")}
+          </div>
+          <h1 class="text-2xl font-bold">${car.title}</h1>
+          <p class="text-warning font-medium my-1">${starLabel(ownerRating.avg, ownerRating.count)}</p>
+          <p class="text-base-content/60 mb-4">📍 ${car.district}</p>
+          <div class="flex gap-2 mb-4">
+            <span class="badge badge-outline">${car.seats} chỗ</span>
+            <span class="badge badge-outline">${car.transmission}</span>
+            <span class="badge badge-outline">${car.fuel}</span>
+            <span class="badge badge-outline">${car.type}</span>
+          </div>
+          <p class="text-base-content/80 leading-relaxed">${car.desc}</p>
+
+          <div class="divider"></div>
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="font-semibold">Chủ xe: ${owner.name} ${owner.verified ? "✅" : ""}</p>
+              <p class="text-sm text-warning">${starLabel(ownerRating.avg, ownerRating.count)}</p>
+            </div>
+            <a href="profile.html?id=${owner.id}" class="btn btn-outline btn-sm">Xem hồ sơ chủ xe</a>
+          </div>
+
+          <div class="divider"></div>
+          <h2 class="text-lg font-bold mb-3">Đánh giá từ người thuê trước</h2>
+          <div class="grid md:grid-cols-3 gap-3">
+            ${reviews.length ? reviews.map(reviewHtml).join("") : '<p class="text-sm text-base-content/50">Chưa có đánh giá nào.</p>'}
+          </div>
+        </div>
+
+        <div>
+          <div class="card bg-base-100 border border-base-200 shadow-sm sticky top-20">
+            <div class="card-body">
+              <p class="text-2xl font-bold text-primary">${formatVND(car.pricePerDay)}<span class="text-sm text-base-content/50 font-normal">/ngày</span></p>
+              <div class="form-control mt-2">
+                <label class="label py-1"><span class="label-text text-xs">Ngày nhận xe</span></label>
+                <input id="b-start" type="date" class="input input-bordered input-sm" value="2026-10-12" onchange="recalc()" />
+              </div>
+              <div class="form-control">
+                <label class="label py-1"><span class="label-text text-xs">Ngày trả xe</span></label>
+                <input id="b-end" type="date" class="input input-bordered input-sm" value="2026-10-14" onchange="recalc()" />
+              </div>
+              <div class="divider my-2"></div>
+              <div class="flex justify-between text-sm">
+                <span>Số ngày thuê</span><span id="b-days" class="font-medium">2</span>
+              </div>
+              <div class="flex justify-between font-semibold mt-1">
+                <span>Tạm tính</span><span id="b-total" class="text-primary"></span>
+              </div>
+              <button id="b-submit" class="btn btn-primary btn-block mt-4" onclick="submitBooking()">Gửi yêu cầu đặt xe</button>
+              <p class="text-xs text-base-content/50 mt-2">* Thanh toán thực hiện trực tiếp với chủ xe khi nhận xe. XeDaNang không giữ tiền thuê.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    function recalc() {
+      const s = document.getElementById("b-start").value;
+      const e = document.getElementById("b-end").value;
+      const days = daysBetween(s, e);
+      document.getElementById("b-days").textContent = days;
+      document.getElementById("b-total").textContent = formatVND(days * car.pricePerDay);
+    }
+    recalc();
+
+    function submitBooking() {
+      const s = document.getElementById("b-start").value;
+      const e = document.getElementById("b-end").value;
+      if (!s || !e || new Date(e) <= new Date(s)) {
+        showToast("Vui lòng chọn ngày nhận/trả hợp lệ", "error");
+        return;
+      }
+      const bookings = getBookings();
+      const newId = Math.max(0, ...bookings.map(b => b.id)) + 1;
+      bookings.push({ id: newId, carId: car.id, renterId: 4, startDate: s, endDate: e, status: "pending", createdAt: new Date().toISOString().slice(0,10) });
+      saveBookings(bookings);
+      const btn = document.getElementById("b-submit");
+      btn.disabled = true;
+      btn.textContent = "Đã gửi yêu cầu ✓";
+      showToast("Đã gửi yêu cầu đặt xe — chủ xe sẽ xác nhận trong 24h");
+    }
+  </script>
+</body>
+</html>

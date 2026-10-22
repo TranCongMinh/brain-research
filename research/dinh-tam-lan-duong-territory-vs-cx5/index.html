@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nghiên Cứu Chuyên Sâu: Tính Năng Định Tâm Làn Đường & Bo Cua (Territory X vs CX-5 Sport)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #070b14; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    .card-glass {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(51, 65, 85, 0.6);
+    }
+    .card-glass:hover {
+      border-color: rgba(96, 165, 250, 0.5);
+    }
+    .road-lane {
+      background-image: repeating-linear-gradient(to bottom, #94a3b8 0, #94a3b8 15px, transparent 15px, transparent 30px);
+    }
+    .checkbox-custom:checked + label {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-[#070b14] text-slate-100 font-sans antialiased selection:bg-blue-600 selection:text-white min-h-screen flex flex-col">
+
+  <!-- Top Sticky Bar -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#070b14]/90 border-b border-slate-800/80 px-4 sm:px-8 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../../artifacts-dashboard.html" class="flex items-center gap-2 text-xs font-semibold text-blue-400 hover:text-blue-300 transition bg-blue-950/60 border border-blue-800/60 px-3 py-1.5 rounded-lg">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        <span>Artifacts Dashboard</span>
+      </a>
+      <span class="text-slate-600">|</span>
+      <span class="text-xs font-medium text-slate-300 hidden sm:inline">Nghiên Cứu ADAS: Định Tâm Làn & Bo Cua (Territory vs CX-5)</span>
+    </div>
+
+    <div class="flex items-center gap-2.5">
+      <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+        <span>In Báo Cáo</span>
+      </button>
+      <button onclick="copyCurrentPath()" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs text-white font-medium transition flex items-center gap-1.5 shadow-sm shadow-blue-500/20">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+        <span>Copy Path</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="border-b border-slate-800 bg-gradient-to-b from-slate-900/80 via-slate-950 to-[#070b14] py-10 px-4 sm:px-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-purple-900/60 text-purple-300 border border-purple-700/60 uppercase tracking-wider font-mono">Công Nghệ Hỗ Trợ Lái ADAS</span>
+        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-amber-900/60 text-amber-300 border border-amber-700/60">Ford Co-Pilot 360 vs Mazda i-Activsense</span>
+        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-emerald-900/60 text-emerald-300 border border-emerald-700/60">Thẩm Định Thực Tế 10/2026</span>
+      </div>
+
+      <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+        Khả Năng Định Tâm Làn Đường & Tự Động Bo Cua:<br>
+        <span class="text-amber-400">Territory Titanium X 2025</span> vs <span class="text-blue-400">Mazda CX-5 Sport 2024</span>
+      </h1>
+      <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-4xl mb-8">
+        Nghiên cứu kỹ thuật mổ xẻ sự khác biệt bản chất giữa công nghệ **Định tâm làn đường chủ động (Lane Centering - LCC)** và **Hỗ trợ giữ làn thụ động (Lane Keep Assist - LAS)**. Liệu chiếc xe nào có thể tự động bẻ lái ôm cua trên cao tốc?
+      </p>
+
+      <!-- 2 Thẻ Kết Quả So Sánh Nhanh -->
+      <div class="grid md:grid-cols-2 gap-5">
+        
+        <!-- Kết quả Territory -->
+        <div class="card-glass rounded-2xl p-6 border-l-4 border-l-amber-500 relative">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">Ford Territory Titanium X</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">CÓ LANE CENTERING (LEVEL 2)</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Tự Động Ghì Vô-Lăng & Bo Cua Mượt Mà</h3>
+          <ul class="text-xs text-slate-300 space-y-2 leading-relaxed">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span><strong>Định tâm tim đường:</strong> Vô-lăng liên tục vi chỉnh để xe chạy chính xác ở giữa làn từ 0 – 130 km/h.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span><strong>Khả năng ôm cua cao tốc:</strong> Tự động đánh lái bo các khúc cua cong vừa/thoải (R > 250m) trên cao tốc rất mượt, tài xế chỉ cần đặt hờ tay.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">✓</span>
+              <span><strong>Hỗ trợ kẹt xe:</strong> Đi chậm Stop & Go bám đuôi xe trước khi vạch kẻ đường bị mất.</span>
+            </li>
+          </ul>
+          <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+            <span class="text-slate-400">Đánh giá khả năng tự lái làn:</span>
+            <span class="text-amber-400 font-black text-sm">9.5 / 10 (Áp Đảo)</span>
+          </div>
+        </div>
+
+        <!-- Kết quả CX-5 -->
+        <div class="card-glass rounded-2xl p-6 border-l-4 border-l-blue-500 relative">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-400 font-mono">Mazda CX-5 Premium Sport</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-950 text-rose-300 border border-rose-800">KHÔNG CÓ LANE CENTERING</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Chỉ Chạm Vạch Mới Hích Lại (Ping-Pong)</h3>
+          <ul class="text-xs text-slate-300 space-y-2 leading-relaxed">
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">✗</span>
+              <span><strong>Bị cắt CTS tại VN:</strong> Thaco không trang bị tính năng Cruising & Traffic Support (CTS) cho CX-5. Chỉ có LAS.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">✗</span>
+              <span><strong>KHÔNG THỂ TỰ BO CUA:</strong> Khi vào đoạn cong, xe tiếp tục quán tính lao thẳng. Đến khi đè vạch ngoài thì hích nhẹ 1 cái rồi văng khỏi làn!</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">✗</span>
+              <span><strong>Giới hạn tốc độ:</strong> Chỉ kích hoạt từ 60 km/h trở lên. Dưới 60 km/h hệ thống tắt hoàn toàn.</span>
+            </li>
+          </ul>
+          <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+            <span class="text-slate-400">Đánh giá khả năng tự lái làn:</span>
+            <span class="text-slate-500 font-black text-sm">2.0 / 10 (Chỉ Cảnh Báo)</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Wrap -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-8 py-10 space-y-12 flex-1">
+
+    <!-- PHẦN 1: MÔ PHỎNG TRỰC QUAN HÀNH VI VÀO CUA -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+        <h2 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2.5">
+          <span class="flex items-center justify-center w-7 h-7 rounded-lg bg-blue-600 text-white text-xs font-bold">1</span>
+          <span>Mô Phỏng Trực Quan Hành Vi Khi Vào Khúc Cua Trên Cao Tốc</span>
+        </h2>
+        <span class="text-xs text-slate-400 font-mono">Tốc độ 80 - 100 km/h</span>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <!-- Mô phỏng Territory -->
+        <div class="card-glass rounded-2xl p-6 border-t-4 border-t-amber-500">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-amber-400 font-mono uppercase">FORD TERRITORY TITANIUM X (LCC ACTIVE)</span>
+            <span class="text-xs text-emerald-400 font-bold">TỰ BO CUA THÀNH CÔNG</span>
+          </div>
+
+          <!-- SVG Visual Mô Phỏng Bo Cua Territory -->
+          <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 flex flex-col items-center justify-center relative overflow-hidden h-64">
+            <svg class="w-full h-full" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Vạch làn đường cong -->
+              <path d="M 50 200 C 50 120, 100 60, 200 20" stroke="#475569" stroke-width="6" stroke-dasharray="10 10" />
+              <path d="M 150 200 C 150 120, 200 60, 300 20" stroke="#475569" stroke-width="6" stroke-dasharray="10 10" />
+              
+              <!-- Quỹ đạo xe Territory: Giữ trọn tâm làn -->
+              <path d="M 100 200 C 100 120, 150 60, 250 20" stroke="#10b981" stroke-width="3" stroke-dasharray="4 4" />
+              
+              <!-- Biểu tượng xe ô tô di chuyển theo tâm -->
+              <g transform="translate(142, 75) rotate(-35)">
+                <rect width="24" height="42" rx="5" fill="#f59e0b" stroke="#ffffff" stroke-width="1.5" />
+                <rect x="4" y="6" width="16" height="8" rx="2" fill="#0f172a" />
+                <rect x="4" y="26" width="16" height="8" rx="2" fill="#0f172a" />
+                <!-- Đèn pha tia quét camera -->
+                <path d="M 4 6 L -10 -20 L 34 -20 L 20 6 Z" fill="rgba(16, 185, 129, 0.25)" />
+              </g>
+              
+              <!-- Text chú thích -->
+              <text x="15" y="30" fill="#10b981" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="bold">✓ Quỹ đạo xe luôn ở Tim đường</text>
+              <text x="15" y="48" fill="#94a3b8" font-size="10" font-family="'Be Vietnam Pro', sans-serif">Camera đọc trước độ cong & Tự đánh lái 12°</text>
+            </svg>
+          </div>
+
+          <div class="mt-4 text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <strong>Cơ chế:</strong> Camera Mobileye quét trước 100m vạch kẻ đường, tính toán bán kính cong và ra lệnh cho mô-tơ EPAS tự động xoay vô lăng theo đường cong. Xe ôm cua êm ái, người lái chỉ cần đặt nhẹ tay lên vô lăng.
+          </div>
+        </div>
+
+        <!-- Mô phỏng CX-5 -->
+        <div class="card-glass rounded-2xl p-6 border-t-4 border-t-blue-500">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-blue-400 font-mono uppercase">MAZDA CX-5 SPORT (LAS THỤ ĐỘNG)</span>
+            <span class="text-xs text-rose-400 font-bold">KHÔNG THỂ TỰ BO CUA</span>
+          </div>
+
+          <!-- SVG Visual Mô Phỏng Chém Vạch CX-5 -->
+          <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 flex flex-col items-center justify-center relative overflow-hidden h-64">
+            <svg class="w-full h-full" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Vạch làn đường cong -->
+              <path d="M 50 200 C 50 120, 100 60, 200 20" stroke="#475569" stroke-width="6" stroke-dasharray="10 10" />
+              <path d="M 150 200 C 150 120, 200 60, 300 20" stroke="#475569" stroke-width="6" stroke-dasharray="10 10" />
+              
+              <!-- Quỹ đạo xe CX-5: Lao thẳng chém vạch ngoài -->
+              <path d="M 100 200 L 100 110 L 140 20" stroke="#ef4444" stroke-width="3" stroke-dasharray="4 4" />
+              
+              <!-- Biểu tượng xe CX-5 lao ra mép vạch -->
+              <g transform="translate(90, 80) rotate(-15)">
+                <rect width="24" height="42" rx="5" fill="#3b82f6" stroke="#ffffff" stroke-width="1.5" />
+                <rect x="4" y="6" width="16" height="8" rx="2" fill="#0f172a" />
+                <rect x="4" y="26" width="16" height="8" rx="2" fill="#0f172a" />
+              </g>
+
+              <!-- Điểm chém vạch cảnh báo -->
+              <circle cx="110" cy="85" r="8" fill="rgba(239, 68, 68, 0.3)" stroke="#ef4444" stroke-width="2" />
+              <text x="125" y="90" fill="#ef4444" font-size="10" font-weight="bold">Chém vạch & Báo động!</text>
+              
+              <!-- Text chú thích -->
+              <text x="15" y="30" fill="#ef4444" font-size="11" font-family="'JetBrains Mono', monospace" font-weight="bold">✗ Xe chạy thẳng theo quán tính</text>
+              <text x="15" y="48" fill="#94a3b8" font-size="10" font-family="'Be Vietnam Pro', sans-serif">LAS chỉ hích lái nhẹ 1 cái rồi buông!</text>
+            </svg>
+          </div>
+
+          <div class="mt-4 text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+            <strong>Cơ chế:</strong> CX-5 không có bộ vi xử lý định tâm. Khi vào khúc cua, xe tiếp tục lao thẳng cho đến khi bánh đè lên vạch ngoài. Lúc này LAS mới giật mình cảnh báo và hích lái một cái yếu ớt, nếu tài xế không vội ôm cua thì xe sẽ văng ra ngoài làn!
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PHẦN 2: BẢNG SO SÁNH KỸ THUẬT CHI TIẾT -->
+    <section>
+      <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
+        <h2 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2.5">
+          <span class="flex items-center justify-center w-7 h-7 rounded-lg bg-blue-600 text-white text-xs font-bold">2</span>
+          <span>Bảng Đối Chiếu Thông Số ADAS & Tính Năng Làn Đường</span>
+        </h2>
+      </div>
+
+      <div class="overflow-x-auto rounded-2xl border border-slate-800 card-glass">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-slate-800 bg-slate-900/90 text-slate-300">
+              <th class="p-3.5 sm:p-4 font-semibold text-slate-400">Hạng mục kiểm tra</th>
+              <th class="p-3.5 sm:p-4 font-bold text-amber-300 w-5/12 bg-amber-950/20 border-l border-r border-slate-800/80">
+                Ford Territory Titanium X (Co-Pilot 360)
+              </th>
+              <th class="p-3.5 sm:p-4 font-bold text-blue-300 w-5/12 bg-blue-950/20">
+                Mazda CX-5 Premium Sport (i-Activsense)
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/80 text-slate-200">
+            <tr>
+              <td class="p-3.5 sm:p-4 font-medium text-slate-400">Tên tính năng làn đường</td>
+              <td class="p-3.5 sm:p-4 font-bold text-amber-400 border-l border-r border-slate-800/80">
+                Lane Centering Control (LCC) + LKA + LDW
+              </td>
+              <td class="p-3.5 sm:p-4 font-bold text-blue-400">
+                Lane-keep Assist System (LAS) + LDWS
+              </td>
+            </tr>
+            <tr class="bg-slate-900/40">
+              <td class="p-3.5 sm:p-4 font-medium text-slate-400">Có định tâm giữa làn không?</td>
+              <td class="p-3.5 sm:p-4 text-emerald-400 font-bold border-l border-r border-slate-800/80">
+                ✅ CÓ (Chủ động ghì tâm 50:50 liên tục)
+              </td>
+              <td class="p-3.5 sm:p-4 text-rose-400 font-bold">
+                ❌ KHÔNG (Chỉ chạm vạch mới đẩy ngược lại)
+              </td>
+            </tr>
+            <tr>
+              <td class="p-3.5 sm:p-4 font-medium text-slate-400">Tự động bo cua trên cao tốc?</td>
+              <td class="p-3.5 sm:p-4 text-emerald-400 font-bold border-l border-r border-slate-800/80">
+                ✅ TỰ BO CUA RẤT NGỌT (Cua R > 250m)
+              </td>
+              <td class="p-3.5 sm:p-4 text-rose-400 font-bold">
+                ❌ KHÔNG BO CUA ĐƯỢC (Chém vạch, văng làn)
+              </td>
+            </tr>
+            <tr class="bg-slate-900/40">
+              <td class="p-3.5 sm:p-4 font-medium text-slate-400">Dải tốc độ hoạt động</td>
+              <td class="p-3.5 sm:p-4 border-l border-r border-slate-800/80 font-mono">
+                <strong>0 – 130 km/h</strong> (Hỗ trợ cả kẹt xe Stop & Go)
+              </td>
+              <td class="p-3.5 sm:p-4 font-mono">
+                <strong>60 – 145 km/h</strong> (Dưới 60 km/h tắt hoàn toàn)
+              </td>
+            </tr>
+            <tr>
+              <td class="p-3.5 sm:p-4 font-medium text-slate-400">Tính năng bám theo xe trước khi mất vạch</td>
+              <td class="p-3.5 sm:p-4 border-l border-r border-slate-800/80 text-emerald-400 font-semibold">
+                ✅ CÓ (Lead Vehicle Following)
+              </td>
+              <td class="p-3.5 sm:p-4 text-slate-500 font-semibold">
+                ❌ KHÔNG
+              </td>
+            </tr>
+            <tr class="bg-slate-900/40">
+              <td class="p-3.5 sm:p-4 font-medium text-slate-400">Cảm giác lái vô-lăng thực tế</td>
+              <td class="p-3.5 sm:p-4 border-l border-r border-slate-800/80">
+                Vô-lăng có lực ghì tâm đầm tay, cảm nhận xe đang "tự lái" hộ mình rất nhàn
+              </td>
+              <td class="p-3.5 sm:p-4">
+                Vô-lăng lỏng tự nhiên, tài xế phải tự lái căn đường 100%, chạm vạch chỉ hích nhẹ
+              </td>
+            </tr>
+            <tr>
+              <td class="p-3.5 sm:p-4 font-medium text-slate-400">Cấp độ tự hành (SAE Level)</td>
+              <td class="p-3.5 sm:p-4 border-l border-r border-slate-800/80 font-bold text-amber-300">
+                Cấp độ 2 (Level 2 - Bán tự động)
+              </td>
+              <td class="p-3.5 sm:p-4 font-bold text-blue-300">
+                Cấp độ 1+ (Level 1+ - Cảnh báo là chính)
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- PHẦN 3: 3 KỊCH BẢN THỰC CHIẾN TẠI ĐÀ NẴNG -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-800 pb-3">
+        <h2 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2.5">
+          <span class="flex items-center justify-center w-7 h-7 rounded-lg bg-emerald-600 text-white text-xs font-bold">3</span>
+          <span>Thử Nghiệm Thực Tế Tại Các Cung Đường Đà Nẵng</span>
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5 text-xs">
+        
+        <!-- Scenario 1 -->
+        <div class="card-glass rounded-2xl p-5 border-t-4 border-t-amber-500 flex flex-col justify-between">
+          <div>
+            <span class="px-2 py-0.5 rounded bg-amber-950 text-amber-300 font-mono text-[10px] font-bold">KỊCH BẢN 1: CAO TỐC LA SƠN / QUẢNG NGÃI</span>
+            <h4 class="text-sm font-bold text-white mt-2 mb-2">Chạy 100 km/h qua đoạn uốn lượn</h4>
+            <p class="text-slate-300 leading-relaxed mb-3">
+              - <strong>Territory X:</strong> Bật ACC + Lane Centering, xe tự chạy tim đường, tự động bẻ lái ôm các khúc cua uốn lượn qua Tam Kỳ/Duy Xuyên. Người lái chỉ cần gác hờ 1 tay dưới vô lăng, đỡ mỏi tới 70%.<br>
+              - <strong>CX-5 Sport:</strong> Chân được nhàn nhờ ga tự động, nhưng <strong>2 tay và mắt phải liên tục ghì giữ vô-lăng ôm cua</strong>. Buông tay xe sẽ chém vạch ngoài ngay lập tức.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800 text-amber-400 font-bold">
+            🏆 Territory thắng tuyệt đối
+          </div>
+        </div>
+
+        <!-- Scenario 2 -->
+        <div class="card-glass rounded-2xl p-5 border-t-4 border-t-blue-500 flex flex-col justify-between">
+          <div>
+            <span class="px-2 py-0.5 rounded bg-blue-950 text-blue-300 font-mono text-[10px] font-bold">KỊCH BẢN 2: KẸT XE GIỜ TAN TẦM (CẦU RỒNG)</span>
+            <h4 class="text-sm font-bold text-white mt-2 mb-2">Bò chậm 10 – 30 km/h nhích từng mét</h4>
+            <p class="text-slate-300 leading-relaxed mb-3">
+              - <strong>Territory X:</strong> Tính năng Stop & Go kết hợp bám làn hoạt động từ 0 km/h, xe tự bám theo đuôi xe trước.<br>
+              - <strong>CX-5 Sport:</strong> Tính năng hỗ trợ giữ làn (LAS) <strong>tắt hoàn toàn vì tốc độ dưới 60 km/h</strong>. Chỉ còn phanh ga thích ứng MRCC hoạt động.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800 text-amber-400 font-bold">
+            🏆 Territory hỗ trợ dải tốc rộng hơn
+          </div>
+        </div>
+
+        <!-- Scenario 3 -->
+        <div class="card-glass rounded-2xl p-5 border-t-4 border-t-purple-500 flex flex-col justify-between">
+          <div>
+            <span class="px-2 py-0.5 rounded bg-purple-950 text-purple-300 font-mono text-[10px] font-bold">KỊCH BẢN 3: ĐÈO HẢI VÂN / SƠN TRÀ</span>
+            <h4 class="text-sm font-bold text-white mt-2 mb-2">Đường đèo quanh co, cua gắt liên tục</h4>
+            <p class="text-slate-300 leading-relaxed mb-3">
+              - Cả 2 hệ thống ADAS đều <strong>KHÔNG được thiết kế để ôm cua đèo gắt</strong>.<br>
+              - Tuy nhiên, khi cầm lái bằng tay trên đèo, <strong>khung gầm đầm chắc và hệ thống GVC Plus của CX-5</strong> lại đem lại cảm giác ôm cua chính xác, thật tay và chống say xe vượt trội hơn hẳn Territory.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800 text-blue-400 font-bold">
+            🏆 CX-5 thắng về cảm giác lái tay
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PHẦN 4: CHECKLIST THỬ NGHIỆM TẬN TAY TRƯỚC KHI MUA -->
+    <section class="card-glass rounded-2xl p-6 border-slate-800">
+      <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+          <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+          <span>Checklist Tự Test Tính Năng Làn Khi Lái Thử 2 Xe</span>
+        </h3>
+        <span class="text-xs text-slate-400 font-mono">Tích chọn để ghi nhớ</span>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-3 text-xs">
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
+          <input type="checkbox" id="t1" class="checkbox-custom mt-0.5">
+          <label for="t1" class="cursor-pointer text-slate-300">Trên Territory: Bấm nút biểu tượng vô-lăng bên trái, nhìn màn hình taplo biểu tượng vô-lăng chuyển sang xanh lá là Lane Centering đã kích hoạt</label>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
+          <input type="checkbox" id="t2" class="checkbox-custom mt-0.5">
+          <label for="t2" class="cursor-pointer text-slate-300">Trên Territory: Chạy qua đoạn đường cong trên đường Võ Chí Công / Nam Kỳ Khởi Nghĩa, thả lỏng tay cảm nhận vô lăng tự đánh lái ôm cua</label>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
+          <input type="checkbox" id="t3" class="checkbox-custom mt-0.5">
+          <label for="t3" class="cursor-pointer text-slate-300">Trên CX-5: Chạy >60 km/h, thử cho xe trôi đè vạch để xem cú hích nhẹ của LAS (để hiểu tại sao nó không phải định tâm)</label>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
+          <input type="checkbox" id="t4" class="checkbox-custom mt-0.5">
+          <label for="t4" class="cursor-pointer text-slate-300">Trên CX-5: Vào khúc cua cong cao tốc, quan sát xe có tự đánh lái không (sẽ thấy xe lao thẳng nếu bạn không tự bẻ lái)</label>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs font-medium shadow-2xl flex items-center gap-2">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    <span id="toast-msg">Đã copy thành công!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 py-6 px-4 text-center text-xs text-slate-500 font-mono">
+    Thẩm định công nghệ an toàn ô tô ADAS • Hệ thống Brain Artifacts Hub • Ford Co-Pilot 360 vs Mazda i-Activsense
+  </footer>
+
+  <script>
+    function copyCurrentPath() {
+      const fullPath = '/Users/mac/Desktop/Brain/research/dinh-tam-lan-duong-territory-vs-cx5/index.html';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullPath).then(() => showToast('Đã copy đường dẫn file HTML!')).catch(() => fallbackCopy(fullPath));
+      } else {
+        fallbackCopy(fullPath);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('Đã copy đường dẫn file HTML!');
+      } catch (e) {
+        showToast('Không thể copy: ' + text);
+      }
+      document.body.removeChild(ta);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      toastMsg.innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

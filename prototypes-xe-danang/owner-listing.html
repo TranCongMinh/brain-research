@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng xe cho thuê — XeDaNang</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5.7.47/daisyui.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', system-ui, sans-serif; }</style>
+</head>
+<body class="bg-base-100 text-base-content">
+
+  <div class="navbar bg-base-100 shadow-sm px-6 sticky top-0 z-40">
+    <div class="flex-1">
+      <a href="index.html" class="text-xl font-bold text-primary">🚗 XeDaNang</a>
+    </div>
+    <div class="hidden md:flex gap-2 items-center">
+      <a href="index.html" class="btn btn-ghost btn-sm">Tìm xe</a>
+      <a href="owner-listing.html" class="btn btn-ghost btn-sm btn-active">Đăng xe của bạn</a>
+      <a href="owner-bookings.html" class="btn btn-ghost btn-sm">Quản lý booking</a>
+      <a href="profile.html?id=1" class="btn btn-ghost btn-sm">Hồ sơ</a>
+      <button class="btn btn-primary btn-sm" onclick="openLoginModal()">Đăng nhập</button>
+    </div>
+  </div>
+
+  <div class="px-6 py-8 max-w-4xl mx-auto">
+    <h1 class="text-2xl font-bold mb-1">Đăng xe cho thuê</h1>
+    <p class="text-base-content/60 mb-6">Bạn tự quản lý tin đăng, lịch trống và giao/nhận xe trực tiếp với người thuê.</p>
+
+    <div class="card bg-base-100 border border-base-200 shadow-sm mb-10">
+      <div class="card-body">
+        <label class="label py-1"><span class="label-text text-xs">Ảnh xe</span></label>
+        <input id="photo-input" type="file" accept="image/*" multiple class="hidden" onchange="handlePhotoUpload(event)" />
+        <div class="grid grid-cols-4 sm:grid-cols-6 gap-2 mb-2" id="photo-grid">
+          <label for="photo-input" class="h-20 border-2 border-dashed border-base-300 rounded-box flex flex-col items-center justify-center cursor-pointer hover:border-primary text-center text-xs text-base-content/50">
+            <span class="text-2xl">＋</span>Thêm ảnh
+          </label>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 mt-4">
+          <div class="form-control">
+            <label class="label"><span class="label-text">Tên xe / hãng xe</span></label>
+            <input id="f-title" type="text" placeholder="VD: Toyota Vios 2021" class="input input-bordered" />
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">Năm sản xuất</span></label>
+            <input id="f-year" type="number" placeholder="2021" class="input input-bordered" />
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">Số chỗ</span></label>
+            <select id="f-seats" class="select select-bordered">
+              <option>4</option><option selected>5</option><option>7</option>
+            </select>
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">Hộp số</span></label>
+            <select id="f-transmission" class="select select-bordered">
+              <option>Số tự động</option><option>Số sàn</option>
+            </select>
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">Nhiên liệu</span></label>
+            <select id="f-fuel" class="select select-bordered">
+              <option>Xăng</option><option>Dầu</option><option>Điện</option>
+            </select>
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">Khu vực giao xe</span></label>
+            <select id="f-district" class="select select-bordered"></select>
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">Loại xe</span></label>
+            <select id="f-type" class="select select-bordered"></select>
+          </div>
+          <div class="form-control">
+            <label class="label"><span class="label-text">Giá thuê / ngày (đ)</span></label>
+            <input id="f-price" type="number" placeholder="450000" class="input input-bordered" />
+          </div>
+        </div>
+
+        <div class="form-control mt-4">
+          <label class="label"><span class="label-text">Mô tả xe</span></label>
+          <textarea id="f-desc" class="textarea textarea-bordered" rows="3" placeholder="Tình trạng xe, điểm giao nhận, lưu ý..."></textarea>
+        </div>
+
+        <div class="form-control mt-4">
+          <label class="label"><span class="label-text">Ngày không cho thuê (nếu có)</span></label>
+          <div class="flex gap-2">
+            <input id="f-blockdate" type="date" class="input input-bordered input-sm" />
+            <button class="btn btn-outline btn-sm" onclick="addBlockedDate()">Thêm ngày</button>
+          </div>
+          <div id="blocked-dates" class="flex flex-wrap gap-2 mt-2"></div>
+        </div>
+
+        <div class="flex gap-3 mt-6">
+          <button class="btn btn-ghost flex-1" onclick="showToast('Đã lưu nháp', 'info')">Lưu nháp</button>
+          <button class="btn btn-primary flex-1" onclick="submitListing()">Đăng tin</button>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="text-lg font-bold mb-3">Tin đăng của bạn</h2>
+    <div id="my-listings" class="grid md:grid-cols-2 gap-4"></div>
+  </div>
+
+  <footer class="bg-base-200 py-10 px-6 mt-10">
+    <div class="max-w-6xl mx-auto text-center text-sm text-base-content/50">
+      🚗 XeDaNang — nền tảng trung gian kết nối người thuê &amp; chủ xe tại Đà Nẵng.
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script>
+    let blockedDates = [];
+
+    function populateSelects() {
+      const d = document.getElementById("f-district");
+      DISTRICTS.forEach(x => d.insertAdjacentHTML("beforeend", `<option value="${x}">${x}</option>`));
+      const t = document.getElementById("f-type");
+      CAR_TYPES.forEach(x => t.insertAdjacentHTML("beforeend", `<option value="${x}">${x}</option>`));
+    }
+
+    function handlePhotoUpload(event) {
+      const grid = document.getElementById("photo-grid");
+      Array.from(event.target.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const div = document.createElement("div");
+          div.className = "h-20 rounded-box overflow-hidden bg-base-200";
+          div.innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover" />`;
+          grid.insertBefore(div, grid.lastElementChild);
+        };
+        reader.readAsDataURL(file);
+      });
+      showToast(`Đã thêm ${event.target.files.length} ảnh`, "info");
+    }
+
+    function addBlockedDate() {
+      const val = document.getElementById("f-blockdate").value;
+      if (!val || blockedDates.includes(val)) return;
+      blockedDates.push(val);
+      renderBlockedDates();
+    }
+    function removeBlockedDate(val) {
+      blockedDates = blockedDates.filter(d => d !== val);
+      renderBlockedDates();
+    }
+    function renderBlockedDates() {
+      document.getElementById("blocked-dates").innerHTML = blockedDates.map(d =>
+        `<span class="badge badge-outline gap-1">${d} <button onclick="removeBlockedDate('${d}')" class="ml-1">✕</button></span>`
+      ).join("");
+    }
+
+    function submitListing() {
+      const title = document.getElementById("f-title").value.trim();
+      const price = Number(document.getElementById("f-price").value);
+      if (!title || !price) {
+        showToast("Vui lòng điền tên xe và giá thuê", "error");
+        return;
+      }
+      const cars = getCars();
+      const newId = Math.max(0, ...cars.map(c => c.id)) + 1;
+      cars.push({
+        id: newId, ownerId: CURRENT_USER_ID, title,
+        type: document.getElementById("f-type").value || CAR_TYPES[0],
+        seats: Number(document.getElementById("f-seats").value),
+        transmission: document.getElementById("f-transmission").value,
+        fuel: document.getElementById("f-fuel").value,
+        district: document.getElementById("f-district").value || DISTRICTS[0],
+        pricePerDay: price,
+        desc: document.getElementById("f-desc").value || "Chưa có mô tả.",
+        blockedDates, status: "active",
+      });
+      saveCars(cars);
+      showToast("Đã đăng tin thành công — xe của bạn đã hiện trên trang tìm kiếm");
+      document.getElementById("f-title").value = "";
+      document.getElementById("f-price").value = "";
+      document.getElementById("f-desc").value = "";
+      blockedDates = [];
+      renderBlockedDates();
+      renderMyListings();
+    }
+
+    function toggleStatus(id) {
+      const cars = getCars();
+      const car = cars.find(c => c.id === id);
+      car.status = car.status === "active" ? "paused" : "active";
+      saveCars(cars);
+      renderMyListings();
+      showToast(car.status === "active" ? "Đã bật lại tin đăng" : "Đã tạm dừng tin đăng", "info");
+    }
+
+    function renderMyListings() {
+      const mine = getCars().filter(c => c.ownerId === CURRENT_USER_ID);
+      document.getElementById("my-listings").innerHTML = mine.map(car => `
+        <div class="card bg-base-100 border border-base-200">
+          <div class="card-body p-4 flex-row items-center gap-4">
+            <div class="h-14 w-14 bg-base-200 rounded-box flex items-center justify-center text-2xl">🚙</div>
+            <div class="flex-1">
+              <p class="font-semibold">${car.title}</p>
+              <p class="text-xs text-base-content/60">${car.district} · ${formatVND(car.pricePerDay)}/ngày</p>
+            </div>
+            <span class="badge ${car.status === 'active' ? 'badge-success' : 'badge-ghost'} badge-sm">${car.status === 'active' ? 'Đang hiển thị' : 'Tạm dừng'}</span>
+            <button class="btn btn-ghost btn-xs" onclick="toggleStatus(${car.id})">${car.status === 'active' ? 'Tạm dừng' : 'Bật lại'}</button>
+          </div>
+        </div>
+      `).join("") || '<p class="text-sm text-base-content/50">Bạn chưa đăng xe nào.</p>';
+    }
+
+    populateSelects();
+    renderBlockedDates();
+    renderMyListings();
+  </script>
+</body>
+</html>

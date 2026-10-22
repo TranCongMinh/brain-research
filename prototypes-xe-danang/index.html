@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tìm xe tại Đà Nẵng — XeDaNang</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5.7.47/daisyui.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', system-ui, sans-serif; }</style>
+</head>
+<body class="bg-base-100 text-base-content">
+
+  <!-- Navbar -->
+  <div class="navbar bg-base-100 shadow-sm px-6 sticky top-0 z-40">
+    <div class="flex-1">
+      <a href="index.html" class="text-xl font-bold text-primary">🚗 XeDaNang</a>
+    </div>
+    <div class="hidden md:flex gap-2 items-center">
+      <a href="index.html" class="btn btn-ghost btn-sm btn-active">Tìm xe</a>
+      <a href="owner-listing.html" class="btn btn-ghost btn-sm">Đăng xe của bạn</a>
+      <a href="owner-bookings.html" class="btn btn-ghost btn-sm">Quản lý booking</a>
+      <a href="profile.html?id=1" class="btn btn-ghost btn-sm">Hồ sơ</a>
+      <button class="btn btn-primary btn-sm" onclick="openLoginModal()">Đăng nhập</button>
+    </div>
+  </div>
+
+  <!-- Filter bar -->
+  <section class="bg-base-200/60 px-6 py-6">
+    <div class="max-w-6xl mx-auto">
+      <h1 class="text-2xl font-bold mb-4">Thuê xe tự lái tại Đà Nẵng</h1>
+      <div class="card bg-base-100 shadow-sm">
+        <div class="card-body p-4">
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+            <div class="form-control">
+              <label class="label py-1"><span class="label-text text-xs">Ngày nhận</span></label>
+              <input id="f-start" type="date" class="input input-bordered input-sm" value="2026-10-12" />
+            </div>
+            <div class="form-control">
+              <label class="label py-1"><span class="label-text text-xs">Ngày trả</span></label>
+              <input id="f-end" type="date" class="input input-bordered input-sm" value="2026-10-14" />
+            </div>
+            <div class="form-control">
+              <label class="label py-1"><span class="label-text text-xs">Khu vực</span></label>
+              <select id="f-district" class="select select-bordered select-sm">
+                <option value="">Tất cả khu vực</option>
+              </select>
+            </div>
+            <div class="form-control">
+              <label class="label py-1"><span class="label-text text-xs">Loại xe</span></label>
+              <select id="f-type" class="select select-bordered select-sm">
+                <option value="">Tất cả loại xe</option>
+              </select>
+            </div>
+            <div class="form-control">
+              <label class="label py-1 opacity-0"><span class="label-text text-xs">.</span></label>
+              <button class="btn btn-primary btn-sm" onclick="applyFilter()">Tìm kiếm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section class="px-6 py-8">
+    <div class="max-w-6xl mx-auto">
+      <p id="result-count" class="text-base-content/60 mb-4 text-sm"></p>
+      <div id="car-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+      <div id="empty-state" class="hidden flex flex-col items-center justify-center py-16 px-6 text-center">
+        <div class="text-6xl mb-4">🚗</div>
+        <h3 class="text-lg font-semibold mb-2">Không tìm thấy xe phù hợp</h3>
+        <p class="text-base-content/60 mb-6 max-w-sm">Thử đổi khu vực hoặc loại xe khác xem sao.</p>
+        <button class="btn btn-primary btn-sm" onclick="resetFilter()">Xem tất cả xe</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-base-200 py-10 px-6">
+    <div class="max-w-6xl mx-auto text-center text-sm text-base-content/50">
+      🚗 XeDaNang — nền tảng trung gian kết nối người thuê &amp; chủ xe tại Đà Nẵng.<br/>
+      Thanh toán thực hiện trực tiếp giữa hai bên khi giao/nhận xe.
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script>
+    function populateSelects() {
+      const d = document.getElementById("f-district");
+      DISTRICTS.forEach(x => d.insertAdjacentHTML("beforeend", `<option value="${x}">${x}</option>`));
+      const t = document.getElementById("f-type");
+      CAR_TYPES.forEach(x => t.insertAdjacentHTML("beforeend", `<option value="${x}">${x}</option>`));
+    }
+
+    function carCardHtml(car) {
+      const r = computeRating(car.ownerId);
+      return `
+      <div class="card bg-base-100 shadow-sm hover:shadow-md transition">
+        <div class="h-40 bg-base-200 rounded-t-box flex items-center justify-center text-5xl">🚙</div>
+        <div class="card-body p-4">
+          <div class="flex justify-between items-start">
+            <h3 class="card-title text-base">${car.title}</h3>
+            <span class="badge badge-ghost badge-sm">${car.type}</span>
+          </div>
+          <p class="text-sm text-base-content/60">📍 ${car.district} · ${car.seats} chỗ · ${car.transmission}</p>
+          <p class="text-sm text-warning font-medium">${starLabel(r.avg, r.count)}</p>
+          <div class="flex justify-between items-center mt-2">
+            <span class="text-lg font-bold text-primary">${formatVND(car.pricePerDay)}<span class="text-xs text-base-content/50 font-normal">/ngày</span></span>
+            <a href="detail.html?id=${car.id}" class="btn btn-primary btn-sm">Xem chi tiết</a>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    function renderCars(list) {
+      const grid = document.getElementById("car-grid");
+      const empty = document.getElementById("empty-state");
+      document.getElementById("result-count").textContent = `${list.length} xe tại Đà Nẵng cho lựa chọn của bạn`;
+      if (list.length === 0) {
+        grid.innerHTML = "";
+        empty.classList.remove("hidden");
+        return;
+      }
+      empty.classList.add("hidden");
+      grid.innerHTML = list.filter(c => c.status === "active").map(carCardHtml).join("");
+    }
+
+    function applyFilter() {
+      const district = document.getElementById("f-district").value;
+      const type = document.getElementById("f-type").value;
+      let cars = getCars();
+      if (district) cars = cars.filter(c => c.district === district);
+      if (type) cars = cars.filter(c => c.type === type);
+      renderCars(cars);
+      showToast(`Đã lọc: ${cars.filter(c=>c.status==='active').length} xe phù hợp`, "info");
+    }
+
+    function resetFilter() {
+      document.getElementById("f-district").value = "";
+      document.getElementById("f-type").value = "";
+      renderCars(getCars());
+    }
+
+    populateSelects();
+    renderCars(getCars());
+  </script>
+</body>
+</html>

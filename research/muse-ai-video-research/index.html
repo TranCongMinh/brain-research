@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deep Research: Meta Muse Video Automation, Ban Risk & Duration Limits</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            meta: {
+              500: '#0668E1',
+              600: '#0055c4',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #090d16; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(51, 65, 85, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-blue-600 selection:text-white min-h-screen">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800/80 bg-slate-900/60 sticky top-0 z-50 backdrop-blur-md px-4 sm:px-8 py-4">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center font-black text-white text-lg shadow-lg shadow-blue-500/25">
+          M
+        </div>
+        <div>
+          <h1 class="text-base font-bold text-white tracking-tight flex items-center gap-2">
+            Meta Muse (Hatch Agent) Deep Research
+            <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">Verified Live 10/2026</span>
+          </h1>
+          <p class="text-xs text-slate-400 font-mono">Báo cáo kỹ thuật: Cơ chế tạo video, rủi ro khóa tài khoản & giới hạn thời lượng</p>
+        </div>
+      </div>
+      <div class="hidden sm:flex items-center gap-2 text-xs font-mono text-slate-400">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Node CDP + macOS APFS Clone
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-8 py-8 space-y-10">
+
+    <!-- HERO BOX: DIRECT ANSWERS -->
+    <section class="glass-panel rounded-2xl p-6 sm:p-8 relative overflow-hidden border border-blue-500/30 bg-gradient-to-br from-blue-950/40 via-slate-900/80 to-slate-950 shadow-2xl shadow-blue-950/50">
+      <div class="absolute -right-20 -top-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="flex items-center gap-2 text-xs font-semibold text-blue-400 uppercase tracking-wider mb-3">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Tóm Tắt Nhanh & Trực Diện (Key Takeaways)
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-6">
+        Giải đáp 3 câu hỏi cốt lõi về Meta Muse Video Automation
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="p-5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-mono text-slate-400 uppercase mb-1">1. Bản chất cơ chế tạo video</div>
+            <div class="text-lg font-bold text-white mb-2">Browser VM + WebSocket Noise</div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Muse không có REST API công khai. Nó là một <b>AI Agent chạy trong Linux VM</b>, kết nối qua WebSocket mã hóa nhị phân kép <code class="text-xs text-blue-400 font-mono">wss://hatch.metaaivm.com/v1/noise</code> (X25519 + Ed25519). Tự động hóa tốt nhất là <b>điều khiển Chrome thật (hoặc Profile 7 clone)</b> để trình duyệt tự giải mã.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center text-xs font-medium text-emerald-400">
+            ✓ Trích blob: URL trực tiếp sang MP4
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="p-5 rounded-xl bg-slate-900/80 border border-amber-500/30 flex flex-col justify-between relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-16 h-16 bg-amber-500/5 rounded-bl-full pointer-events-none"></div>
+          <div>
+            <div class="text-xs font-mono text-amber-400 uppercase mb-1">2. Nguy cơ bị khóa Account?</div>
+            <div class="text-lg font-bold text-amber-300 mb-2">Rủi ro Trung Bình - Nguy hại Nick chính</div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Meta áp dụng <b>Rate-limit ngầm & Checkpoint tự động</b>. Nếu dùng nick Facebook chính chủ để botting quá nhanh, bạn có thể bị <b>checkpoint luôn cả Facebook/Instagram</b>! Tuy nhiên, việc dùng <b>Profile 7 Chrome thật</b> giúp vượt 90% bộ lọc bot so với Playwright trắng.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center text-xs font-medium text-amber-400">
+            ⚠️ Bắt buộc dùng Meta Account phụ + Delay 15s
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="p-5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-mono text-slate-400 uppercase mb-1">3. Video tối đa bao nhiêu phút?</div>
+            <div class="text-lg font-bold text-white mb-2">10s Đơn Lẻ | Ghép Tối Ưu 30s - 1 Phút</div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Một shot của Muse là <b>CỐ ĐỊNH 10.000 giây</b> (không thể xin 5s hay 30s). Muốn dài hơn phải dùng <b>Last-Frame Chaining</b> ghép nhiều cảnh. Ghép vô hạn qua FFmpeg, nhưng từ <b>shot thứ 7 trở đi (>1 phút)</b> sẽ bắt đầu bị biến dạng nhân vật (Visual Drift).
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center text-xs font-medium text-blue-400">
+            ⏱️ Đẹp nhất: 3 đến 6 cảnh (30s – 60s)
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: ARCHITECTURE WORKFLOW -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+          Kiến Trúc & Quy Trình Sinh Video Của Muse
+        </h3>
+        <span class="text-xs font-mono text-slate-400">Pipeline E2E</span>
+      </div>
+
+      <div class="glass-panel rounded-xl p-6 border border-slate-800">
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 relative">
+          <!-- Step 1 -->
+          <div class="bg-slate-900/90 rounded-lg p-4 border border-slate-800">
+            <div class="text-xs font-mono text-blue-400 font-bold mb-1">BƯỚC 1: HANDSHAKE</div>
+            <div class="text-sm font-semibold text-white mb-2">WebSocket Noise RPC</div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Trình duyệt thực hiện bắt tay X25519 + Ed25519 với máy chủ Meta (<code class="text-[11px] text-slate-300">hatch.metaaivm.com</code>), thiết lập kênh nhị phân bảo mật.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="bg-slate-900/90 rounded-lg p-4 border border-slate-800">
+            <div class="text-xs font-mono text-blue-400 font-bold mb-1">BƯỚC 2: AGENT RENDER</div>
+            <div class="text-sm font-semibold text-white mb-2">Sandboxed VM Generator</div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Meta Muse chạy tác vụ sinh mô hình AI trong máy ảo, trả về luồng streaming và kết xuất video 10 giây (704×1248, 24fps) thành đối tượng blob nội bộ.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="bg-slate-900/90 rounded-lg p-4 border border-slate-800">
+            <div class="text-xs font-mono text-blue-400 font-bold mb-1">BƯỚC 3: LAST-FRAME CHAIN</div>
+            <div class="text-sm font-semibold text-white mb-2">Trích Frame & Nối Cảnh</div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              FFmpeg trích khung hình cuối cùng của Cảnh 1 (<code class="text-[11px] text-slate-300">shot1_last.jpg</code>), tự động đính kèm làm input cho Cảnh 2 để khóa nhân vật và ánh sáng.
+            </p>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="bg-slate-900/90 rounded-lg p-4 border border-slate-800">
+            <div class="text-xs font-mono text-blue-400 font-bold mb-1">BƯỚC 4: ASSEMBLE</div>
+            <div class="text-sm font-semibold text-white mb-2">FFmpeg Crossfade Master</div>
+            <p class="text-xs text-slate-400 leading-relaxed">
+              Ghép các shot 10s bằng filter xfade (video) + acrossfade (audio 48kHz), tạo ra video hoàn chỉnh mượt mà không bị giật khung hình giữa các cảnh.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: BAN RISKS & MITIGATION MATRIX -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+          Phân Tích Chi Tiết: Nguy Cơ Khóa Tài Khoản (Ban/Lock Audit)
+        </h3>
+        <span class="text-xs font-mono text-amber-400">Risk Assessment Matrix</span>
+      </div>
+
+      <div class="overflow-x-auto glass-panel rounded-xl border border-slate-800">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-slate-900/90 text-xs font-mono text-slate-400 uppercase border-b border-slate-800">
+            <tr>
+              <th class="py-3 px-4">Yếu Tố Kích Hoạt (Trigger)</th>
+              <th class="py-3 px-4">Mức Độ Rủi Ro</th>
+              <th class="py-3 px-4">Hậu Quả Thực Tế</th>
+              <th class="py-3 px-4">Giải Pháp Phòng Ngừa Cốt Lõi</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 text-slate-300">
+            <tr class="hover:bg-slate-900/40">
+              <td class="py-3.5 px-4 font-semibold text-white">
+                Tần suất sinh video quá dồn dập (Burst Generation)
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">Cao (High)</span>
+              </td>
+              <td class="py-3.5 px-4 text-xs">
+                Dính Rate-limit tạm thời (bị từ chối tạo thêm video trong 6h – 24h, kèm thông báo "Generation limit reached").
+              </td>
+              <td class="py-3.5 px-4 text-xs text-emerald-400 font-medium">
+                Đặt khoảng nghỉ ngẫu nhiên (Sleep jitter 15s – 30s) giữa các lần sinh video.
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-900/40">
+              <td class="py-3.5 px-4 font-semibold text-white">
+                Dùng trình duyệt Playwright trắng (Clean Automation)
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">Trung bình</span>
+              </td>
+              <td class="py-3.5 px-4 text-xs">
+                Thiếu cookie lịch sử, font chữ, canvas fingerprint, dễ bị Cloudflare / Meta yêu cầu giải CAPTCHA hoặc Checkpoint.
+              </td>
+              <td class="py-3.5 px-4 text-xs text-emerald-400 font-medium">
+                <b>Đã giải quyết:</b> Dùng cơ chế nhân bản Profile 7 thật (đủ cookies, token, fingerprint xịn).
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-900/40">
+              <td class="py-3.5 px-4 font-semibold text-white">
+                Dùng tài khoản Facebook cá nhân chính chủ
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">Nghiêm trọng</span>
+              </td>
+              <td class="py-3.5 px-4 text-xs">
+                Vì Meta đồng bộ SSO (Accounts Center), nếu Muse bị cấm vì lý do "Automated Bot", có nguy cơ dính checkpoint tài khoản FB/IG chính.
+              </td>
+              <td class="py-3.5 px-4 text-xs text-emerald-400 font-medium">
+                <b>Nguyên tắc số 1:</b> Luôn dùng tài khoản Meta phụ (Secondary/Burner Account) để cắm tool.
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-900/40">
+              <td class="py-3.5 px-4 font-semibold text-white">
+                Nội dung vi phạm kiểm duyệt (Safety Policy)
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="px-2 py-0.5 rounded text-xs font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">Khóa Vĩnh Viễn</span>
+              </td>
+              <td class="py-3.5 px-4 text-xs">
+                Prompt chứa từ khóa người nổi tiếng, 18+, bạo lực, trẻ em sẽ bị hệ thống AI Safety cấm thẳng tay mà không cần cảnh báo.
+              </td>
+              <td class="py-3.5 px-4 text-xs text-emerald-400 font-medium">
+                Giữ nội dung trong phạm vi an toàn (drama gia đình, cảnh đẹp, sản phẩm, UGC trung tính).
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 3: VIDEO DURATION FORMULA & LIMITS -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+          Ma Trận Thời Lượng: Video Tối Đa Được Bao Nhiêu Phút?
+        </h3>
+        <span class="text-xs font-mono text-purple-400">Duration Feasibility Guide</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Duration 1 -->
+        <div class="glass-panel rounded-xl p-5 border border-slate-800">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xl font-black text-white">10 Giây</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 font-bold">1 Clip</span>
+          </div>
+          <div class="text-xs font-semibold text-slate-300 mb-2">Native Single Shot</div>
+          <p class="text-xs text-slate-400 leading-relaxed mb-3">
+            Thời lượng gốc của 1 lần render. Chất lượng hình ảnh cao nhất, không bị sai lệch nhân vật.
+          </p>
+          <div class="text-[11px] text-emerald-400 font-mono">Thời gian tạo: ~60–90 giây</div>
+        </div>
+
+        <!-- Duration 2 -->
+        <div class="glass-panel rounded-xl p-5 border border-emerald-500/30 bg-emerald-950/10">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xl font-black text-emerald-400">30 Giây</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 font-bold">3 Clip (Sweet Spot)</span>
+          </div>
+          <div class="text-xs font-semibold text-slate-300 mb-2">Chuẩn TikTok / Reels / Shorts</div>
+          <p class="text-xs text-slate-400 leading-relaxed mb-3">
+            Độ dài lý tưởng nhất. Nối khung hình cuối 2 lần giữ được trọn vẹn ngoại hình nhân vật và bối cảnh (như video Quê Xưa vừa test).
+          </p>
+          <div class="text-[11px] text-emerald-400 font-mono">Thời gian tạo: ~3–4 phút</div>
+        </div>
+
+        <!-- Duration 3 -->
+        <div class="glass-panel rounded-xl p-5 border border-slate-800">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xl font-black text-white">60 Giây</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 font-bold">6 Clip</span>
+          </div>
+          <div class="text-xs font-semibold text-slate-300 mb-2">Chuẩn UGC Storytelling</div>
+          <p class="text-xs text-slate-400 leading-relaxed mb-3">
+            ~54s nội dung + 6s chuyển cảnh. Vẫn duy trì tốt nếu story bible chi tiết, nhân vật có thể hơi mềm nét ở cảnh 5-6.
+          </p>
+          <div class="text-[11px] text-purple-400 font-mono">Thời gian tạo: ~8–10 phút</div>
+        </div>
+
+        <!-- Duration 4 -->
+        <div class="glass-panel rounded-xl p-5 border border-rose-500/30 bg-rose-950/10">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xl font-black text-rose-400">&gt; 3 Phút</span>
+            <span class="text-xs font-mono px-2 py-0.5 rounded bg-rose-500/10 text-rose-300 font-bold">&gt; 18 Clip (Rủi ro)</span>
+          </div>
+          <div class="text-xs font-semibold text-slate-300 mb-2">Ngưỡng Chạm Trần Quota</div>
+          <p class="text-xs text-slate-400 leading-relaxed mb-3">
+            Dễ dính rate limit trong ngày của Meta. Nhân vật bị "drift" (biến đổi gương mặt) nghiêm trọng qua nhiều lần re-animate.
+          </p>
+          <div class="text-[11px] text-rose-400 font-mono">Khuyên: Chia làm nhiều tập ngắn</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: INTERACTIVE CHECKLIST FOR ZERO-BAN OPERATION -->
+    <section class="glass-panel rounded-xl p-6 border border-slate-800">
+      <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Checklist Vận Hành An Toàn (Zero-Ban Protocol)
+      </h3>
+      <p class="text-xs text-slate-400 mb-4">Các bước bắt buộc tuân thủ để không bao giờ bị khóa tài khoản khi render tự động:</p>
+
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800/80 cursor-pointer hover:bg-slate-900">
+          <input type="checkbox" checked class="mt-1 rounded bg-slate-800 border-slate-700 text-blue-600 focus:ring-0">
+          <div>
+            <div class="text-sm font-semibold text-white">Sử dụng Meta Account phụ (Secondary Profile)</div>
+            <div class="text-xs text-slate-400">Không liên kết trực tiếp với thẻ visa thanh toán quảng cáo hoặc tài khoản Instagram chính.</div>
+          </div>
+        </label>
+
+        <label class="flex items-start gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800/80 cursor-pointer hover:bg-slate-900">
+          <input type="checkbox" checked class="mt-1 rounded bg-slate-800 border-slate-700 text-blue-600 focus:ring-0">
+          <div>
+            <div class="text-sm font-semibold text-white">Chạy bằng Profile Chrome Clone có lịch sử duyệt web thật</div>
+            <div class="text-xs text-slate-400">Luôn dùng Profile 7 clone (đã tích hợp trong tool) để mang theo fingerprint và chứng thư thật của macOS.</div>
+          </div>
+        </label>
+
+        <label class="flex items-start gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800/80 cursor-pointer hover:bg-slate-900">
+          <input type="checkbox" checked class="mt-1 rounded bg-slate-800 border-slate-700 text-blue-600 focus:ring-0">
+          <div>
+            <div class="text-sm font-semibold text-white">Hạn chế tối đa 20–30 clip video mỗi ngày trên 1 tài khoản</div>
+            <div class="text-xs text-slate-400">Tránh hành vi spam liên tục 24/7 khiến thuật toán phát hiện bất thường của Meta kích hoạt.</div>
+          </div>
+        </label>
+
+        <label class="flex items-start gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800/80 cursor-pointer hover:bg-slate-900">
+          <input type="checkbox" checked class="mt-1 rounded bg-slate-800 border-slate-700 text-blue-600 focus:ring-0">
+          <div>
+            <div class="text-sm font-semibold text-white">Tải file MP4 về ổ cứng ngay sau khi tạo xong</div>
+            <div class="text-xs text-slate-400">Link chia sẻ trên cụm máy chủ Meta có thời hạn ngắn (vài ngày). Script tự động kéo blob về thư mục output là chuẩn nhất.</div>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 font-mono">
+      <div>Research generated by Loki Deep Research Engine</div>
+      <div class="mt-2 sm:mt-0">Location: muse-video-maker/research/muse-ai-video-research/</div>
+    </footer>
+
+  </main>
+</body>
+</html>

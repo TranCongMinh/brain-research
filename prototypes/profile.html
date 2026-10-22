@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hồ sơ — BrokerConnect</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', system-ui, sans-serif; }</style>
+</head>
+<body class="bg-base-100 text-base-content">
+
+  <div class="drawer lg:drawer-open">
+    <input id="app-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content flex flex-col min-h-screen">
+
+      <div class="navbar bg-base-100 border-b border-base-200 px-4 lg:px-6 gap-2">
+        <div class="flex-none lg:hidden">
+          <label for="app-drawer" class="btn btn-square btn-ghost btn-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+          </label>
+        </div>
+        <div class="flex-1"><span class="font-semibold">Hồ sơ của tôi</span></div>
+      </div>
+
+      <main class="flex-1 p-4 lg:p-6 bg-base-200/30">
+        <div class="max-w-2xl mx-auto" id="profile-header"></div>
+        <div class="max-w-2xl mx-auto mt-6">
+          <div role="tablist" class="tabs tabs-boxed w-fit mb-4" id="profile-tabs">
+            <a role="tab" class="tab tab-active" data-tab="listings">Tin đang đăng</a>
+            <a role="tab" class="tab" data-tab="deals">Lịch sử Deal</a>
+            <a role="tab" class="tab" data-tab="ratings">Đánh giá nhận được</a>
+          </div>
+          <div id="tab-content"></div>
+        </div>
+      </main>
+    </div>
+
+    <div class="drawer-side z-20">
+      <label for="app-drawer" class="drawer-overlay"></label>
+      <aside class="w-64 min-h-screen bg-base-100 border-r border-base-200 p-4 flex flex-col">
+        <a href="feed.html" class="text-xl font-bold px-2 mb-8 text-primary">🤝 BrokerConnect</a>
+        <ul class="menu flex-1 gap-1">
+          <li><a href="feed.html">📋 Bảng tin</a></li>
+          <li><a href="my-deals.html">🤝 Deal của tôi</a></li>
+          <li><a href="profile.html" class="active">👤 Hồ sơ</a></li>
+        </ul>
+        <div class="divider text-xs">Nhóm của tôi</div>
+        <ul class="menu" id="my-groups-menu"></ul>
+        <div class="mt-auto pt-4">
+          <a href="#" id="reset-demo-data" class="text-xs text-base-content/40 hover:text-base-content/70">↺ Reset dữ liệu demo</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script>
+    const me = api.currentUser();
+
+    function renderHeader() {
+      const groups = api.myGroups();
+      document.getElementById('profile-header').innerHTML =
+        '<div class="card bg-base-100 border border-base-200">' +
+          '<div class="card-body">' +
+            '<div class="flex items-center gap-4">' +
+              '<div class="avatar placeholder"><div class="bg-primary text-primary-content w-16 rounded-full"><span class="text-2xl">' + me.name.charAt(0) + '</span></div></div>' +
+              '<div>' +
+                '<div class="text-xl font-bold flex items-center gap-2">' + me.name + (me.verified ? '<span class="badge badge-success badge-sm">✔ Đã xác minh</span>' : '<span class="badge badge-ghost badge-sm">Chưa xác minh</span>') + '</div>' +
+                '<div class="text-base-content/60">⭐ ' + me.rating.toFixed(1) + ' (' + me.dealsCount + ' giao dịch thành công) · Tham gia ' + me.joinedAt + '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="divider my-2"></div>' +
+            '<div class="flex flex-wrap items-center gap-2">' +
+              '<span class="text-sm text-base-content/50">Nhóm:</span>' +
+              groups.map(g => '<span class="badge badge-outline">' + (g.category === 'thue' ? '🏠' : '🚗') + ' ' + g.name + '</span>').join('') +
+              '<a href="index.html" class="btn btn-ghost btn-xs">+ Tham gia nhóm</a>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+    }
+
+    function renderListingsTab() {
+      const items = api.listings().filter(l => l.ownerId === me.id);
+      if (!items.length) return emptyBlock('Bạn chưa đăng tin nào.');
+      return '<div class="grid md:grid-cols-2 gap-4">' + items.map(l =>
+        '<div class="card bg-base-100 border border-base-200"><div class="card-body p-4">' +
+          '<div class="font-semibold">' + l.title + '</div>' +
+          '<div class="text-sm text-base-content/60">' + fmtVND(l.price) + '/' + l.priceUnit + ' · HH ' + l.commissionPct + '%</div>' +
+          '<a href="listing-detail.html?id=' + l.id + '" class="btn btn-outline btn-xs w-fit mt-2">Xem tin</a>' +
+        '</div></div>'
+      ).join('') + '</div>';
+    }
+
+    function renderDealsTab() {
+      const items = api.deals();
+      if (!items.length) return emptyBlock('Chưa có lịch sử deal.');
+      return '<div class="overflow-x-auto bg-base-100 rounded-box shadow-sm border border-base-200">' +
+        '<table class="table"><thead><tr><th>Tin</th><th>Đối tác</th><th>Trạng thái</th><th></th></tr></thead><tbody>' +
+        items.map(d => {
+          const listing = api.listing(d.listingId);
+          const counterpart = api.broker(d.requesterId === me.id ? d.ownerId : d.requesterId);
+          return '<tr><td class="font-medium">' + listing.title + '</td><td>' + counterpart.name + '</td><td>' + statusBadge(d.status) + '</td>' +
+            '<td><a href="deal-detail.html?id=' + d.id + '" class="link link-primary text-sm">Xem</a></td></tr>';
+        }).join('') +
+        '</tbody></table></div>';
+    }
+
+    function renderRatingsTab() {
+      const items = api.deals().filter(d => d.rating && Object.keys(d.rating).length);
+      const myReceived = [];
+      items.forEach(d => {
+        const counterpartKey = d.requesterId === me.id ? 'byOwner' : 'byRequester';
+        if (d.rating[counterpartKey]) myReceived.push({ deal: d, rating: d.rating[counterpartKey], from: api.broker(d.requesterId === me.id ? d.ownerId : d.requesterId) });
+      });
+      if (!myReceived.length) return emptyBlock('Chưa có đánh giá nào từ đối tác.');
+      return myReceived.map(r =>
+        '<div class="card bg-base-100 border border-base-200 mb-3"><div class="card-body p-4">' +
+          '<div class="flex items-center justify-between">' +
+            '<span class="font-medium">' + r.from.name + '</span>' +
+            '<span>' + '⭐'.repeat(r.rating.stars) + '</span>' +
+          '</div>' +
+          '<p class="text-sm text-base-content/70 mt-1">"' + r.rating.comment + '"</p>' +
+        '</div></div>'
+      ).join('');
+    }
+
+    function emptyBlock(text) {
+      return '<div class="flex flex-col items-center justify-center py-12 text-center text-base-content/50"><div class="text-4xl mb-2">📭</div>' + text + '</div>';
+    }
+
+    function renderTab(tab) {
+      const content = document.getElementById('tab-content');
+      if (tab === 'listings') content.innerHTML = renderListingsTab();
+      else if (tab === 'deals') content.innerHTML = renderDealsTab();
+      else content.innerHTML = renderRatingsTab();
+    }
+
+    document.querySelectorAll('#profile-tabs .tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('#profile-tabs .tab').forEach(t => t.classList.remove('tab-active'));
+        tab.classList.add('tab-active');
+        renderTab(tab.dataset.tab);
+      });
+    });
+
+    renderHeader();
+    renderTab('listings');
+  </script>
+</body>
+</html>

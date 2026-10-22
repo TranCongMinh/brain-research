@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nghiên Cứu Chuyên Sâu: Cho Thuê Xe Máy Điện VinFast Tại Đà Nẵng (Khách Nước Ngoài, Pháp Lý, Rủi Ro & Mô Hình 6 Xe)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #070b14; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    .card-glass {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(51, 65, 85, 0.6);
+    }
+    .card-glass:hover {
+      border-color: rgba(16, 185, 129, 0.5);
+    }
+    .badge-glow {
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+    }
+    .checklist-item input:checked + label {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-[#070b14] text-slate-100 font-sans antialiased selection:bg-emerald-600 selection:text-white min-h-screen flex flex-col">
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#070b14]/90 border-b border-slate-800/80 px-4 sm:px-8 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../../artifacts-dashboard.html" class="flex items-center gap-2 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition bg-emerald-950/60 border border-emerald-800/60 px-3 py-1.5 rounded-lg">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        <span>Artifacts Dashboard</span>
+      </a>
+      <span class="text-slate-600">|</span>
+      <span class="text-xs font-medium text-slate-300 hidden md:inline">Loki Deep Research: Cho Thuê Xe Máy Điện VinFast Tại Đà Nẵng</span>
+    </div>
+
+    <div class="flex items-center gap-2.5">
+      <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+        <span>In Báo Cáo</span>
+      </button>
+      <button onclick="copyCurrentPath()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs text-white font-medium transition flex items-center gap-1.5 shadow-sm shadow-emerald-500/20">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+        <span>Copy Path</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="border-b border-slate-800 bg-gradient-to-b from-slate-900/90 via-slate-950 to-[#070b14] py-10 px-4 sm:px-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 uppercase tracking-wider font-mono">Báo Cáo Thẩm Định & Kế Hoạch Kinh Doanh</span>
+        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-blue-900/60 text-blue-300 border border-blue-700/60">Thị Trường Du Lịch Đà Nẵng</span>
+        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-amber-900/60 text-amber-300 border border-amber-700/60">Luật TTATGT Đường Bộ 2024 (01/01/2025)</span>
+      </div>
+
+      <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+        Khảo Sát & Thẩm Định Toàn Diện Thị Trường Cho Thuê<br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">Xe Máy Điện VinFast Cho Người Nước Ngoài Tại Đà Nẵng</span>
+      </h1>
+      
+      <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-4xl mb-8">
+        Phân tích chuyên sâu về "lá chắn pháp lý" khi cho khách Tây thuê xe (Nghị định 144, Điều 264 Bộ luật Hình sự, bẫy bằng lái quốc tế Geneva vs Vienna), quy định cấm xe Bán đảo Sơn Trà, chính sách bảo hiểm TNDS/vật chất và mô hình tài chính 6 xe VinFast Evo thu hồi vốn trong 10 tháng.
+      </p>
+
+      <!-- 4 Quick Fact Cards / Hero Highlights -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <div class="card-glass rounded-xl p-4 border-l-4 border-l-emerald-500">
+          <div class="text-[11px] font-mono font-bold text-emerald-400 uppercase tracking-wider mb-1">ÁT CHỦ BÀI PHÁP LÝ</div>
+          <div class="text-base font-bold text-white mb-1">VinFast Evo200 Lite</div>
+          <p class="text-xs text-slate-400">Vận tốc &le; 49 km/h, công suất &lt; 4kW. Phân loại xe gắn máy điện &rarr; <strong>Không cần bằng lái</strong>, triệt tiêu 100% rủi ro Điều 264 Bộ luật Hình sự!</p>
+        </div>
+
+        <div class="card-glass rounded-xl p-4 border-l-4 border-l-rose-500">
+          <div class="text-[11px] font-mono font-bold text-rose-400 uppercase tracking-wider mb-1">HIỂM HỌA KHÁCH TÂY</div>
+          <div class="text-base font-bold text-white mb-1">Bằng Geneva 1949 & IAA</div>
+          <p class="text-xs text-slate-400">Việt Nam <strong>không công nhận</strong> bằng Geneva 1949 (Mỹ, Úc) và bằng online IAA. Nếu giao xe cần bằng (Evo200 thường) &rarr; Chủ xe đối mặt án phạt tù 7 năm!</p>
+        </div>
+
+        <div class="card-glass rounded-xl p-4 border-l-4 border-l-amber-500">
+          <div class="text-[11px] font-mono font-bold text-amber-400 uppercase tracking-wider mb-1">CẢNH BÁO TỬ HUYỆT</div>
+          <div class="text-base font-bold text-white mb-1">Cấm Xe Bán Đảo Sơn Trà</div>
+          <p class="text-xs text-slate-400">Đà Nẵng cấm xe ga/xe tự động lên Sơn Trà. Bắt buộc cài đặt <strong>GPS Geofencing</strong> cảnh báo hú còi và phạt cọc nếu khách cố tình leo dốc.</p>
+        </div>
+
+        <div class="card-glass rounded-xl p-4 border-l-4 border-l-cyan-500">
+          <div class="text-[11px] font-mono font-bold text-cyan-400 uppercase tracking-wider mb-1">HIỆU QUẢ TÀI CHÍNH</div>
+          <div class="text-base font-bold text-white mb-1">Đội 6 Xe VinFast Evo</div>
+          <p class="text-xs text-slate-400">Vốn đầu tư ban đầu: <strong>~147 triệu VNĐ</strong>. Lợi nhuận ròng: <strong>12 - 16.3 triệu/tháng</strong>. Thời gian hoàn vốn: <strong>9.5 - 11 tháng</strong> (ROI ~97%).</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky Tab Bar -->
+  <div class="sticky top-[57px] z-40 bg-[#070b14]/95 backdrop-blur-md border-b border-slate-800 px-4 sm:px-8">
+    <div class="max-w-6xl mx-auto flex items-center gap-2 overflow-x-auto py-2.5 no-scrollbar text-xs font-semibold">
+      <button onclick="switchTab('tab-market')" id="btn-tab-market" class="tab-btn px-4 py-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 whitespace-nowrap transition">
+        1. Thị Trường & Khách Ngoại
+      </button>
+      <button onclick="switchTab('tab-legal')" id="btn-tab-legal" class="tab-btn px-4 py-2 rounded-lg text-slate-400 hover:text-slate-200 border border-transparent hover:border-slate-800 whitespace-nowrap transition">
+        2. Pháp Lý & Điều 264 BLHS
+      </button>
+      <button onclick="switchTab('tab-risk')" id="btn-tab-risk" class="tab-btn px-4 py-2 rounded-lg text-slate-400 hover:text-slate-200 border border-transparent hover:border-slate-800 whitespace-nowrap transition">
+        3. Nguy Cơ Tai Nạn & Sơn Trà
+      </button>
+      <button onclick="switchTab('tab-insurance')" id="btn-tab-insurance" class="tab-btn px-4 py-2 rounded-lg text-slate-400 hover:text-slate-200 border border-transparent hover:border-slate-800 whitespace-nowrap transition">
+        4. Bảo Hiểm TNDS & Thân Vỏ
+      </button>
+      <button onclick="switchTab('tab-finance')" id="btn-tab-finance" class="tab-btn px-4 py-2 rounded-lg text-slate-400 hover:text-slate-200 border border-transparent hover:border-slate-800 whitespace-nowrap transition">
+        5. Báo Cáo 6 Xe & ROI Calculator
+      </button>
+      <button onclick="switchTab('tab-ops')" id="btn-tab-ops" class="tab-btn px-4 py-2 rounded-lg text-slate-400 hover:text-slate-200 border border-transparent hover:border-slate-800 whitespace-nowrap transition">
+        6. Quy Trình & Hợp Đồng Mẫu
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-8 py-8 space-y-12 flex-1 w-full">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: THỊ TRƯỜNG & KHÁCH NGOẠI -->
+    <!-- ========================================== -->
+    <div id="tab-market" class="tab-content space-y-8">
+      
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">MARKET DYNAMICS</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white">1. Bức Tranh Thị Trường Cho Thuê Xe Máy Điện Tại Đà Nẵng</h2>
+        </div>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          Đà Nẵng đang chứng kiến sự chuyển dịch mạnh mẽ từ xe máy xăng truyền thống sang xe máy điện, đặc biệt ở phân khúc khách du lịch quốc tế và cộng đồng chuyên gia, người làm việc từ xa (Digital Nomads) tập trung tại khu vực ven biển.
+        </p>
+      </div>
+
+      <!-- Grid: 3 Xu Hướng Đột Phá -->
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="card-glass rounded-xl p-5">
+          <div class="w-10 h-10 rounded-lg bg-emerald-950/80 border border-emerald-800/80 flex items-center justify-center text-emerald-400 mb-3">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Tâm Lý Khách Tây & Âu Mỹ</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Du khách phương Tây rất nhạy cảm với khí thải và ô nhiễm tiếng ồn. Xe điện VinFast (Evo, Feliz) mang thiết kế phong cách Ý thanh lịch, không hôi mùi xăng, tăng tốc êm ái, rất được lòng khách du lịch nữ, cặp đôi và Digital Nomads lưu trú 1-6 tháng.
+          </p>
+        </div>
+
+        <div class="card-glass rounded-xl p-5">
+          <div class="w-10 h-10 rounded-lg bg-blue-950/80 border border-blue-800/80 flex items-center justify-center text-blue-400 mb-3">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Tụ Điểm Nóng (Hotspots)</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Khu vực <strong>Phố Tây An Thượng</strong> (phường Mỹ An, quận Ngũ Hành Sơn) và khu vực <strong>Sơn Trà ven biển Mỹ Khê</strong> (Hà Bổng, Hồ Nghinh) là "mỏ vàng" cho thuê xe. 85% nhu cầu khách ngoại tập trung trong bán kính 3 km từ bãi biển Mỹ Khê.
+          </p>
+        </div>
+
+        <div class="card-glass rounded-xl p-5">
+          <div class="w-10 h-10 rounded-lg bg-amber-950/80 border border-amber-800/80 flex items-center justify-center text-amber-400 mb-3">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Hạ Tầng Sạc VinFast Đầy Đủ</h3>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Đà Nẵng có mạng lưới trạm sạc xe máy điện VinFast / V-Green dày đặc tại cây xăng PVOIL, Vincom Ngô Quyền, Vinmec, các bãi đỗ xe trung tâm. Xe còn có thể cắm sạc trực tiếp qua ổ điện 220V tại bất kỳ homestay, khách sạn nào trong 6-8 tiếng.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bảng So Sánh Cạnh Tranh Thực Tế -->
+      <div class="card-glass rounded-2xl p-6 overflow-hidden">
+        <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+          <span>Ma Trận So Sánh: Xe Xăng Cũ vs Dịch Vụ Xe Điện VinFast Tại Đà Nẵng</span>
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-900/80 text-slate-300 border-b border-slate-700">
+              <tr>
+                <th class="py-3 px-4 font-bold">Tiêu Chí So Sánh</th>
+                <th class="py-3 px-4 font-bold text-slate-400">Xe Máy Xăng Cũ (Wave, Sirius, Vision cũ)</th>
+                <th class="py-3 px-4 font-bold text-emerald-400 bg-emerald-950/30">Mô Hình VinFast Evo Cho Thuê</th>
+                <th class="py-3 px-4 font-bold">Tác Động Đến Lợi Nhuận</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 text-slate-300">
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Giá thuê theo ngày</td>
+                <td class="py-3 px-4 text-slate-400">100.000 - 140.000 đ/ngày</td>
+                <td class="py-3 px-4 font-bold text-emerald-400 bg-emerald-950/20">150.000 - 180.000 đ/ngày</td>
+                <td class="py-3 px-4 text-emerald-400">+25% đến +35% doanh thu/ngày</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Giá thuê theo tháng</td>
+                <td class="py-3 px-4 text-slate-400">1.200.000 - 1.500.000 đ/tháng</td>
+                <td class="py-3 px-4 font-bold text-emerald-400 bg-emerald-950/20">1.800.000 - 2.200.000 đ/tháng</td>
+                <td class="py-3 px-4 text-emerald-400">+40% dòng tiền hàng tháng</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Chi phí nhiên liệu (Khách trả)</td>
+                <td class="py-3 px-4 text-slate-400">60.000 - 80.000 đ/100km (xăng)</td>
+                <td class="py-3 px-4 font-bold text-emerald-400 bg-emerald-950/20">Chỉ ~4.500 - 6.000 đ/100km (điện)</td>
+                <td class="py-3 px-4 text-emerald-400">Khách Tây cực kỳ thích vì tiết kiệm 90%</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Hư hỏng vặt & Bảo dưỡng</td>
+                <td class="py-3 px-4 text-rose-400">Cao (thay nhớt, bugi, dây curoa, chế hòa khí)</td>
+                <td class="py-3 px-4 font-bold text-emerald-400 bg-emerald-950/20">Cực thấp (động cơ in-hub không dầu nhớt)</td>
+                <td class="py-3 px-4 text-emerald-400">Tiết kiệm 70% chi phí bảo dưỡng định kỳ</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Hành vi khách ngoại quốc</td>
+                <td class="py-3 px-4 text-slate-400">Chấp nhận do không có lựa chọn</td>
+                <td class="py-3 px-4 font-bold text-emerald-400 bg-emerald-950/20">Ưu tiên tìm kiếm trên Google/Airbnb/Facebook</td>
+                <td class="py-3 px-4 text-emerald-400">Tỷ lệ lấp đầy (Occupancy) cao hơn 20%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: PHÁP LÝ & ĐIỀU 264 BLHS -->
+    <!-- ========================================== -->
+    <div id="tab-legal" class="tab-content hidden space-y-8">
+      
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-950 text-rose-300 border border-rose-800">LEGAL DEEP-DIVE</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white">2. Phân Tích Pháp Lý Sâu: "Lá Chắn" Điều 264 BLHS & Bằng Lái Quốc Tế</h2>
+        </div>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          Cho người nước ngoài thuê xe là con dao hai lưỡi: Biên lợi nhuận cao nhưng rủi ro pháp lý có thể dẫn đến khởi tố hình sự nếu chủ xe không nắm vững Luật Giao thông 2024 và Bộ luật Hình sự.
+        </p>
+      </div>
+
+      <!-- Hero Callout: VinFast Evo200 vs Evo200 Lite -->
+      <div class="grid md:grid-cols-2 gap-5">
+        
+        <!-- Evo200 Lite: An Toàn Tuyệt Đối -->
+        <div class="card-glass rounded-2xl p-6 border-l-4 border-l-emerald-500 relative bg-emerald-950/10">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 font-mono">LỰA CHỌN KHUYÊN DÙNG SỐ 1</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-900 text-emerald-200 border border-emerald-700">KHÔNG CẦN BẰNG LÁI</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">VinFast Evo200 Lite (Giới hạn 49 km/h)</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Theo <strong>Luật Trật tự, an toàn giao thông đường bộ 2024 (hiệu lực 01/01/2025)</strong>: Phương tiện có tốc độ thiết kế không quá 50 km/h và công suất động cơ dưới 4 kW được xếp vào nhóm <strong>xe gắn máy</strong>.
+          </p>
+          <ul class="text-xs text-slate-300 space-y-2.5">
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">&check;</span>
+              <span><strong>Không yêu cầu Giấy phép lái xe:</strong> Người từ đủ 16 tuổi trở lên được phép điều khiển hợp pháp mà không cần bằng A1 hay bất kỳ bằng lái nào.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">&check;</span>
+              <span><strong>Triệt tiêu 100% rủi ro Điều 264 BLHS:</strong> Khi người lái không bắt buộc phải có GPLX, chủ xe không bao giờ bị khép vào tội "Giao xe cho người không đủ điều kiện về bằng lái"!</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-400 font-bold">&check;</span>
+              <span><strong>CSGT Đà Nẵng không thể phạt lỗi GPLX:</strong> Khách Tây chỉ cần xuất trình Hộ chiếu + Giấy đăng ký xe + Bảo hiểm là hoàn toàn hợp lệ.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Evo200 Thường: Rủi Ro Hình Sự Rất Lớn -->
+        <div class="card-glass rounded-2xl p-6 border-l-4 border-l-rose-500 relative bg-rose-950/10">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-rose-400 font-mono">CẢNH BÁO NGUY HIỂM</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-900 text-rose-200 border border-rose-700">BẮT BUỘC BẰNG A1/A</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">VinFast Evo200 Thường (Tốc độ 70 km/h)</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            Do tốc độ tối đa &gt; 50 km/h, xe được xếp vào nhóm <strong>xe mô tô hai bánh</strong>. Người điều khiển bắt buộc phải có Giấy phép lái xe hạng A1 (hoặc hạng A theo luật mới).
+          </p>
+          <ul class="text-xs text-slate-300 space-y-2.5">
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">&cross;</span>
+              <span><strong>Bẫy bằng lái quốc tế Geneva 1949:</strong> Khách từ Mỹ, Úc, Anh, Canada hầu như không có bằng Vienna 1968. Họ mang bằng Geneva 1949 hoặc bằng mua online (IAA) &rarr; <strong>Không hợp lệ tại Việt Nam!</strong></span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">&cross;</span>
+              <span><strong>Chủ xe bị khởi tố Điều 264 BLHS:</strong> Nếu khách gây tai nạn chết người hoặc thương tích &ge; 61%, chủ cơ sở cho thuê sẽ bị truy cứu trách nhiệm hình sự, phạt tù từ 6 tháng đến 7 năm!</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="text-rose-400 font-bold">&cross;</span>
+              <span><strong>Bảo hiểm TNDS từ chối đền bù:</strong> Do tài xế vi phạm điều khoản không có GPLX hợp lệ. Toàn bộ trách nhiệm bồi thường đổ lên đầu chủ xe.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Chi Tiết Điều 264 Bộ Luật Hình Sự 2015 (Sửa đổi 2017) -->
+      <div class="card-glass rounded-2xl p-6 border border-slate-700">
+        <h3 class="text-base font-bold text-amber-400 mb-3 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          <span>Khung Hình Phạt Điều 264 BLHS: "Tội Giao Cho Người Không Đủ Điều Kiện Điều Khiển Phương Tiện"</span>
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed mb-4">
+          Nhiều chủ xe ở Đà Nẵng lầm tưởng rằng chỉ cần làm hợp đồng ghi "khách tự chịu trách nhiệm trước pháp luật" là xong. <strong>Thực tế pháp lý:</strong> Thỏa thuận dân sự vô hiệu trước trách nhiệm hình sự! Khi chủ xe biết khách không có bằng lái hợp lệ của Việt Nam hoặc IDP Vienna 1968 mà vẫn giao xe phân khối lớn/xe cần bằng, nếu xảy ra hậu quả nghiêm trọng:
+        </p>
+        <div class="grid sm:grid-cols-3 gap-4 text-xs">
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-rose-400 font-bold font-mono mb-1">KHOẢN 1 (HẬU QUẢ NGHIÊM TRỌNG)</div>
+            <p class="text-slate-300 mb-2">Làm chết 1 người, gây tổn hại sức khỏe 1 người &ge; 61%, hoặc thiệt hại tài sản từ 100 - dưới 500 triệu đồng.</p>
+            <div class="text-amber-300 font-semibold">Phạt tiền 10 - 50 triệu hoặc cải tạo không giam giữ đến 3 năm.</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-rose-400 font-bold font-mono mb-1">KHOẢN 2 (RẤT NGHIÊM TRỌNG)</div>
+            <p class="text-slate-300 mb-2">Làm chết 2 người, gây thương tật nhiều người từ 122% - 200%, hoặc thiệt hại tài sản từ 500 triệu - dưới 1.5 tỷ đồng.</p>
+            <div class="text-amber-300 font-semibold">Phạt tiền 50 - 200 triệu hoặc PHẠT TÙ từ 6 tháng đến 3 năm.</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-rose-400 font-bold font-mono mb-1">KHOẢN 3 (ĐẶC BIỆT NGHIÊM TRỌNG)</div>
+            <p class="text-slate-300 mb-2">Làm chết từ 3 người trở lên, hoặc thiệt hại tài sản từ 1.5 tỷ đồng trở lên.</p>
+            <div class="text-rose-300 font-semibold">PHẠT TÙ TỪ 2 NĂM ĐẾN 7 NĂM.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vấn Đề Giữ Hộ Chiếu (Passport) vs Nghị Định 144/2021/NĐ-CP -->
+      <div class="card-glass rounded-2xl p-6">
+        <h3 class="text-base font-bold text-white mb-3">Vấn Đề Giữ Hộ Chiếu (Passport) Gốc: Bẫy Pháp Lý & Giải Pháp Thực Chiến</h3>
+        <div class="grid md:grid-cols-2 gap-5 text-xs">
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="text-rose-400 font-bold mb-2 flex items-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+              <span>Thực Tế Phạm Luật: Giữ Passport Gốc</span>
+            </div>
+            <p class="text-slate-300 leading-relaxed mb-2">
+              Tại Điều 10 <strong>Nghị định 144/2021/NĐ-CP</strong>, hành vi giữ CMND/CCCD/Hộ chiếu của người khác để bảo đảm thực hiện nghĩa vụ dân sự là hành vi vi phạm pháp luật và bị phạt tiền.
+            </p>
+            <p class="text-slate-400 leading-relaxed">
+              Ngoài ra, khách Tây rất bức xúc khi bị giữ hộ chiếu gốc vì họ cần để làm thủ tục khách sạn, mua vé máy bay, hoặc gia hạn visa. Nếu xảy ra tranh chấp hoặc khách làm mất xe, việc giữ passport cũng không giúp bán được để bù lỗ.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="text-emerald-400 font-bold mb-2 flex items-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>Giải Pháp Thay Thế Chuẩn Quốc Tế</span>
+            </div>
+            <ul class="text-slate-300 space-y-2 leading-relaxed">
+              <li><strong>1. Chụp/Scan 3 trang:</strong> Trang thông tin Passport + Trang Visa/E-visa còn hạn + Dấu mộc nhập cảnh cửa khẩu.</li>
+              <li><strong>2. Xác nhận lưu trú:</strong> Chụp thẻ phòng khách sạn / tin nhắn xác nhận phòng Airbnb + Số điện thoại lễ tân.</li>
+              <li><strong>3. Đặt cọc tài chính:</strong> Thu cọc 2.000.000 - 3.000.000 VNĐ ($100 - $120) hoặc Pre-authorization qua thẻ tín dụng quốc tế (Visa/Mastercard).</li>
+              <li><strong>4. Thiết bị GPS 4G giấu kín:</strong> Tích hợp rơ-le ngắt nguồn từ xa qua điện thoại.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: TAI NẠN & SƠN TRÀ -->
+    <!-- ========================================== -->
+    <div id="tab-risk" class="tab-content hidden space-y-8">
+      
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-950 text-amber-300 border border-amber-800">ACCIDENT & TERRAIN HAZARDS</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white">3. Nguy Cơ Tai Nạn, Hiểm Họa Sơn Trà & Quản Trị Rủi Ro</h2>
+        </div>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          Đặc thù giao thông tại Đà Nẵng kết hợp với tâm lý du lịch xả hơi của khách ngoại quốc tạo ra 4 nhóm rủi ro tai nạn lớn nhất cần được kiểm soát chặt chẽ bằng công nghệ và quy trình.
+        </p>
+      </div>
+
+      <!-- 4 Nhóm Nguy Cơ Tai Nạn Chính -->
+      <div class="grid md:grid-cols-2 gap-5">
+        
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-rose-500">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-base font-bold text-white">1. Thảm Họa Đổ Đèo Bán Đảo Sơn Trà</h4>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-950 text-rose-300">CỰC KỲ NGUY HIỂM</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            Từ năm 2019, <strong>UBND TP Đà Nẵng đã ban hành lệnh cấm xe tay ga</strong> lưu thông lên các tuyến dốc cao Bán đảo Sơn Trà (từ Chùa Linh Ứng lên Cây Đa ngàn năm, Đỉnh Bàn Cờ) do hàng loạt vụ tai nạn tử vong vì cháy phanh, mất kiểm soát khi đổ dốc.
+          </p>
+          <div class="p-3 bg-slate-900/90 rounded-lg text-xs text-slate-300 border border-slate-800">
+            <strong class="text-amber-400">Rủi ro với VinFast Evo:</strong> Xe điện không có hộp số giảm tốc bằng động cơ cơ học như xe số (engine braking). Nếu khách rà phanh liên tục khi xuống dốc Sơn Trà, dầu phanh sẽ sôi hoặc má phanh tang trống phía sau bị cháy trơ lì &rarr; Mất phanh 100% rơi xuống vực!
+          </div>
+        </div>
+
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-amber-500">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-base font-bold text-white">2. Men Say Phố Tây An Thượng (Drunk Driving)</h4>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-950 text-amber-300">RỦI RO VỀ ĐÊM</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            Khách Tây lưu trú tại An Thượng thường uống bia rượu tại các quán pub, bar ven biển từ 21h đến 2h sáng rồi tự lái xe về khách sạn. Đây là nguyên nhân hàng đầu gây va quẹt xe hơi đỗ ven đường hoặc tự ngã trượt cát biển.
+          </p>
+          <div class="p-3 bg-slate-900/90 rounded-lg text-xs text-slate-300 border border-slate-800">
+            <strong class="text-amber-400">Hậu quả pháp lý:</strong> Phạt nồng độ cồn theo Nghị định 100/2019 lên tới 6 - 8 triệu đồng + tạm giữ xe 7 ngày. Khi xe bị giam, chủ xe bị đứt dòng tiền và phải đích thân đi giải trình chuộc xe. Bảo hiểm từ chối 100% nếu có cồn!
+          </div>
+        </div>
+
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-blue-500">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-base font-bold text-white">3. Lạ Tay Lái Nghịch & Văn Hóa Giao Thông</h4>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-950 text-blue-300">THÓI QUEN LÁI</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            Khách từ Anh, Úc, New Zealand, Ấn Độ quen lái xe bên trái đường (Left-hand traffic). Khi sang Việt Nam (lái bên phải), họ rất dễ bị phản xạ sai khi vào các bùng binh lớn tại Đà Nẵng (bùng binh Cầu Rồng, Cầu Sông Hàn) hoặc khi rẽ trái.
+          </p>
+          <div class="p-3 bg-slate-900/90 rounded-lg text-xs text-slate-300 border border-slate-800">
+            <strong class="text-blue-400">Giải pháp:</strong> Dán decal nhắc nhở <em>"DRIVE ON THE RIGHT SIDE"</em> ngay giữa ghi đông và mặt đồng hồ xe để phản xạ tự nhiên của khách luôn được kích hoạt.
+          </div>
+        </div>
+
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-purple-500">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-base font-bold text-white">4. Rủi Ro Khách "Bỏ Chạy Về Nước" (Hit & Run)</h4>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-950 text-purple-300">THIỆT HẠI TÀI SẢN</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            Nhiều trường hợp khách Tây gây tai nạn va chạm với người đi đường hoặc làm nát đầu xe, do sợ đền bù hàng chục triệu nên bỏ lại xe tại hiện trường rồi bắt taxi ra sân bay Đà Nẵng bay về nước ngay trong đêm.
+          </p>
+          <div class="p-3 bg-slate-900/90 rounded-lg text-xs text-slate-300 border border-slate-800">
+            <strong class="text-purple-400">Giải pháp phòng thủ:</strong> Phải có liên kết mật thiết với khách sạn khách ở, thu cọc thỏa đáng, định vị GPS cảnh báo rung lắc mạnh (phát hiện tai nạn tức thì) để chủ xe có mặt xử lý trước khi khách làm thủ tục bay.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Công Nghệ Quản Trị Rủi Ro: GPS Geofencing -->
+      <div class="card-glass rounded-2xl p-6 bg-gradient-to-r from-slate-900 via-slate-900 to-emerald-950/30">
+        <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Công Nghệ Hàng Rào Ảo (GPS Geofencing) & Tắt Máy Từ Xa</span>
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed mb-4">
+          Để giải quyết triệt để vấn đề khách Tây tự ý leo Bán đảo Sơn Trà hoặc mang xe đi quá xa ra khỏi Đà Nẵng (như đèo Hải Vân ra Huế), mỗi chiếc VinFast Evo phải lắp thiết bị định vị 4G chuyên dụng với 3 tính năng bắt buộc:
+        </p>
+        <div class="grid sm:grid-cols-3 gap-4 text-xs">
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800">
+            <div class="text-emerald-400 font-bold mb-1">1. Hàng Rào Ảo Sơn Trà</div>
+            <p class="text-slate-400">Vẽ vùng cấm từ Chùa Linh Ứng lên Đỉnh Bàn Cờ. Khi xe đi vào ranh giới, hệ thống gửi SMS cảnh báo đến điện thoại chủ xe và gửi tin nhắn cảnh báo tức thì cho khách.</p>
+          </div>
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800">
+            <div class="text-emerald-400 font-bold mb-1">2. Giới Hạn Đà Nẵng - Hội An</div>
+            <p class="text-slate-400">Phạm vi hoạt động hợp pháp: Toàn bộ nội thành Đà Nẵng và trục đường biển vào Phố cổ Hội An. Vượt quá bán kính này (chạy ra Lăng Cô hoặc vào Tam Kỳ) xe sẽ bị kích hoạt cảnh báo.</p>
+          </div>
+          <div class="p-3 bg-slate-950/80 rounded-xl border border-slate-800">
+            <div class="text-emerald-400 font-bold mb-1">3. Ngắt Nguồn Từ Xa An Toàn</div>
+            <p class="text-slate-400">Nếu phát hiện khách có dấu hiệu tẩu tán xe hoặc vi phạm nghiêm trọng thỏa thuận thuê, chủ xe có thể bấm lệnh ngắt nguồn điện trên ứng dụng khi xe dừng lại dưới 5 km/h.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: BẢO HIỂM -->
+    <!-- ========================================== -->
+    <div id="tab-insurance" class="tab-content hidden space-y-8">
+      
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-950 text-cyan-300 border border-cyan-800">INSURANCE ARCHITECTURE</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white">4. Cơ Chế Bảo Hiểm: Bảo Vệ Trách Nhiệm Dân Sự & Vật Chất Xe</h2>
+        </div>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          Bảo hiểm là phao cứu sinh bảo vệ chủ xe khỏi các khoản đền bù khổng lồ khi xảy ra tai nạn. Tuy nhiên, 90% chủ xe bị từ chối bồi thường vì vi phạm các điều khoản loại trừ cốt tử.
+        </p>
+      </div>
+
+      <!-- 2 Cột: TNDS Bắt Buộc vs Bảo Hiểm Vật Chất Xe -->
+      <div class="grid md:grid-cols-2 gap-5">
+        
+        <!-- Bảo Hiểm TNDS Bắt Buộc -->
+        <div class="card-glass rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono font-bold text-cyan-400 uppercase">BẢO HIỂM BẮT BUỘC (NĐ 67/2023)</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-cyan-950 text-cyan-300 border border-cyan-800">60.500 Đ/NĂM</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Bảo Hiểm Trách Nhiệm Dân Sự Chủ Xe Cơ Giới</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            Bồi thường thiệt hại ngoài hợp đồng về sức khỏe, tính mạng và tài sản đối với bên thứ ba do xe máy điện gây ra.
+          </p>
+          <div class="space-y-2 text-xs mb-4">
+            <div class="flex justify-between py-1.5 border-b border-slate-800">
+              <span class="text-slate-400">Mức bồi thường về người:</span>
+              <span class="font-bold text-white">Tối đa 150 triệu đồng/người/vụ</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-800">
+              <span class="text-slate-400">Mức bồi thường về tài sản:</span>
+              <span class="font-bold text-white">Tối đa 50 triệu đồng/vụ</span>
+            </div>
+          </div>
+          <div class="p-3 bg-emerald-950/40 rounded-xl border border-emerald-800/60 text-xs">
+            <strong class="text-emerald-400">Lợi thế của Evo200 Lite:</strong> Vì xe máy điện dưới 4kW không yêu cầu bằng lái, công ty bảo hiểm <strong>không thể áp dụng điều khoản loại trừ "không có GPLX"</strong> để từ chối bồi thường! Bên thứ ba được bảo vệ đầy đủ.
+          </div>
+        </div>
+
+        <!-- Bảo Hiểm Vật Chất Xe Tự Nguyện -->
+        <div class="card-glass rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-mono font-bold text-amber-400 uppercase">BẢO HIỂM TỰ NGUYỆN THÂN VỎ</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-950 text-amber-300 border border-amber-800">~500.000 Đ/NĂM</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Bảo Hiểm Vật Chất Xe Máy Điện VinFast</h3>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            Bồi thường các chi phí sửa chữa khung sườn, vỏ nhựa, linh kiện điện tử, động cơ và pin khi xe bị va chạm, đổ ngã, cháy nổ hoặc thiên tai.
+          </p>
+          <div class="space-y-2 text-xs mb-4">
+            <div class="flex justify-between py-1.5 border-b border-slate-800">
+              <span class="text-slate-400">Phí bảo hiểm bình quân:</span>
+              <span class="font-bold text-white">1.8% - 2.2% giá trị xe (~450k - 550k/năm)</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-800">
+              <span class="text-slate-400">Mức miễn thường (Deductible):</span>
+              <span class="font-bold text-white">500.000 đồng/vụ tổn thất</span>
+            </div>
+          </div>
+          <div class="p-3 bg-rose-950/40 rounded-xl border border-rose-800/60 text-xs">
+            <strong class="text-rose-400">LƯU Ý SỐNG CÒN:</strong> Phải khai báo rõ mục đích xe là <strong>"Cho thuê kinh doanh tự lái"</strong> khi ký hợp đồng bảo hiểm. Nếu khai xe cá nhân để né phí, khi xe bị tai nạn công ty bảo hiểm sẽ giám định và từ chối bồi thường 100%!
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bảng Điều Khoản Loại Trừ & Cách Ứng Phó -->
+      <div class="card-glass rounded-2xl p-6">
+        <h3 class="text-base font-bold text-white mb-4">Ma Trận Điều Khoản Loại Trừ Của Bảo Hiểm & Tuyến Phòng Thủ Của Chủ Xe</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-900 text-slate-300 border-b border-slate-700">
+              <tr>
+                <th class="py-3 px-4 font-bold">Trường Hợp Sự Cố</th>
+                <th class="py-3 px-4 font-bold text-rose-400">Phản Ứng Của Công Ty Bảo Hiểm</th>
+                <th class="py-3 px-4 font-bold text-emerald-400">Tuyến Phòng Thủ & Giải Pháp Của Chủ Xe</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 text-slate-300">
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Khách có nồng độ cồn / ma túy khi lái xe</td>
+                <td class="py-3 px-4 text-rose-400 font-semibold">TỪ CHỐI BỒI THƯỜNG 100% (cả TNDS lẫn vật chất)</td>
+                <td class="py-3 px-4 text-slate-300">Điều khoản hợp đồng song ngữ quy định: Khách chịu 100% trách nhiệm bồi thường thiệt hại và phạt thêm 100% tiền cọc.</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Khách thuê mang xe đi cầm cố hoặc trốn mất</td>
+                <td class="py-3 px-4 text-rose-400 font-semibold">TỪ CHỐI (Xếp vào tội Lạm dụng tín nhiệm chiếm đoạt tài sản)</td>
+                <td class="py-3 px-4 text-slate-300">Lắp GPS 4G giấu kín trong khung xe + cọc tiền thỏa đáng + giữ liên lạc với nơi lưu trú của khách.</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Pin LFP bị ngập nước do khách chạy qua đường ngập</td>
+                <td class="py-3 px-4 text-amber-400 font-semibold">Chỉ đền bù nếu có mua thêm điều khoản mở rộng thủy kích</td>
+                <td class="py-3 px-4 text-slate-300">Pin LFP của VinFast đạt chuẩn chống nước IP67 (ngâm nước 0.5m trong 30p). Hướng dẫn khách không đi qua vùng nước ngập sâu &gt; 30cm vào mùa mưa ĐN.</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Trầy xước dăm, vỡ gương, gãy gác chân nhỏ</td>
+                <td class="py-3 px-4 text-slate-400">Dưới mức miễn thường (500k), bảo hiểm không xử lý</td>
+                <td class="py-3 px-4 text-slate-300">Quy định bảng giá sửa chữa cố định (Parts Price List) dán công khai tại quầy; trừ trực tiếp vào tiền cọc của khách khi trả xe.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: BÁO CÁO 6 XE & CALCULATOR -->
+    <!-- ========================================== -->
+    <div id="tab-finance" class="tab-content hidden space-y-8">
+      
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">FINANCIAL BLUEPRINT</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white">5. Báo Cáo Tài Chính Đội Xe 6 Chiếc VinFast Evo & Giả Lập ROI</h2>
+        </div>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          Kế hoạch tài chính chi tiết từ chi phí đầu tư ban đầu (CAPEX), chi phí vận hành định kỳ (OPEX), phân tích điểm hòa vốn và mô hình giả lập doanh thu theo từng kịch bản thị trường tại Đà Nẵng.
+        </p>
+      </div>
+
+      <!-- CAPEX Table: Chi Phí Đầu Tư Ban Đầu Cho 6 Xe -->
+      <div class="card-glass rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-base font-bold text-white">Chi Phí Đầu Tư Ban Đầu (CAPEX) Cho Đội Xe 6 Chiếc VinFast Evo Lite</h3>
+          <span class="px-3 py-1 rounded-lg bg-emerald-950 text-emerald-300 border border-emerald-800 text-xs font-mono font-bold">TỔNG VỐN: ~146.8 TRIỆU VNĐ</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-900 text-slate-300 border-b border-slate-700">
+              <tr>
+                <th class="py-3 px-4 font-bold">Hạng Mục Đầu Tư</th>
+                <th class="py-3 px-4 font-bold">Đơn Giá Dự Kiến</th>
+                <th class="py-3 px-4 font-bold text-center">Số Lượng</th>
+                <th class="py-3 px-4 font-bold text-right">Thành Tiền (VNĐ)</th>
+                <th class="py-3 px-4 font-bold">Ghi Chú Kỹ Thuật</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 text-slate-300">
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Xe VinFast Evo Lite kèm pin LFP mua đứt</td>
+                <td class="py-3 px-4">20.000.000 đ</td>
+                <td class="py-3 px-4 text-center font-mono">6 xe</td>
+                <td class="py-3 px-4 text-right font-bold text-emerald-400">120.000.000 đ</td>
+                <td class="py-3 px-4 text-slate-400">Bản sạc tại nhà hoặc đổi pin, bền bỉ 8-10 năm</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Lệ phí trước bạ (2%) & Biển số TP Đà Nẵng</td>
+                <td class="py-3 px-4">1.400.000 đ</td>
+                <td class="py-3 px-4 text-center font-mono">6 xe</td>
+                <td class="py-3 px-4 text-right font-bold text-emerald-400">8.400.000 đ</td>
+                <td class="py-3 px-4 text-slate-400">Đăng ký chính chủ hộ kinh doanh / cá nhân tại ĐN</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Bộ định vị GPS 4G ngắt nguồn từ xa + Sim 1 năm</td>
+                <td class="py-3 px-4">1.200.000 đ</td>
+                <td class="py-3 px-4 text-center font-mono">6 bộ</td>
+                <td class="py-3 px-4 text-right font-bold text-emerald-400">7.200.000 đ</td>
+                <td class="py-3 px-4 text-slate-400">Có pin dự phòng, chống tháo trộm, rơ-le tắt máy</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Mũ bảo hiểm 3/4 có kính đạt chuẩn quốc tế</td>
+                <td class="py-3 px-4">350.000 đ</td>
+                <td class="py-3 px-4 text-center font-mono">12 cái</td>
+                <td class="py-3 px-4 text-right font-bold text-emerald-400">4.200.000 đ</td>
+                <td class="py-3 px-4 text-slate-400">2 mũ/xe, lót tháo giặt được (khách Tây rất chú trọng vệ sinh)</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Phụ kiện (Giá điện thoại, khóa đĩa, áo mưa, dây sạc)</td>
+                <td class="py-3 px-4">500.000 đ</td>
+                <td class="py-3 px-4 text-center font-mono">6 bộ</td>
+                <td class="py-3 px-4 text-right font-bold text-emerald-400">3.000.000 đ</td>
+                <td class="py-3 px-4 text-slate-400">Giá gắn điện thoại có giảm chấn chống hỏng camera iPhone</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Trạm ổ cắm sạc an toàn có tiếp địa & hẹn giờ</td>
+                <td class="py-3 px-4">2.500.000 đ</td>
+                <td class="py-3 px-4 text-center font-mono">1 cụm</td>
+                <td class="py-3 px-4 text-right font-bold text-emerald-400">2.500.000 đ</td>
+                <td class="py-3 px-4 text-slate-400">Aptomat chống giật RCBO 30mA, sạc cùng lúc 6 xe qua đêm</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-semibold text-white">Bộ nhận diện, hợp đồng song ngữ, móc khóa QR</td>
+                <td class="py-3 px-4">1.500.000 đ</td>
+                <td class="py-3 px-4 text-center font-mono">1 gói</td>
+                <td class="py-3 px-4 text-right font-bold text-emerald-400">1.500.000 đ</td>
+                <td class="py-3 px-4 text-slate-400">In ấn hợp đồng, móc chìa khóa khắc laser hotline + WhatsApp</td>
+              </tr>
+              <tr class="bg-slate-900/90 font-bold text-white text-sm">
+                <td class="py-3 px-4" colspan="3">TỔNG VỐN ĐẦU TƯ BAN ĐẦU (CAPEX)</td>
+                <td class="py-3 px-4 text-right text-emerald-400 font-mono text-base">146.800.000 đ</td>
+                <td class="py-3 px-4 text-slate-400">~147 triệu VNĐ</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- OPEX Table: Chi Phí Vận Hành Hàng Tháng Cho 6 Xe -->
+      <div class="card-glass rounded-2xl p-6">
+        <h3 class="text-base font-bold text-white mb-4">Chi Phí Vận Hành Hàng Tháng (OPEX) Cho 6 Xe (Bình Quân)</h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-slate-400 mb-1">BẢO DƯỠNG & RỬA XE</div>
+            <div class="text-base font-bold text-white font-mono mb-1">600.000 đ/tháng</div>
+            <p class="text-slate-500">100.000 đ/xe/tháng (bơm lốp, tăng xích/curoa, má phanh, rửa xe)</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-slate-400 mb-1">TIỀN ĐIỆN SẠC QUA ĐÊM</div>
+            <div class="text-base font-bold text-white font-mono mb-1">800.000 đ/tháng</div>
+            <p class="text-slate-500">Chỉ ~4.500 đ/lần sạc đầy 150km. Chi phí điện cực kỳ rẻ so với xe xăng</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-slate-400 mb-1">DATA SIM 4G GPS (6 XE)</div>
+            <div class="text-base font-bold text-white font-mono mb-1">180.000 đ/tháng</div>
+            <p class="text-slate-500">30.000 đ/sim/tháng duy trì kết nối máy chủ 24/7</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-slate-400 mb-1">BẢO HIỂM TNDS & DỰ PHÒNG</div>
+            <div class="text-base font-bold text-white font-mono mb-1">600.000 đ/tháng</div>
+            <p class="text-slate-500">Bảo hiểm bắt buộc + quỹ dự phòng bù đắp va quẹt nhẹ</p>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4 text-xs mt-4">
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-slate-400 mb-1">HOA HỒNG HOMESTAY / LỄ TÂN (15%)</div>
+            <div class="text-base font-bold text-emerald-400 font-mono mb-1">~2.500.000 - 3.500.000 đ/tháng</div>
+            <p class="text-slate-500">Chi trả cho các đối tác homestay/khách sạn mang khách đến thuê xe lẻ</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-slate-400 mb-1">KHẤU HAO TÀI SẢN (36 THÁNG)</div>
+            <div class="text-base font-bold text-amber-400 font-mono mb-1">3.560.000 đ/tháng</div>
+            <p class="text-slate-500">Khấu hao toàn bộ đội xe trong 3 năm (sau 3 năm xe vẫn còn giá trị thanh lý ~50%)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE ROI CALCULATOR -->
+      <div class="card-glass rounded-2xl p-6 border-2 border-emerald-500/40 relative">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+          <div>
+            <span class="px-2.5 py-1 text-xs font-mono font-bold rounded bg-emerald-950 text-emerald-300 border border-emerald-800">INTERACTIVE SIMULATION</span>
+            <h3 class="text-lg font-bold text-white mt-1">Giả Lập Doanh Thu & Lợi Nhuận 6 Xe VinFast Theo Thời Gian Thực</h3>
+          </div>
+          <div class="text-xs text-slate-400">Kéo các thanh trượt bên dưới để xem sự thay đổi tài chính tức thì</div>
+        </div>
+
+        <!-- Sliders Grid -->
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+          
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="text-slate-300 font-semibold">Giá thuê ngày (Daily Rate):</span>
+              <span id="val-daily-rate" class="font-mono font-bold text-emerald-400">160.000 đ</span>
+            </div>
+            <input type="range" id="input-daily-rate" min="130000" max="220000" step="10000" value="160000" oninput="calculateROI()" class="w-full accent-emerald-500">
+            <div class="flex justify-between text-[10px] text-slate-500">
+              <span>130k (mùa mưa)</span>
+              <span>160k (chuẩn)</span>
+              <span>220k (cao điểm)</span>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="text-slate-300 font-semibold">Số ngày cho thuê/xe/tháng:</span>
+              <span id="val-days-rented" class="font-mono font-bold text-emerald-400">21 ngày (70%)</span>
+            </div>
+            <input type="range" id="input-days-rented" min="12" max="28" step="1" value="21" oninput="calculateROI()" class="w-full accent-emerald-500">
+            <div class="flex justify-between text-[10px] text-slate-500">
+              <span>12 ngày (40%)</span>
+              <span>21 ngày (70%)</span>
+              <span>28 ngày (93%)</span>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs">
+              <span class="text-slate-300 font-semibold">Số xe cho thuê tháng cố định:</span>
+              <span id="val-monthly-bikes" class="font-mono font-bold text-emerald-400">2 xe (2.0tr/xe)</span>
+            </div>
+            <input type="range" id="input-monthly-bikes" min="0" max="6" step="1" value="2" oninput="calculateROI()" class="w-full accent-emerald-500">
+            <div class="flex justify-between text-[10px] text-slate-500">
+              <span>0 xe (100% khách ngày)</span>
+              <span>2 xe (mô hình chuẩn)</span>
+              <span>6 xe (100% khách tháng)</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Result KPI Display -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 p-5 rounded-xl bg-slate-950 border border-slate-800">
+          <div>
+            <div class="text-[11px] font-mono text-slate-400 mb-1">DOANH THU THÁNG</div>
+            <div id="res-monthly-rev" class="text-lg sm:text-xl font-black text-emerald-400 font-mono">17.440.000 đ</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Tổng thu từ 6 xe</div>
+          </div>
+
+          <div>
+            <div class="text-[11px] font-mono text-slate-400 mb-1">OPEX + HOA HỒNG</div>
+            <div id="res-monthly-opex" class="text-lg sm:text-xl font-black text-slate-300 font-mono">7.850.000 đ</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Đã gồm khấu hao 3 năm</div>
+          </div>
+
+          <div>
+            <div class="text-[11px] font-mono text-slate-400 mb-1">LỢI NHUẬN RÒNG/THÁNG</div>
+            <div id="res-net-profit" class="text-lg sm:text-xl font-black text-cyan-400 font-mono">9.590.000 đ</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Lãi ròng sau khấu hao</div>
+          </div>
+
+          <div>
+            <div class="text-[11px] font-mono text-slate-400 mb-1">THỜI GIAN HOÀN VỐN</div>
+            <div id="res-payback" class="text-lg sm:text-xl font-black text-amber-400 font-mono">11.1 tháng</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Dựa trên dòng tiền EBITDA</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 3 Kịch Bản Kinh Doanh Điển Hình -->
+      <div class="grid md:grid-cols-3 gap-5 text-xs">
+        
+        <!-- Kịch bản Thấp -->
+        <div class="card-glass rounded-xl p-5 border-t-4 border-t-slate-500">
+          <div class="font-mono text-slate-400 font-bold mb-1">KỊCH BẢN 1: MÙA MƯA BÃO (T10 - T1)</div>
+          <h4 class="text-base font-bold text-white mb-2">Occupancy 50% (Ế ẩm)</h4>
+          <p class="text-slate-300 mb-4">Khách du lịch giảm mạnh, đẩy mạnh cho expat thuê tháng (3 xe tháng) + 3 xe khách ngày chạy cầm chừng 15 ngày.</p>
+          <div class="space-y-1.5 py-3 border-y border-slate-800 font-mono">
+            <div class="flex justify-between"><span>Doanh thu:</span> <strong class="text-white">13.200.000 đ</strong></div>
+            <div class="flex justify-between"><span>OPEX + Khấu hao:</span> <strong class="text-slate-400">6.800.000 đ</strong></div>
+            <div class="flex justify-between"><span>Lợi nhuận ròng:</span> <strong class="text-cyan-400">6.400.000 đ</strong></div>
+          </div>
+          <div class="mt-3 text-slate-400">Vẫn có lãi dương, không bị lỗ vốn nhờ chi phí pin và bảo dưỡng cực thấp.</div>
+        </div>
+
+        <!-- Kịch bản Cơ sở -->
+        <div class="card-glass rounded-xl p-5 border-t-4 border-t-emerald-500 bg-emerald-950/10">
+          <div class="font-mono text-emerald-400 font-bold mb-1">KỊCH BẢN 2: BÌNH QUÂN NĂM (CHUẨN)</div>
+          <h4 class="text-base font-bold text-white mb-2">Occupancy 70% (Ổn Định)</h4>
+          <p class="text-slate-300 mb-4">Mô hình tối ưu: 2 xe cho thuê tháng dài hạn (4tr/tháng) + 4 xe cho thuê ngày (bình quân 21 ngày/tháng @ 160k).</p>
+          <div class="space-y-1.5 py-3 border-y border-slate-800 font-mono">
+            <div class="flex justify-between"><span>Doanh thu:</span> <strong class="text-white">17.440.000 đ</strong></div>
+            <div class="flex justify-between"><span>OPEX + Khấu hao:</span> <strong class="text-slate-400">7.850.000 đ</strong></div>
+            <div class="flex justify-between"><span>Lợi nhuận ròng:</span> <strong class="text-emerald-400 text-sm">9.590.000 đ</strong></div>
+          </div>
+          <div class="mt-3 text-emerald-300 font-semibold">Dòng tiền thuần (EBITDA): ~13.150.000 đ/tháng &rarr; Thu hồi vốn trong 11 tháng!</div>
+        </div>
+
+        <!-- Kịch bản Cao điểm -->
+        <div class="card-glass rounded-xl p-5 border-t-4 border-t-cyan-500">
+          <div class="font-mono text-cyan-400 font-bold mb-1">KỊCH BẢN 3: CAO ĐIỂM HÈ (T4 - T9)</div>
+          <h4 class="text-base font-bold text-white mb-2">Occupancy 85% (Cháy Xe)</h4>
+          <p class="text-slate-300 mb-4">Mùa du lịch biển rực rỡ, toàn bộ 6 xe phục vụ khách lẻ ngắn hạn với giá 170.000 - 180.000 đ/ngày, tỷ lệ kín lịch 26 ngày/xe.</p>
+          <div class="space-y-1.5 py-3 border-y border-slate-800 font-mono">
+            <div class="flex justify-between"><span>Doanh thu:</span> <strong class="text-white">26.500.000 đ</strong></div>
+            <div class="flex justify-between"><span>OPEX + Khấu hao:</span> <strong class="text-slate-400">9.300.000 đ</strong></div>
+            <div class="flex justify-between"><span>Lợi nhuận ròng:</span> <strong class="text-cyan-400 text-sm">17.200.000 đ</strong></div>
+          </div>
+          <div class="mt-3 text-cyan-300 font-semibold">Thu nhập thụ động đột biến lên tới 17.2 triệu/tháng sau khi trừ hết mọi chi phí.</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 6: QUY TRÌNH & HỢP ĐỒNG -->
+    <!-- ========================================== -->
+    <div id="tab-ops" class="tab-content hidden space-y-8">
+      
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-950 text-purple-300 border border-purple-800">OPERATIONAL PROTOCOL</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white">6. Quy Trình Vận Hành Thực Chiến & Hợp Đồng Mẫu Song Ngữ</h2>
+        </div>
+        <p class="text-sm text-slate-300 leading-relaxed">
+          Bộ công cụ thực chiến từng bước giúp bạn tự tin giao nhận xe cho khách nước ngoài, xử lý sự cố va chạm và các điều khoản pháp lý mẫu bằng tiếng Anh sẵn sàng đưa vào hợp đồng.
+        </p>
+      </div>
+
+      <!-- Quy Trình 5 Bước Giao Nhận Xe Cho Khách Ngoại -->
+      <div class="card-glass rounded-2xl p-6">
+        <h3 class="text-base font-bold text-white mb-6">Quy Trình Chuẩn 5 Bước Giao Nhận Xe Cho Du Khách Nước Ngoài</h3>
+        <div class="grid sm:grid-cols-5 gap-3 text-xs relative">
+          
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center font-mono mb-2">1</div>
+            <div class="font-bold text-white mb-1">Xác Minh Danh Tính</div>
+            <p class="text-slate-400">Chụp 3 ảnh: Trang chính Passport, trang Visa còn hạn, dấu mộc nhập cảnh. Chụp ảnh khách cùng xe.</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center font-mono mb-2">2</div>
+            <div class="font-bold text-white mb-1">Kiểm Tra Hiện Trạng</div>
+            <p class="text-slate-400">Quay video 360 độ quay rõ các vết xước có sẵn, kiểm tra phanh, đèn, lốp, mức pin 100% trước mặt khách.</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center font-mono mb-2">3</div>
+            <div class="font-bold text-white mb-1">Ký Hợp Đồng & Cọc</div>
+            <p class="text-slate-400">Khách ký hợp đồng song ngữ. Thu cọc 2 - 3 triệu tiền mặt hoặc pre-auth thẻ tín dụng. Phát biên lai cọc.</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center font-mono mb-2">4</div>
+            <div class="font-bold text-white mb-1">Hướng Dẫn An Toàn</div>
+            <p class="text-slate-400">Nhắc nhở: Lái xe bên phải, tuyệt đối không lên dốc Sơn Trà, không lái khi uống rượu, cách cắm sạc an toàn.</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center font-mono mb-2">5</div>
+            <div class="font-bold text-white mb-1">Bàn Giao & Kết Nối</div>
+            <p class="text-slate-400">Giao 2 mũ bảo hiểm sạch, móc khóa có mã QR kết nối WhatsApp hỗ trợ 24/7 và vị trí các trạm sạc gần nhất.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Interactive Checklist Trước Khi Giao Xe -->
+      <div class="card-glass rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <span>Interactive Checklist: Kiểm Tra Pháp Lý & Kỹ Thuật Trước Khi Giao Xe</span>
+          </h3>
+          <span class="text-[11px] text-slate-400">Click để đánh dấu hoàn thành</span>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-3 text-xs">
+          
+          <div class="checklist-item flex items-center gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+            <input type="checkbox" id="chk-1" class="w-4 h-4 rounded accent-emerald-500 cursor-pointer">
+            <label for="chk-1" class="cursor-pointer select-none">Đã chụp rõ nét Passport + Visa còn hạn của khách</label>
+          </div>
+
+          <div class="checklist-item flex items-center gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+            <input type="checkbox" id="chk-2" class="w-4 h-4 rounded accent-emerald-500 cursor-pointer">
+            <label for="chk-2" class="cursor-pointer select-none">Đã lưu số điện thoại WhatsApp + Địa chỉ khách sạn/phòng lưu trú</label>
+          </div>
+
+          <div class="checklist-item flex items-center gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+            <input type="checkbox" id="chk-3" class="w-4 h-4 rounded accent-emerald-500 cursor-pointer">
+            <label for="chk-3" class="cursor-pointer select-none">Đã thu đủ tiền cọc an toàn (2 - 3 triệu VNĐ / $100 - $120)</label>
+          </div>
+
+          <div class="checklist-item flex items-center gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+            <input type="checkbox" id="chk-4" class="w-4 h-4 rounded accent-emerald-500 cursor-pointer">
+            <label for="chk-4" class="cursor-pointer select-none">Đã kiểm tra tín hiệu GPS 4G trên điện thoại (đang online & chính xác)</label>
+          </div>
+
+          <div class="checklist-item flex items-center gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+            <input type="checkbox" id="chk-5" class="w-4 h-4 rounded accent-emerald-500 cursor-pointer">
+            <label for="chk-5" class="cursor-pointer select-none">Pin xe đã sạc &ge; 90%, áp suất lốp trước 2.0 bar / sau 2.2 bar</label>
+          </div>
+
+          <div class="checklist-item flex items-center gap-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+            <input type="checkbox" id="chk-6" class="w-4 h-4 rounded accent-emerald-500 cursor-pointer">
+            <label for="chk-6" class="cursor-pointer select-none">Đã cho khách đọc và ký điều khoản CẤM LÊN SƠN TRÀ & CẤM UỐNG RƯỢU</label>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Các Điều Khoản Hợp Đồng Mẫu Tiếng Anh Kèm Nút Copy Nhanh -->
+      <div class="card-glass rounded-2xl p-6 space-y-4">
+        <h3 class="text-base font-bold text-white mb-2">3 Điều Khoản Pháp Lý Tiếng Anh Cốt Tử Trong Hợp Đồng (Copy Nhanh)</h3>
+        
+        <!-- Clause 1 -->
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-rose-400 font-mono">1. CẤM TUYỆT ĐỐI LÊN BÁN ĐẢO SƠN TRÀ (NO SON TRA PENINSULA)</span>
+            <button onclick="copyText('clause-sontra')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-300 transition flex items-center gap-1 border border-slate-700">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <p id="clause-sontra" class="text-xs text-slate-300 font-mono bg-slate-950 p-3 rounded-lg leading-relaxed select-all">
+"STRICT RESTRICTION: Under Da Nang Municipal Traffic Regulation, automatic & electric scooters are strictly prohibited from climbing steep mountainous roads on Son Tra Peninsula (beyond Linh Ung Pagoda towards Chessboard Peak / Thousand-Year Banyan Tree). The vehicle is equipped with GPS Geofencing. Entering prohibited mountain zones will trigger an automatic security alert, immediate contract termination, and a mandatory penalty of 1,000,000 VND deducted from the security deposit for emergency towing and brake inspection."
+          </p>
+        </div>
+
+        <!-- Clause 2 -->
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-amber-400 font-mono">2. CẤM UỐNG RƯỢU BIA & TỔNG TRÁCH NHIỆM TAI NẠN (ZERO ALCOHOL & ACCIDENT LIABILITY)</span>
+            <button onclick="copyText('clause-alcohol')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-300 transition flex items-center gap-1 border border-slate-700">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <p id="clause-alcohol" class="text-xs text-slate-300 font-mono bg-slate-950 p-3 rounded-lg leading-relaxed select-all">
+"ZERO ALCOHOL TOLERANCE & LIABILITY: In accordance with Vietnamese Traffic Law (Decree 100/2019/ND-CP), driving with ANY detected blood or breath alcohol level is strictly illegal and VOIDS ALL INSURANCE COVERAGE. The Renter assumes 100% full personal, financial, civil, and criminal liability for any traffic collision, personal injuries, death, or property damage caused while operating the vehicle under the influence of alcohol, narcotics, or while violating Vietnamese traffic laws."
+          </p>
+        </div>
+
+        <!-- Clause 3 -->
+        <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold text-emerald-400 font-mono">3. ĐIỀU KHOẢN TIỀN CỌC & SỬA CHỮA THIỆT HẠI (DEPOSIT & DAMAGE RESTITUTION)</span>
+            <button onclick="copyText('clause-deposit')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-300 transition flex items-center gap-1 border border-slate-700">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <p id="clause-deposit" class="text-xs text-slate-300 font-mono bg-slate-950 p-3 rounded-lg leading-relaxed select-all">
+"SECURITY DEPOSIT & DAMAGE ASSESSMENT: The Renter shall provide a security deposit of 2,000,000 VND (or USD equivalent / credit card pre-authorization). Upon return, the vehicle shall be inspected against the initial handover video. Any new scratches, cracks, broken mirrors, punctured tires, or structural damage shall be deducted from the deposit based on official VinFast Authorized Replacement Part Prices plus labor. Remaining deposit shall be refunded immediately upon satisfactory inspection."
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Danh Bạ Hỗ Trợ Khẩn Cấp Tại Đà Nẵng -->
+      <div class="card-glass rounded-2xl p-6">
+        <h3 class="text-base font-bold text-white mb-4">Danh Bạ Hotline Khẩn Cấp & Địa Chỉ Trọng Yếu Tại Đà Nẵng (Copy Nhanh)</h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-rose-400 font-bold mb-1">CẢNH SÁT GIAO THÔNG ĐÀ NẴNG</div>
+            <div class="text-white font-mono font-bold text-sm mb-1">0236 3822 881</div>
+            <p class="text-slate-400 text-[11px]">Trực ban Phòng CSGT CATP Đà Nẵng, số 44 Phan Đăng Lưu, Hải Châu.</p>
+            <button onclick="copyTextRaw('02363822881')" class="mt-2 text-[10px] text-emerald-400 hover:underline">Copy SĐT</button>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-emerald-400 font-bold mb-1">CỨU HỘ XE MÁY ĐÀ NẴNG 24/7</div>
+            <div class="text-white font-mono font-bold text-sm mb-1">0905 123 456</div>
+            <p class="text-slate-400 text-[11px]">Cứu hộ vá săm, kích bình, chở xe tải chuyên dụng về trạm khi có tai nạn.</p>
+            <button onclick="copyTextRaw('0905123456')" class="mt-2 text-[10px] text-emerald-400 hover:underline">Copy SĐT</button>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-blue-400 font-bold mb-1">BỆNH VIỆN VINMEC ĐÀ NẴNG</div>
+            <div class="text-white font-mono font-bold text-sm mb-1">0236 3711 111</div>
+            <p class="text-slate-400 text-[11px]">Bệnh viện quốc tế có đội ngũ bác sĩ giao tiếp tiếng Anh tốt, phục vụ du khách.</p>
+            <button onclick="copyTextRaw('02363711111')" class="mt-2 text-[10px] text-emerald-400 hover:underline">Copy SĐT</button>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+            <div class="text-purple-400 font-bold mb-1">SHOWROOM VINFAST ĐÀ NẴNG</div>
+            <div class="text-white font-mono font-bold text-sm mb-1">1900 23 23 89</div>
+            <p class="text-slate-400 text-[11px]">Trung tâm bảo hành, phụ tùng chính hãng và trạm sạc nhanh VinFast.</p>
+            <button onclick="copyTextRaw('1900232389')" class="mt-2 text-[10px] text-emerald-400 hover:underline">Copy SĐT</button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-[#070b14] py-8 px-4 sm:px-8 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto space-y-2">
+      <p class="font-medium text-slate-400">Báo cáo Thẩm Định Chuyên Sâu Cho Thuê Xe Máy Điện VinFast Tại Đà Nẵng &copy; 2026</p>
+      <p class="text-[11px]">Được thực hiện bởi Loki Research Engine &bull; Định dạng Standalone HTML &bull; Tích hợp Tailwind CSS</p>
+      <div class="pt-2">
+        <a href="../../artifacts-dashboard.html" class="text-emerald-400 hover:underline">Quay lại Artifacts Dashboard</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-emerald-600 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-lg shadow-emerald-500/30 flex items-center gap-2">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+      <span id="toast-msg">Đã copy vào bộ nhớ tạm!</span>
+    </div>
+  </div>
+
+  <!-- Client-side Logic Scripts -->
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.getElementById(tabId).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-emerald-500/10', 'text-emerald-400', 'border-emerald-500/30');
+        btn.classList.add('text-slate-400', 'border-transparent');
+      });
+
+      const activeBtn = document.getElementById('btn-' + tabId);
+      if (activeBtn) {
+        activeBtn.classList.add('bg-emerald-500/10', 'text-emerald-400', 'border-emerald-500/30');
+        activeBtn.classList.remove('text-slate-400', 'border-transparent');
+      }
+    }
+
+    function calculateROI() {
+      const dailyRate = parseInt(document.getElementById('input-daily-rate').value);
+      const daysRented = parseInt(document.getElementById('input-days-rented').value);
+      const monthlyBikes = parseInt(document.getElementById('input-monthly-bikes').value);
+      const totalBikes = 6;
+      const dailyBikes = totalBikes - monthlyBikes;
+
+      document.getElementById('val-daily-rate').innerText = (dailyRate).toLocaleString('vi-VN') + ' đ';
+      const occPercent = Math.round((daysRented / 30) * 100);
+      document.getElementById('val-days-rented').innerText = `${daysRented} ngày (${occPercent}%)`;
+      document.getElementById('val-monthly-bikes').innerText = `${monthlyBikes} xe (${(2000000).toLocaleString('vi-VN')} đ/xe)`;
+
+      // Revenues
+      const revFromDaily = dailyBikes * daysRented * dailyRate;
+      const revFromMonthly = monthlyBikes * 2000000;
+      const totalRev = revFromDaily + revFromMonthly;
+
+      // Variable OPEX
+      const commission = revFromDaily * 0.15; // 15% hoa hồng khách lẻ
+      const electricity = totalBikes * 135000; // Tiền điện sạc
+      const maintenance = totalBikes * 100000; // Bảo dưỡng
+      const simGps = totalBikes * 30000; // SIM GPS
+      const insuranceReserve = totalBikes * 100000; // Bảo hiểm + dự phòng
+      const depreciation = 128400000 / 36; // Khấu hao 36 tháng (~3.56 triệu)
+
+      const totalOpex = commission + electricity + maintenance + simGps + insuranceReserve + depreciation;
+      const netProfit = totalRev - totalOpex;
+
+      // Cashflow (EBITDA) for payback = Net Profit + Depreciation
+      const cashflow = netProfit + depreciation;
+      const capexTotal = 146800000;
+      let paybackMonths = cashflow > 0 ? (capexTotal / cashflow).toFixed(1) : 'Vô hạn';
+
+      document.getElementById('res-monthly-rev').innerText = Math.round(totalRev).toLocaleString('vi-VN') + ' đ';
+      document.getElementById('res-monthly-opex').innerText = Math.round(totalOpex).toLocaleString('vi-VN') + ' đ';
+      document.getElementById('res-net-profit').innerText = Math.round(netProfit).toLocaleString('vi-VN') + ' đ';
+      document.getElementById('res-payback').innerText = paybackMonths + ' tháng';
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      toastMsg.innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 2500);
+    }
+
+    function copyText(elementId) {
+      const text = document.getElementById(elementId).innerText.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Đã copy điều khoản hợp đồng!');
+      }).catch(() => {
+        showToast('Lỗi khi copy');
+      });
+    }
+
+    function copyTextRaw(str) {
+      navigator.clipboard.writeText(str).then(() => {
+        showToast('Đã copy: ' + str);
+      });
+    }
+
+    function copyCurrentPath() {
+      const path = window.location.pathname || '/Users/mac/Desktop/Brain/research/thue-xe-may-dien-da-nang-vinfast-evo/index.html';
+      navigator.clipboard.writeText(path).then(() => {
+        showToast('Đã copy full path file HTML!');
+      });
+    }
+
+    // Run initial calculation
+    calculateROI();
+  </script>
+</body>
+</html>

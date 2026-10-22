@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automation & Data Ingestion Console</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-subtle: #21262d;
+      --border: #30363d;
+      --border-muted: #21262d;
+      --text: #f0f6fc;
+      --text-muted: #8b949e;
+      --text-dim: #6e7681;
+      --accent: #2f81f7;
+      --accent-hover: #58a6ff;
+      --success: #3fb950;
+      --success-bg: rgba(63, 185, 80, 0.1);
+      --warning: #d29922;
+      --warning-bg: rgba(210, 153, 34, 0.1);
+      --danger: #f85149;
+      --danger-bg: rgba(248, 81, 73, 0.1);
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      font-size: 14px;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Common Button Styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 20px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background-color: var(--surface-subtle);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.12s ease;
+      white-space: nowrap;
+    }
+    .btn:hover {
+      background-color: #30363d;
+      border-color: #8b949e;
+    }
+    .btn-primary {
+      background-color: #238636;
+      border-color: rgba(240, 246, 252, 0.1);
+      color: #ffffff;
+    }
+    .btn-primary:hover {
+      background-color: #2ea043;
+      border-color: rgba(240, 246, 252, 0.1);
+    }
+    .btn-danger {
+      color: var(--danger);
+    }
+    .btn-danger:hover {
+      background-color: var(--danger-bg);
+      border-color: var(--danger);
+    }
+
+    /* SVG Icon utility */
+    .icon {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* Left Sidebar */
+    aside {
+      width: 280px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .sidebar-top {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .app-brand {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.2px;
+    }
+    .app-env {
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      padding: 1px 6px;
+      border-radius: 10px;
+      margin-left: auto;
+    }
+
+    .nav-label {
+      padding: 16px 20px 8px 20px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .sidebar-menu {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .menu-link {
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: all 0.1s;
+    }
+    .menu-link:hover {
+      background: var(--surface-subtle);
+      color: var(--text);
+    }
+    .menu-link.active {
+      background: rgba(47, 129, 247, 0.15);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .action-item {
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      transition: all 0.1s;
+      border: 1px solid transparent;
+    }
+    .action-item:hover {
+      background: var(--surface-subtle);
+    }
+    .action-item.active {
+      background: #1c2128;
+      border-color: #388bfd;
+    }
+    .action-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .action-item-name {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 170px;
+    }
+    .action-item-sub {
+      font-size: 11px;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10.5px;
+      font-weight: 500;
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+    .badge-active {
+      background: var(--success-bg);
+      color: var(--success);
+      border: 1px solid rgba(63, 185, 80, 0.2);
+    }
+    .badge-paused {
+      background: var(--warning-bg);
+      color: var(--warning);
+      border: 1px solid rgba(210, 153, 34, 0.2);
+    }
+
+    .sidebar-footer {
+      padding: 12px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Main Workspace */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background: var(--bg);
+    }
+
+    /* Navigation Bar */
+    .top-nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .breadcrumb-item.active {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .breadcrumb-separator {
+      color: var(--text-dim);
+    }
+
+    .content-area {
+      padding: 24px 28px 60px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Stats Grid */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .metric-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 16px;
+    }
+    .metric-label {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .metric-val {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+    }
+    .metric-foot {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+
+    /* Card Panels */
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #1a202c;
+    }
+    .panel-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .panel-body {
+      padding: 18px;
+    }
+
+    /* Form Controls */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .form-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+    }
+    .form-control {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 12px;
+      color: var(--text);
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-control:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+    textarea.form-control {
+      min-height: 60px;
+      resize: vertical;
+    }
+    .form-row-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 12px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Standard Data Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      text-align: left;
+    }
+    th {
+      background: #13171f;
+      padding: 10px 16px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-muted);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background-color: rgba(255, 255, 255, 0.02); }
+
+    .prompt-snippet {
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+    }
+    .prompt-id {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 2px;
+    }
+    .code-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: var(--surface-subtle);
+      border: 1px solid var(--border);
+      padding: 1px 5px;
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+
+    /* Tab Controls */
+    .tab-nav {
+      display: flex;
+      gap: 20px;
+      border-bottom: 1px solid var(--border);
+      padding: 0 18px;
+    }
+    .tab-link {
+      padding: 12px 0;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.12s;
+    }
+    .tab-link:hover { color: var(--text); }
+    .tab-link.active {
+      color: var(--text);
+      border-bottom-color: #f78166;
+    }
+
+    /* Dedicated View Specifics */
+    #dedicatedView { display: none; }
+    .prompt-block {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--text);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Left Sidebar -->
+  <aside>
+    <div class="sidebar-top">
+      <svg class="icon" style="color:var(--accent);" viewBox="0 0 24 24">
+        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+      </svg>
+      <span class="app-brand">Automation Console</span>
+      <span class="app-env">v0.1</span>
+    </div>
+
+    <!-- Menu Section -->
+    <div class="nav-label">General</div>
+    <div style="padding: 0 10px;">
+      <div class="menu-link active" id="menuOverview" onclick="showOverview()">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <span>Overview Dashboard</span>
+      </div>
+    </div>
+
+    <!-- Actions List -->
+    <div class="nav-label">Scheduled Tasks (4)</div>
+    <div class="sidebar-menu" id="sideActionList">
+
+      <!-- Item 1: S24 Ultra -->
+      <div class="action-item" id="side-s24u" onclick="openDedicatedAction('s24u')">
+        <div class="action-item-header">
+          <span class="action-item-name">S24 Ultra Price Hunter</span>
+          <span class="badge-status badge-active" id="badge-side-s24u">Active</span>
+        </div>
+        <div class="action-item-sub">
+          <span>chotot.com</span>
+          <span>1h • 142 rows</span>
+        </div>
+      </div>
+
+      <!-- Item 2: iPhone 15 -->
+      <div class="action-item" id="side-ip15" onclick="openDedicatedAction('ip15')">
+        <div class="action-item-header">
+          <span class="action-item-name">iPhone 15 Pro Max VN/A</span>
+          <span class="badge-status badge-active">Active</span>
+        </div>
+        <div class="action-item-sub">
+          <span>chotot.com</span>
+          <span>30m • 86 rows</span>
+        </div>
+      </div>
+
+      <!-- Item 3: BĐS -->
+      <div class="action-item" id="side-bds" onclick="openDedicatedAction('bds')">
+        <div class="action-item-header">
+          <span class="action-item-name">BĐS Bình Thạnh Bán Gấp</span>
+          <span class="badge-status badge-paused">Paused</span>
+        </div>
+        <div class="action-item-sub">
+          <span>batdongsan</span>
+          <span>daily • 24 rows</span>
+        </div>
+      </div>
+
+      <!-- Item 4: News -->
+      <div class="action-item" id="side-news" onclick="openDedicatedAction('news')">
+        <div class="action-item-header">
+          <span class="action-item-name">AI Agent Research Digest</span>
+          <span class="badge-status badge-active">Active</span>
+        </div>
+        <div class="action-item-sub">
+          <span>techcrunch</span>
+          <span>6h • 48 rows</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sidebar-footer">
+      <span style="display:flex; align-items:center; gap:6px;">
+        <span style="width:6px; height:6px; border-radius:50%; background:var(--success);"></span>
+        <span>Engine: Online</span>
+      </span>
+      <span class="code-tag">SQLite WAL</span>
+    </div>
+  </aside>
+
+  <!-- Main View -->
+  <main>
+
+    <!-- Top Breadcrumb Bar -->
+    <div class="top-nav">
+      <div class="breadcrumb" id="topBreadcrumb">
+        <span class="breadcrumb-item active">Overview Dashboard</span>
+      </div>
+      <div>
+        <button class="btn" onclick="alert('Refreshed data from SQLite database')">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          <span>Refresh</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ================= VIEW 1: OVERVIEW DASHBOARD ================= -->
+    <div class="content-area" id="overviewView">
+
+      <!-- Metrics Row -->
+      <div class="stats-row">
+        <div class="metric-panel">
+          <div class="metric-label">Total Tasks</div>
+          <div class="metric-val">4</div>
+          <div class="metric-foot">3 active, 1 paused</div>
+        </div>
+        <div class="metric-panel">
+          <div class="metric-label">Automated Runs</div>
+          <div class="metric-val">128</div>
+          <div class="metric-foot">98.4% success rate</div>
+        </div>
+        <div class="metric-panel">
+          <div class="metric-label">Records Ingestion</div>
+          <div class="metric-val">1,420</div>
+          <div class="metric-foot">Indexed via SQLite FTS5</div>
+        </div>
+        <div class="metric-panel">
+          <div class="metric-label">Next Scheduled Run</div>
+          <div class="metric-val" style="color:var(--success);">in 12m</div>
+          <div class="metric-foot">Task: iPhone 15 Pro Max</div>
+        </div>
+      </div>
+
+      <!-- Create New Action Panel -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Create Scheduled Task</span>
+          <span style="font-size:11px; color:var(--text-dim);">Prompt-driven execution</span>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label class="form-label">Task Prompt</label>
+            <textarea 
+              id="inputPrompt" 
+              class="form-control" 
+              placeholder="Describe the search and storage action in plain language (e.g. Scrape Samsung Galaxy S24 Ultra listings on Chợ Tốt under 14 million VND within 7 days, filter out broken screens and save verified listings to database)..."
+            ></textarea>
+          </div>
+
+          <div class="form-row-actions">
+            <div style="display:flex; align-items:center; gap:16px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <label class="form-label" style="margin:0;">Schedule:</label>
+                <select id="selectSchedule" class="form-control" style="padding:4px 8px; font-size:12px;">
+                  <option value="30m">Every 30 minutes</option>
+                  <option value="1h" selected>Every 1 hour</option>
+                  <option value="6h">Every 6 hours</option>
+                  <option value="daily_8am">Daily at 08:00</option>
+                  <option value="once">Run once immediately</option>
+                </select>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:8px;">
+                <label class="form-label" style="margin:0;">Engine:</label>
+                <select class="form-control" style="padding:4px 8px; font-size:12px;">
+                  <option>Auto (Dispatcher rules)</option>
+                  <option>Public (Crawl4AI)</option>
+                  <option>Auth (Camoufox stealth)</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="createTask()">
+              <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>Create Task</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Task Management Table -->
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">Tasks</span>
+          <span style="font-size:11px; color:var(--text-dim);">4 configured</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 44%;">Task Prompt</th>
+              <th style="width: 14%;">Schedule</th>
+              <th style="width: 12%;">Status</th>
+              <th style="width: 12%;">Last Run</th>
+              <th style="width: 18%; text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="overviewTbody">
+
+            <!-- Row 1: S24 Ultra -->
+            <tr id="row-s24u">
+              <td>
+                <div class="prompt-snippet">Tìm kiếm Samsung Galaxy S24 Ultra trên Chợ Tốt giá dưới 14 triệu trong 7 ngày, loại bỏ tin nứt màn hình và lưu thông tin máy zin vào DB</div>
+                <div class="prompt-id">ID: act_s24u_01 • Source: gateway.chotot.com</div>
+              </td>
+              <td><span class="code-tag">1h interval</span></td>
+              <td><span class="badge-status badge-active" id="badge-row-s24u">Active</span></td>
+              <td>
+                <div style="font-variant-numeric: tabular-nums;">Just now</div>
+                <div style="font-size:11px; color:var(--text-dim);">35 rows</div>
+              </td>
+              <td style="text-align: right;">
+                <div style="display:flex; gap:6px; justify-content:flex-end;">
+                  <button class="btn" onclick="openDedicatedAction('s24u')">Dashboard</button>
+                  <button class="btn" onclick="runNow('s24u')">Run</button>
+                  <button class="btn" id="btn-pause-s24u" onclick="togglePauseAction('s24u')">Pause</button>
+                  <button class="btn btn-danger" onclick="deleteTaskRow('s24u')">Delete</button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 2: iPhone 15 -->
+            <tr id="row-ip15">
+              <td>
+                <div class="prompt-snippet">Quét các tin đăng iPhone 15 Pro Max bản VN/A còn bảo hành hãng, giá dưới 20 triệu tại TP.HCM</div>
+                <div class="prompt-id">ID: act_ip15_02 • Source: gateway.chotot.com</div>
+              </td>
+              <td><span class="code-tag">30m interval</span></td>
+              <td><span class="badge-status badge-active">Active</span></td>
+              <td>
+                <div style="font-variant-numeric: tabular-nums;">18m ago</div>
+                <div style="font-size:11px; color:var(--text-dim);">42 rows</div>
+              </td>
+              <td style="text-align: right;">
+                <div style="display:flex; gap:6px; justify-content:flex-end;">
+                  <button class="btn" onclick="openDedicatedAction('ip15')">Dashboard</button>
+                  <button class="btn" onclick="runNow('ip15')">Run</button>
+                  <button class="btn" onclick="togglePauseAction('ip15')">Pause</button>
+                  <button class="btn btn-danger" onclick="deleteTaskRow('ip15')">Delete</button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 3: BĐS -->
+            <tr id="row-bds">
+              <td>
+                <div class="prompt-snippet">Theo dõi biến động giá chung cư 2 phòng ngủ khu vực Quận Bình Thạnh, phát hiện chủ nhà giảm giá gấp</div>
+                <div class="prompt-id">ID: act_bds_03 • Source: batdongsan.com.vn</div>
+              </td>
+              <td><span class="code-tag">08:00 daily</span></td>
+              <td><span class="badge-status badge-paused">Paused</span></td>
+              <td>
+                <div style="font-variant-numeric: tabular-nums;">Yesterday</div>
+                <div style="font-size:11px; color:var(--text-dim);">12 rows</div>
+              </td>
+              <td style="text-align: right;">
+                <div style="display:flex; gap:6px; justify-content:flex-end;">
+                  <button class="btn" onclick="openDedicatedAction('bds')">Dashboard</button>
+                  <button class="btn" onclick="runNow('bds')">Run</button>
+                  <button class="btn" onclick="togglePauseAction('bds')">Resume</button>
+                  <button class="btn btn-danger" onclick="deleteTaskRow('bds')">Delete</button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 4: News -->
+            <tr id="row-news">
+              <td>
+                <div class="prompt-snippet">Cào bài viết mới nhất về AI Agents trên Hacker News và TechCrunch, dùng Gemini 2.5 Flash tóm tắt 3 ý cốt lõi</div>
+                <div class="prompt-id">ID: act_news_04 • Source: techcrunch.com</div>
+              </td>
+              <td><span class="code-tag">6h interval</span></td>
+              <td><span class="badge-status badge-active">Active</span></td>
+              <td>
+                <div style="font-variant-numeric: tabular-nums;">2h ago</div>
+                <div style="font-size:11px; color:var(--text-dim);">18 rows</div>
+              </td>
+              <td style="text-align: right;">
+                <div style="display:flex; gap:6px; justify-content:flex-end;">
+                  <button class="btn" onclick="openDedicatedAction('news')">Dashboard</button>
+                  <button class="btn" onclick="runNow('news')">Run</button>
+                  <button class="btn" onclick="togglePauseAction('news')">Pause</button>
+                  <button class="btn btn-danger" onclick="deleteTaskRow('news')">Delete</button>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <!-- ================= VIEW 2: DEDICATED TASK DASHBOARD ================= -->
+    <div class="content-area" id="dedicatedView">
+
+      <!-- Action Top Controls -->
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <h2 id="dedicatedTaskTitle" style="font-size:20px; font-weight:600; color:var(--text);">S24 Ultra Price Hunter</h2>
+          <div style="font-size:12px; color:var(--text-dim); font-family:var(--font-mono); margin-top:2px;">
+            task_id: act_s24u_01 • target: gateway.chotot.com • schedule: 1h
+          </div>
+        </div>
+
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-primary" onclick="alert('Worker invoked for this task')">
+            <svg class="icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span>Run now</span>
+          </button>
+          <button class="btn" id="btnDedicatedPause" onclick="togglePauseAction('s24u')">Pause schedule</button>
+          <button class="btn btn-danger" onclick="deleteTaskRow('s24u'); showOverview();">Delete task</button>
+        </div>
+      </div>
+
+      <!-- Prompt definition block -->
+      <div class="prompt-block" id="dedicatedTaskPrompt">
+        "Tìm kiếm Samsung Galaxy S24 Ultra trên Chợ Tốt giá dưới 14 triệu trong 7 ngày, loại bỏ tin nứt màn hình và lưu thông tin máy zin vào DB"
+      </div>
+
+      <!-- Specific Task Metrics -->
+      <div class="stats-row">
+        <div class="metric-panel">
+          <div class="metric-label">Ingested Records</div>
+          <div class="metric-val">142</div>
+          <div class="metric-foot">35 verified within 7 days</div>
+        </div>
+        <div class="metric-panel">
+          <div class="metric-label">Lowest Price (Clean Condition)</div>
+          <div class="metric-val" style="color:var(--success);">13.490.000 đ</div>
+          <div class="metric-foot">Cầm Đồ Anh Quý (Cần Thơ)</div>
+        </div>
+        <div class="metric-panel">
+          <div class="metric-label">Market Median Price</div>
+          <div class="metric-val">14.500.000 đ</div>
+          <div class="metric-foot">Normal range: 13.8M – 15.5M</div>
+        </div>
+        <div class="metric-panel">
+          <div class="metric-label">Filtered Out Anomaly Listings</div>
+          <div class="metric-val" style="color:var(--danger);">12</div>
+          <div class="metric-foot">Cracked screens & fake prices</div>
+        </div>
+      </div>
+
+      <!-- Tabbed Panel -->
+      <div class="panel">
+        <div class="tab-nav">
+          <span class="tab-link active">Collected Records</span>
+          <span class="tab-link" onclick="alert('Viewing execution run logs')">Run History</span>
+          <span class="tab-link" onclick="alert('Viewing schema mappings')">Schema & Settings</span>
+        </div>
+
+        <div style="padding:12px 16px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+          <input class="form-control" style="width:260px; padding:4px 10px; font-size:12px;" placeholder="Filter records in this table..." />
+          <div style="display:flex; gap:6px;">
+            <button class="btn" onclick="alert('Exporting s24u_records.csv')">Export CSV</button>
+            <button class="btn" onclick="alert('Exporting s24u_records.json')">Export JSON</button>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 38%;">Listing Subject</th>
+              <th style="width: 15%;">Price</th>
+              <th style="width: 17%;">Extracted State</th>
+              <th style="width: 18%;">Location & Seller</th>
+              <th style="width: 12%; text-align: right;">Source Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div style="font-weight:500; color:var(--text);">Samsung Galaxy S24 Ultra 12/256GB zin áp đẹp 99%</div>
+                <div style="font-size:11px; color:var(--success);">Best value • 99% pressure-sealed</div>
+              </td>
+              <td style="font-variant-numeric: tabular-nums; font-weight:600; color:var(--text);">13.490.000 đ</td>
+              <td><span style="color:var(--success);">Verified: Original / 99%</span></td>
+              <td>Cần Thơ • Cầm Đồ Anh Quý (1,467 ads)</td>
+              <td style="text-align: right;"><a href="https://www.chotot.com/135041249.htm" target="_blank" style="color:var(--accent); text-decoration:none;">View ↗</a></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="font-weight:500; color:var(--text);">Samsung Galaxy S24 Ultra Xám Nguyên Zin 98%</div>
+                <div style="font-size:11px; color:var(--accent);">Warranty 6 months • HCM area</div>
+              </td>
+              <td style="font-variant-numeric: tabular-nums; font-weight:600; color:var(--text);">13.800.000 đ</td>
+              <td><span style="color:var(--success);">Verified: Original / 98%</span></td>
+              <td>TP.HCM, Bình Thạnh • Nguyễn Bình Store</td>
+              <td style="text-align: right;"><a href="https://www.chotot.com/134886353.htm" target="_blank" style="color:var(--accent); text-decoration:none;">View ↗</a></td>
+            </tr>
+            <tr>
+              <td>
+                <div style="font-weight:500; color:var(--text);">Samsung Galaxy S24 Ultra 256GB Tím Bản Việt Nam</div>
+                <div style="font-size:11px; color:#c084fc;">Official VN/A • 2 SIM support</div>
+              </td>
+              <td style="font-variant-numeric: tabular-nums; font-weight:600; color:var(--text);">13.900.000 đ</td>
+              <td><span style="color:var(--success);">Verified: Official VN/A</span></td>
+              <td>TP.HCM, Quận 3 • PHONE2HAND</td>
+              <td style="text-align: right;"><a href="https://www.chotot.com/135059520.htm" target="_blank" style="color:var(--accent); text-decoration:none;">View ↗</a></td>
+            </tr>
+            <tr style="background: rgba(248, 81, 73, 0.03);">
+              <td>
+                <div style="font-weight:500; color:var(--danger);">[Filtered] Samsung S24 Ultra 256GB Xám Titan</div>
+                <div style="font-size:11px; color:var(--danger);">Screen cracked • Excluded from clean buy list</div>
+              </td>
+              <td style="font-variant-numeric: tabular-nums; font-weight:600; color:var(--danger);">11.990.000 đ</td>
+              <td><span style="color:var(--danger);">Anomaly: Screen crack</span></td>
+              <td>Cần Thơ • Lê Khang (3,897 ads)</td>
+              <td style="text-align: right;"><a href="https://www.chotot.com/135005465.htm" target="_blank" style="color:var(--accent); text-decoration:none;">View ↗</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    const taskStatus = {
+      s24u: { paused: false },
+      ip15: { paused: false },
+      bds: { paused: true },
+      news: { paused: false }
+    };
+
+    function showOverview() {
+      document.getElementById('overviewView').style.display = 'flex';
+      document.getElementById('dedicatedView').style.display = 'none';
+      document.getElementById('topBreadcrumb').innerHTML = '<span class="breadcrumb-item active">Overview Dashboard</span>';
+      document.getElementById('menuOverview').classList.add('active');
+      document.querySelectorAll('.action-item').forEach(el => el.classList.remove('active'));
+    }
+
+    function openDedicatedAction(key) {
+      document.getElementById('overviewView').style.display = 'none';
+      document.getElementById('dedicatedView').style.display = 'flex';
+      document.getElementById('menuOverview').classList.remove('active');
+
+      document.querySelectorAll('.action-item').forEach(el => el.classList.remove('active'));
+      const activeSide = document.getElementById(`side-${key}`);
+      if (activeSide) activeSide.classList.add('active');
+
+      const names = {
+        s24u: 'S24 Ultra Price Hunter',
+        ip15: 'iPhone 15 Pro Max VN/A',
+        bds: 'BĐS Bình Thạnh Bán Gấp',
+        news: 'AI Agent Research Digest'
+      };
+
+      const prompts = {
+        s24u: '"Tìm kiếm Samsung Galaxy S24 Ultra trên Chợ Tốt giá dưới 14 triệu trong 7 ngày, loại bỏ tin nứt màn hình và lưu thông tin máy zin vào DB"',
+        ip15: '"Quét các tin đăng iPhone 15 Pro Max bản VN/A còn bảo hành hãng, giá dưới 20 triệu tại TP.HCM"',
+        bds: '"Theo dõi biến động giá chung cư 2 phòng ngủ khu vực Quận Bình Thạnh, phát hiện chủ nhà giảm giá gấp"',
+        news: '"Cào bài viết mới nhất về AI Agents trên Hacker News và TechCrunch, dùng Gemini 2.5 Flash tóm tắt 3 ý cốt lõi"'
+      };
+
+      document.getElementById('topBreadcrumb').innerHTML = `
+        <span class="breadcrumb-item" onclick="showOverview()" style="cursor:pointer;">Tasks</span>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-item active">${names[key] || key}</span>
+      `;
+
+      document.getElementById('dedicatedTaskTitle').innerText = names[key] || key;
+      document.getElementById('dedicatedTaskPrompt').innerText = prompts[key] || '';
+    }
+
+    function togglePauseAction(key) {
+      taskStatus[key].paused = !taskStatus[key].paused;
+      const isPaused = taskStatus[key].paused;
+
+      const badgeRow = document.getElementById(`badge-row-${key}`);
+      const btnPause = document.getElementById(`btn-pause-${key}`);
+      const badgeSide = document.getElementById(`badge-side-${key}`);
+
+      if (isPaused) {
+        if (badgeRow) { badgeRow.className = "badge-status badge-paused"; badgeRow.innerText = "Paused"; }
+        if (btnPause) { btnPause.innerText = "Resume"; }
+        if (badgeSide) { badgeSide.className = "badge-status badge-paused"; badgeSide.innerText = "Paused"; }
+      } else {
+        if (badgeRow) { badgeRow.className = "badge-status badge-active"; badgeRow.innerText = "Active"; }
+        if (btnPause) { btnPause.innerText = "Pause"; }
+        if (badgeSide) { badgeSide.className = "badge-status badge-active"; badgeSide.innerText = "Active"; }
+      }
+    }
+
+    function runNow(key) {
+      alert(`Worker dispatched for task [${key}]`);
+    }
+
+    function deleteTaskRow(key) {
+      if (confirm(`Delete task [${key}] and remove schedule?`)) {
+        const row = document.getElementById(`row-${key}`);
+        if (row) row.remove();
+        const side = document.getElementById(`side-${key}`);
+        if (side) side.remove();
+      }
+    }
+
+    function createTask() {
+      const input = document.getElementById('inputPrompt');
+      const text = input.value.trim();
+      if (!text) {
+        alert('Please enter a task prompt.');
+        return;
+      }
+      alert('Task created successfully and added to background scheduler.');
+      input.value = '';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết Deal — BrokerConnect</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', system-ui, sans-serif; }</style>
+</head>
+<body class="bg-base-100 text-base-content">
+
+  <div class="drawer lg:drawer-open">
+    <input id="app-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content flex flex-col min-h-screen">
+
+      <div class="navbar bg-base-100 border-b border-base-200 px-4 lg:px-6 gap-2">
+        <div class="flex-none lg:hidden">
+          <label for="app-drawer" class="btn btn-square btn-ghost btn-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+          </label>
+        </div>
+        <div class="flex-1">
+          <a href="my-deals.html" class="btn btn-ghost btn-sm">← Quay lại danh sách Deal</a>
+        </div>
+      </div>
+
+      <main class="flex-1 p-4 lg:p-6 bg-base-200/30">
+        <div class="max-w-2xl mx-auto" id="deal-content"></div>
+      </main>
+    </div>
+
+    <div class="drawer-side z-20">
+      <label for="app-drawer" class="drawer-overlay"></label>
+      <aside class="w-64 min-h-screen bg-base-100 border-r border-base-200 p-4 flex flex-col">
+        <a href="feed.html" class="text-xl font-bold px-2 mb-8 text-primary">🤝 BrokerConnect</a>
+        <ul class="menu flex-1 gap-1">
+          <li><a href="feed.html">📋 Bảng tin</a></li>
+          <li><a href="my-deals.html" class="active">🤝 Deal của tôi</a></li>
+          <li><a href="profile.html">👤 Hồ sơ</a></li>
+        </ul>
+        <div class="divider text-xs">Nhóm của tôi</div>
+        <ul class="menu" id="my-groups-menu"></ul>
+        <div class="mt-auto pt-4">
+          <a href="#" id="reset-demo-data" class="text-xs text-base-content/40 hover:text-base-content/70">↺ Reset dữ liệu demo</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script>
+    const dealId = qs('id');
+    let deal = api.deal(dealId) || api.deals()[0];
+    const me = api.currentUser();
+    const isOwner = deal.ownerId === me.id;
+    const myRatingKey = isOwner ? 'byOwner' : 'byRequester';
+
+    function partyCard(label, broker, split) {
+      return (
+        '<div class="card bg-base-100 border border-base-200">' +
+          '<div class="card-body p-4">' +
+            '<div class="text-xs text-base-content/50 mb-1">' + label + '</div>' +
+            '<div class="flex items-center gap-2">' +
+              '<div class="avatar placeholder"><div class="bg-neutral text-neutral-content w-8 rounded-full"><span class="text-xs">' + broker.name.charAt(0) + '</span></div></div>' +
+              '<div>' +
+                '<div class="font-semibold text-sm">' + broker.name + (broker.verified ? ' <span class="text-success">✔</span>' : '') + '</div>' +
+                '<div class="text-xs text-base-content/50">⭐ ' + broker.rating.toFixed(1) + '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="mt-2 text-sm"><b>' + split + '%</b> hoa hồng</div>' +
+            '<div class="text-xs text-base-content/50">SĐT: ' + broker.phone + '</div>' +
+          '</div>' +
+        '</div>'
+      );
+    }
+
+    function render() {
+      const listing = api.listing(deal.listingId);
+      const requester = api.broker(deal.requesterId);
+      const owner = api.broker(deal.ownerId);
+
+      let actionsHtml = '';
+
+      if (deal.status === 'pending' && isOwner) {
+        actionsHtml = (
+          '<div class="alert alert-warning mb-4"><span>Có yêu cầu đồng môi giới đang chờ bạn duyệt.</span></div>' +
+          '<div class="flex gap-3">' +
+            '<button class="btn btn-ghost flex-1" onclick="declineDeal()">Từ chối</button>' +
+            '<button class="btn btn-primary flex-1" onclick="acceptDeal()">Chấp nhận</button>' +
+          '</div>'
+        );
+      } else if (deal.status === 'pending' && !isOwner) {
+        actionsHtml = '<div class="alert"><span>Đã gửi yêu cầu, đang chờ ' + owner.name + ' duyệt.</span></div>';
+      } else if (deal.status === 'accepted') {
+        actionsHtml = (
+          '<p class="font-medium mb-2">Đánh dấu kết quả:</p>' +
+          '<div class="flex gap-3">' +
+            '<button class="btn btn-success flex-1" onclick="closeDeal(true)">✓ Thành công</button>' +
+            '<button class="btn btn-outline flex-1" onclick="closeDeal(false)">✗ Không thành công</button>' +
+          '</div>'
+        );
+      } else if (deal.status === 'disputed') {
+        actionsHtml = '<div class="alert alert-error"><span>Deal đang ở trạng thái tranh chấp — hai bên báo kết quả khác nhau. Admin sẽ xem xét thủ công, chưa tính vào trust score.</span></div>';
+      } else if (deal.status === 'closed_won' || deal.status === 'closed_lost') {
+        if (deal.rating && deal.rating[myRatingKey]) {
+          const r = deal.rating[myRatingKey];
+          actionsHtml = '<div class="alert alert-success"><span>Bạn đã đánh giá đối tác: ' + '⭐'.repeat(r.stars) + ' — "' + r.comment + '"</span></div>';
+        } else {
+          actionsHtml = (
+            '<div class="card bg-base-100 border border-base-200">' +
+              '<div class="card-body">' +
+                '<h3 class="card-title text-base">Đánh giá đối tác</h3>' +
+                '<div class="rating" id="rating-stars">' +
+                  [1,2,3,4,5].map(i => '<input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="' + i + '"' + (i===5?' checked':'') + ' />').join('') +
+                '</div>' +
+                '<textarea id="rating-comment" class="textarea textarea-bordered mt-2" rows="2" placeholder="Nhận xét về đối tác..."></textarea>' +
+                '<button class="btn btn-primary btn-sm mt-2 w-fit" onclick="submitRating()">Gửi đánh giá</button>' +
+              '</div>' +
+            '</div>'
+          );
+        }
+      }
+
+      document.getElementById('deal-content').innerHTML =
+        '<div class="flex items-center justify-between mb-1">' +
+          '<h1 class="text-2xl font-bold">Deal: ' + listing.title + '</h1>' +
+          statusBadge(deal.status) +
+        '</div>' +
+        '<p class="text-sm text-base-content/50 mb-4">Tạo ngày ' + deal.createdAt + '</p>' +
+        '<div class="grid grid-cols-2 gap-4 mb-4">' +
+          partyCard(requester.id === me.id ? 'Bạn (người gửi yêu cầu)' : 'Người gửi yêu cầu', requester, deal.splitRequester) +
+          partyCard(owner.id === me.id ? 'Bạn (chủ tin)' : 'Chủ tin', owner, deal.splitOwner) +
+        '</div>' +
+        '<div class="card bg-base-100 border border-base-200 mb-4">' +
+          '<div class="card-body p-4">' +
+            '<div class="text-xs text-base-content/50 mb-1">Ghi chú khách</div>' +
+            '<p class="text-sm">' + deal.note + '</p>' +
+          '</div>' +
+        '</div>' +
+        actionsHtml;
+    }
+
+    function acceptDeal() {
+      deal = api.updateDeal(deal.id, { status: 'accepted' });
+      showToast('Đã chấp nhận yêu cầu đồng môi giới, thông tin liên hệ đã được chia sẻ');
+      render();
+    }
+    function declineDeal() {
+      deal = api.updateDeal(deal.id, { status: 'closed_lost' });
+      showToast('Đã từ chối yêu cầu', 'info');
+      render();
+    }
+    function closeDeal(won) {
+      deal = api.updateDeal(deal.id, { status: won ? 'closed_won' : 'closed_lost' });
+      showToast(won ? 'Đã đóng deal thành công 🎉' : 'Đã đánh dấu deal không thành công', won ? 'success' : 'info');
+      render();
+    }
+    function submitRating() {
+      const stars = Number((document.querySelector('input[name="rating"]:checked') || {}).value || 5);
+      const comment = document.getElementById('rating-comment').value.trim() || '(không có nhận xét)';
+      const rating = Object.assign({}, deal.rating, {});
+      rating[myRatingKey] = { stars, comment };
+      deal = api.updateDeal(deal.id, { rating });
+      showToast('Đã gửi đánh giá, cảm ơn bạn!');
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>

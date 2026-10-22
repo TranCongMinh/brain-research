@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết tin — BrokerConnect</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', system-ui, sans-serif; }</style>
+</head>
+<body class="bg-base-100 text-base-content">
+
+  <div class="drawer lg:drawer-open">
+    <input id="app-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content flex flex-col min-h-screen">
+
+      <div class="navbar bg-base-100 border-b border-base-200 px-4 lg:px-6 gap-2">
+        <div class="flex-none lg:hidden">
+          <label for="app-drawer" class="btn btn-square btn-ghost btn-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+          </label>
+        </div>
+        <div class="flex-1">
+          <a href="feed.html" class="btn btn-ghost btn-sm">← Quay lại bảng tin</a>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="create-listing.html" class="btn btn-primary btn-sm hidden sm:inline-flex">+ Đăng tin</a>
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="avatar placeholder cursor-pointer">
+              <div class="bg-primary text-primary-content w-8 rounded-full"><span class="text-xs" id="user-initial">N</span></div>
+            </label>
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box shadow-lg w-40 mt-2 z-30">
+              <li><a href="profile.html">Hồ sơ</a></li>
+              <li><a href="index.html">Đăng xuất</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <main class="flex-1 p-4 lg:p-6 bg-base-200/30">
+        <div class="max-w-3xl mx-auto" id="listing-content"></div>
+      </main>
+    </div>
+
+    <div class="drawer-side z-20">
+      <label for="app-drawer" class="drawer-overlay"></label>
+      <aside class="w-64 min-h-screen bg-base-100 border-r border-base-200 p-4 flex flex-col">
+        <a href="feed.html" class="text-xl font-bold px-2 mb-8 text-primary">🤝 BrokerConnect</a>
+        <ul class="menu flex-1 gap-1">
+          <li><a href="feed.html">📋 Bảng tin</a></li>
+          <li><a href="my-deals.html">🤝 Deal của tôi</a></li>
+          <li><a href="profile.html">👤 Hồ sơ</a></li>
+        </ul>
+        <div class="divider text-xs">Nhóm của tôi</div>
+        <ul class="menu" id="my-groups-menu"></ul>
+        <div class="mt-auto pt-4">
+          <a href="#" id="reset-demo-data" class="text-xs text-base-content/40 hover:text-base-content/70">↺ Reset dữ liệu demo</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Modal: Gửi yêu cầu đồng môi giới -->
+  <dialog id="request-modal" class="modal">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">Gửi yêu cầu đồng môi giới</h3>
+      <p class="text-sm text-base-content/60 mt-1">Mô tả khách của bạn để chủ tin xem xét chấp nhận.</p>
+      <div class="form-control mt-4">
+        <label class="label"><span class="label-text">Mô tả khách</span></label>
+        <textarea id="request-note" class="textarea textarea-bordered" rows="3" placeholder="VD: Khách cần gấp, chuyển công tác đầu tháng sau..."></textarea>
+      </div>
+      <div class="form-control mt-3">
+        <label class="label"><span class="label-text">Đề xuất % chia hoa hồng cho bạn</span></label>
+        <select id="request-split" class="select select-bordered"></select>
+      </div>
+      <div class="modal-action">
+        <form method="dialog" class="flex gap-2">
+          <button class="btn btn-ghost">Hủy</button>
+        </form>
+        <button class="btn btn-primary" onclick="submitRequest()">Gửi yêu cầu</button>
+      </div>
+    </div>
+    <form method="dialog" class="modal-backdrop"><button>close</button></form>
+  </dialog>
+
+  <script src="js/data.js"></script>
+  <script>
+    const listingId = qs('id');
+    const listing = api.listing(listingId) || api.listings()[0];
+
+    function render() {
+      const owner = api.broker(listing.ownerId);
+      const isMine = owner.id === api.currentUser().id;
+      const metaStr = listing.type === 'thue'
+        ? (listing.area + 'm² · ' + listing.rooms + ' phòng')
+        : ('Biển số ' + (listing.plate || '—'));
+
+      document.getElementById('listing-content').innerHTML =
+        '<div class="bg-base-200 rounded-2xl aspect-video flex items-center justify-center text-base-content/40 text-6xl mb-6">' +
+          (listing.type === 'thue' ? '🏠' : '🚗') +
+        '</div>' +
+        '<div class="flex items-center gap-2 mb-2">' +
+          '<span class="badge badge-outline">' + (listing.type === 'thue' ? '🏠 Nhà thuê' : '🚗 Xe') + '</span>' +
+          '<span class="badge badge-primary">Hoa hồng đề nghị chia ' + listing.commissionPct + '%</span>' +
+        '</div>' +
+        '<h1 class="text-3xl font-bold mb-1">' + listing.title + '</h1>' +
+        '<p class="text-lg text-base-content/70 mb-4">' + fmtVND(listing.price) + '/' + listing.priceUnit + ' · ' + metaStr + '</p>' +
+        '<p class="mb-6 leading-relaxed">' + listing.desc + '</p>' +
+        '<div class="card bg-base-100 border border-base-200 mb-6">' +
+          '<div class="card-body flex-row items-center justify-between">' +
+            '<div class="flex items-center gap-3">' +
+              '<div class="avatar placeholder"><div class="bg-neutral text-neutral-content w-10 rounded-full"><span>' + owner.name.charAt(0) + '</span></div></div>' +
+              '<div>' +
+                '<div class="font-semibold flex items-center gap-1">' + owner.name + (owner.verified ? '<span class="text-success" title="Đã xác minh">✔</span>' : '<span class="badge badge-ghost badge-xs">chưa xác minh</span>') + '</div>' +
+                '<div class="text-sm text-base-content/60">⭐ ' + owner.rating.toFixed(1) + ' · ' + owner.dealsCount + ' giao dịch</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        (isMine
+          ? '<div class="alert"><span>Đây là tin của bạn — xem tại <a href="my-deals.html" class="link">Deal của tôi</a> để theo dõi yêu cầu đồng môi giới gửi đến.</span></div>'
+          : '<button class="btn btn-primary btn-lg" onclick="openRequestModal()">Gửi yêu cầu đồng môi giới</button>');
+
+      const sel = document.getElementById('request-split');
+      sel.innerHTML = [listing.commissionPct, 50, 40, 30].filter((v, i, a) => a.indexOf(v) === i)
+        .map(v => '<option value="' + v + '">' + v + '%</option>').join('');
+    }
+
+    function openRequestModal() {
+      document.getElementById('request-modal').showModal();
+    }
+
+    function submitRequest() {
+      const note = document.getElementById('request-note').value.trim();
+      const split = Number(document.getElementById('request-split').value);
+      if (!note) { showToast('Vui lòng mô tả khách trước khi gửi', 'warning'); return; }
+      api.addDeal({
+        listingId: listing.id,
+        requesterId: api.currentUser().id,
+        ownerId: listing.ownerId,
+        splitRequester: split,
+        splitOwner: 100 - split,
+        note: note
+      });
+      document.getElementById('request-modal').close();
+      showToast('Đã gửi yêu cầu đồng môi giới tới ' + api.broker(listing.ownerId).name);
+      setTimeout(() => { window.location.href = 'my-deals.html'; }, 900);
+    }
+
+    render();
+  </script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thẩm Định Kỹ Thuật: Động Cơ & Hộp Số Ford Territory Có Bền 8-10 Năm?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #070b14; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    .card-glass {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(51, 65, 85, 0.6);
+    }
+    .card-glass:hover {
+      border-color: rgba(96, 165, 250, 0.5);
+    }
+    .checkbox-custom:checked + label {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-[#070b14] text-slate-100 font-sans antialiased selection:bg-blue-600 selection:text-white min-h-screen flex flex-col">
+
+  <!-- Top Sticky Bar -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#070b14]/90 border-b border-slate-800/80 px-4 sm:px-8 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../../artifacts-dashboard.html" class="flex items-center gap-2 text-xs font-semibold text-blue-400 hover:text-blue-300 transition bg-blue-950/60 border border-blue-800/60 px-3 py-1.5 rounded-lg">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        <span>Artifacts Dashboard</span>
+      </a>
+      <span class="text-slate-600">|</span>
+      <span class="text-xs font-medium text-slate-300 hidden sm:inline">Thẩm Định Độ Bền Động Cơ & Hộp Số Territory (Vòng Đời 8–10 Năm)</span>
+    </div>
+
+    <div class="flex items-center gap-2.5">
+      <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+        <span>In Báo Cáo</span>
+      </button>
+      <button onclick="copyCurrentPath()" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs text-white font-medium transition flex items-center gap-1.5 shadow-sm shadow-blue-500/20">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+        <span>Copy Path</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="border-b border-slate-800 bg-gradient-to-b from-slate-900/80 via-slate-950 to-[#070b14] py-10 px-4 sm:px-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 uppercase tracking-wider">Thẩm Định Kỹ Thuật Chuyên Sâu</span>
+        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-blue-900/60 text-blue-300 border border-blue-700/60">Vòng Đời: 8 – 10 Năm (150.000 – 200.000 km)</span>
+        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-amber-900/60 text-amber-300 border border-amber-700/60">Mẫu Xe: Ford Territory Titanium X</span>
+      </div>
+
+      <h1 class="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+        Động Cơ & Hộp Số Ford Territory Có Yên Tâm Dùng 8 – 10 Năm Không?
+      </h1>
+      <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-4xl mb-8">
+        Phân tích chuyên sâu về cơ cấu cơ khí của động cơ 1.5L EcoBoost (JX4G15), hộp số ly hợp kép ướt Magna 7DCT300, giải mã "nỗi sợ PowerShift cũ" và lộ trình bảo dưỡng bắt buộc để xe vận hành bền bỉ 1 thập kỷ.
+      </p>
+
+      <!-- 3 Điểm Chốt Cốt Lõi -->
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div class="card-glass rounded-xl p-4 border-l-4 border-l-emerald-500">
+          <div class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider mb-1 font-mono">ĐỘNG CƠ: XÍCH CAM KIM LOẠI</div>
+          <div class="text-sm font-bold text-white">KHÔNG DÙNG curoa ngâm dầu</div>
+          <div class="text-xs text-slate-400 mt-1">Dùng xích cam bôi trơn dầu máy bền trọn đời động cơ, 4 xy-lanh êm ái, xóa bỏ hoàn toàn nỗi sợ rã curoa của EcoBoost cũ.</div>
+        </div>
+
+        <div class="card-glass rounded-xl p-4 border-l-4 border-l-blue-500">
+          <div class="text-[11px] font-bold text-blue-400 uppercase tracking-wider mb-1 font-mono">HỘP SỐ: LY HỢP KÉP ƯỚT (WET DCT)</div>
+          <div class="text-sm font-bold text-white">Magna 7DCT300 cao cấp</div>
+          <div class="text-xs text-slate-400 mt-1">Sản xuất bởi tập đoàn Magna (Đức/Canada), ngâm ngập trong dầu giải nhiệt, dùng chung trên BMW & MINI. KHÔNG PHẢI PowerShift khô!</div>
+        </div>
+
+        <div class="card-glass rounded-xl p-4 border-l-4 border-l-amber-500">
+          <div class="text-[11px] font-bold text-amber-400 uppercase tracking-wider mb-1 font-mono">ĐIỀU KIỆN SỐNG CÒN</div>
+          <div class="text-sm font-bold text-amber-300">Thay dầu số mỗi 4–5 vạn km</div>
+          <div class="text-xs text-slate-400 mt-1">Bắt buộc thay dầu hộp số DCTF định kỳ và bắn trấu họng nạp GDI mốc 6–8 vạn km để xe đạt tuổi thọ 200.000 km.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Wrap -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-8 py-10 space-y-12 flex-1">
+
+    <!-- PHẦN 1: SO SÁNH GIẢI OAN CHO HỘP SỐ VÀ ĐỘNG CƠ -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+        <h2 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2.5">
+          <span class="flex items-center justify-center w-7 h-7 rounded-lg bg-blue-600 text-white text-xs font-bold">1</span>
+          <span>Bản Chất Cơ Khí: Xóa Bỏ Nỗi Ám Ảnh Về Ford Đời Cũ</span>
+        </h2>
+        <span class="text-xs text-emerald-400 font-mono">Đã Xác Minh Kỹ Thuật</span>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <!-- Card Hộp Số: PowerShift khô vs Magna 7DCT300 ướt -->
+        <div class="card-glass rounded-2xl p-6">
+          <div class="flex items-center gap-2 text-blue-400 text-xs font-bold uppercase tracking-wider mb-3 font-mono">
+            <span>⚙️ MỔ XẺ HỘP SỐ MAGNA 7DCT300</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-3">Tại Sao Không Lo "Chết Côn" Như Fiesta/Focus Cũ?</h3>
+          
+          <div class="space-y-3 text-xs leading-relaxed">
+            <div class="p-3.5 rounded-xl bg-rose-950/30 border border-rose-900/60">
+              <div class="font-bold text-rose-400 mb-1">❌ Hộp số PowerShift cũ (DPS6) - Côn KHÔ:</div>
+              <p class="text-slate-300">Các lá côn tiếp xúc khô hoàn toàn trong không khí. Khi kẹt xe rà phanh ở nhiệt độ ngoài trời 38–40°C tại Việt Nam, côn nóng lên hơn 200°C làm cháy bố côn, giật cục dữ dội và chết hộp số.</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-900/60">
+              <div class="font-bold text-emerald-400 mb-1">✅ Magna 7DCT300 trên Territory - Côn ƯỚT (Wet DCT):</div>
+              <p class="text-slate-300">Toàn bộ cụm lá côn được **ngâm ngập trong dầu truyền động tuần hoàn chuyên dụng**, liên tục bơm qua két làm mát. Không bao giờ xảy ra hiện tượng cháy côn do nhiệt. Hộp số này chịu tải tới <strong>300–320 Nm</strong>, trong khi máy Territory chỉ sinh 248 Nm (dư tải an toàn 20%).</p>
+            </div>
+            
+            <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-400">
+              💡 <em>Bảo chứng uy tín:</em> Magna 7DCT300 được BMW và MINI tin dùng trên các dòng xe dẫn động cầu trước (BMW 1-Series, 2-Series Active Tourer, MINI Cooper).
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Động Cơ: Curoa ngâm dầu vs Xích cam JX4G15 -->
+        <div class="card-glass rounded-2xl p-6">
+          <div class="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-3 font-mono">
+            <span>🔧 MỔ XẺ ĐỘNG CƠ 1.5L ECOBOOST (JX4G15)</span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-3">Xích Cam Kim Loại Bền Theo Máy & 4 Xy-Lanh</h3>
+          
+          <div class="space-y-3 text-xs leading-relaxed">
+            <div class="p-3.5 rounded-xl bg-rose-950/30 border border-rose-900/60">
+              <div class="font-bold text-rose-400 mb-1">❌ EcoBoost 1.0L cũ - Dây curoa ngâm trong dầu:</div>
+              <p class="text-slate-300">Dùng dây curoa cao su ngâm trong nhớt máy (Wet Belt). Nếu người dùng đổ sai loại dầu nhớt, cao su bị rã vụn làm tắc lưới lọc bơm nhớt dẫn đến lột dên, phá hủy toàn bộ động cơ.</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-900/60">
+              <div class="font-bold text-emerald-400 mb-1">✅ Động cơ JX4G15 trên Territory - XÍCH CAM (Timing Chain):</div>
+              <p class="text-slate-300">Sử dụng **xích cam bằng thép hợp kim siêu bền**, bôi trơn tự nhiên bằng nhớt máy. Tuổi thọ xích cam thiết kế đạt <strong>250.000 – 300.000 km</strong>, không bao giờ lo đứt curoa hay rã cao su bất thình lình.</p>
+            </div>
+
+            <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] text-slate-400">
+              💡 <em>Kết cấu 4 xy-lanh (I4):</em> Triệt tiêu rung động tốt hơn hẳn máy 3 xy-lanh, không lo rách chân máy rung đầu sau 4–5 năm.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PHẦN 2: TIMELINE VÒNG ĐỜI 10 NĂM & CÁC MỐC KỸ THUẬT QUAN TRỌNG -->
+    <section class="space-y-6">
+      <div class="border-b border-slate-800 pb-3">
+        <h2 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2.5">
+          <span class="flex items-center justify-center w-7 h-7 rounded-lg bg-emerald-600 text-white text-xs font-bold">2</span>
+          <span>Lộ Trình 10 Năm Sử Dụng & Các Chi Phí Trọng Yếu Phải Chuẩn Bị</span>
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">Giả định tần suất chạy trung bình gia đình: 15.000 km/năm (10 năm = 150.000 km)</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+        
+        <!-- Mốc 1 -->
+        <div class="card-glass rounded-2xl p-5 border-t-4 border-t-emerald-500 flex flex-col justify-between">
+          <div>
+            <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 font-mono text-[10px] font-bold">NĂM 1 – 3 (0 – 4.5 VẠN KM)</span>
+            <h4 class="text-base font-bold text-white mt-2 mb-2">Giai Đoạn Trăng Mật</h4>
+            <p class="text-slate-300 leading-relaxed mb-3">
+              Xe vận hành hoàn hảo, máy êm, ga bốc. Còn bảo hành chính hãng Ford (hết năm 2028). Chỉ cần thay dầu 5W-30 + lọc nhớt mỗi 8.000 km.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800 text-[11px]">
+            <span class="text-slate-400">Chi phí bảo dưỡng:</span>
+            <div class="font-bold text-emerald-400 text-sm">~2.5 – 3.5 Triệu / năm</div>
+          </div>
+        </div>
+
+        <!-- Mốc 2 -->
+        <div class="card-glass rounded-2xl p-5 border-t-4 border-t-blue-500 flex flex-col justify-between">
+          <div>
+            <span class="px-2 py-0.5 rounded bg-blue-950 text-blue-300 font-mono text-[10px] font-bold">NĂM 4 – 6 (4.5 – 9 VẠN KM)</span>
+            <h4 class="text-base font-bold text-white mt-2 mb-2">Bảo Dưỡng Cốt Lõi</h4>
+            <p class="text-slate-300 leading-relaxed mb-3">
+              <strong>Mốc sống còn:</strong> Phải thay dầu hộp số ly hợp kép DCTF ở mốc 5 vạn. Bắn trấu vệ sinh muội than xúp-páp nạp GDI. Thay 4 quả lốp mới, thay bugi và nước làm mát.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800 text-[11px]">
+            <span class="text-slate-400">Chi phí bảo dưỡng:</span>
+            <div class="font-bold text-blue-400 text-sm">~8.0 – 12.0 Triệu / năm</div>
+          </div>
+        </div>
+
+        <!-- Mốc 3 -->
+        <div class="card-glass rounded-2xl p-5 border-t-4 border-t-amber-500 flex flex-col justify-between">
+          <div>
+            <span class="px-2 py-0.5 rounded bg-amber-950 text-amber-300 font-mono text-[10px] font-bold">NĂM 7 – 8 (9 – 12 VẠN KM)</span>
+            <h4 class="text-base font-bold text-white mt-2 mb-2">Hao Mòn Dàn Gầm</h4>
+            <p class="text-slate-300 leading-relaxed mb-3">
+              Giảm xóc sau Territory khá mềm sẽ có dấu hiệu xì dầu hoặc bồng bềnh nhiều. Cần thay 4 cây phuộc, cao su càng A, rô-tuyn cân bằng và curoa máy phát ngoài.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800 text-[11px]">
+            <span class="text-slate-400">Chi phí bảo dưỡng:</span>
+            <div class="font-bold text-amber-400 text-sm">~14.0 – 18.0 Triệu</div>
+          </div>
+        </div>
+
+        <!-- Mốc 4 -->
+        <div class="card-glass rounded-2xl p-5 border-t-4 border-t-purple-500 flex flex-col justify-between">
+          <div>
+            <span class="px-2 py-0.5 rounded bg-purple-950 text-purple-300 font-mono text-[10px] font-bold">NĂM 9 – 10 (12 – 15 VẠN KM)</span>
+            <h4 class="text-base font-bold text-white mt-2 mb-2">Đại Tu Làm Mới</h4>
+            <p class="text-slate-300 leading-relaxed mb-3">
+              Kiểm tra phớt trục turbo, súc rửa két nước, thay bơm nước làm mát. Nếu bộ côn ướt có dấu hiệu trượt thì thay gói lá côn ly hợp mới để xe chạy bốc như mới.
+            </p>
+          </div>
+          <div class="pt-3 border-t border-slate-800 text-[11px]">
+            <span class="text-slate-400">Chi phí đại tu:</span>
+            <div class="font-bold text-purple-400 text-sm">~20.0 – 30.0 Triệu</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PHẦN 3: 5 NGUYÊN TẮC VÀNG ĐỂ CHẠY 10 NĂM KHÔNG HỎNG -->
+    <section class="card-glass rounded-2xl p-6 border-slate-800">
+      <div class="flex items-center gap-2 mb-4 border-b border-slate-800 pb-3">
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+          <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          <span>5 Nguyên Tắc Sống Còn Để Territory Bền Bỉ 10 Năm</span>
+        </h3>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+        <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+          <div class="text-amber-400 font-bold mb-1">1. Đừng tin "Dầu số trọn đời"</div>
+          <p class="text-slate-300">Khí hậu nhiệt đới nắng nóng và kẹt xe tại Việt Nam bắt buộc phải thay dầu số DCTF mỗi 40.000 – 50.000 km để bảo vệ cụm vỉ van Mechatronics.</p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+          <div class="text-blue-400 font-bold mb-1">2. Về N khi dừng đèn đỏ lâu</div>
+          <p class="text-slate-300">Dừng đèn đỏ trên 30s hoặc kẹt xe bất động, hãy về N kéo phanh tay (hoặc ngắt tải). Tránh giữ số D rà phanh nhấp nhả liên tục làm nóng ly hợp.</p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+          <div class="text-emerald-400 font-bold mb-1">3. Không tắt máy ngay sau cao tốc</div>
+          <p class="text-slate-300">Sau khi chạy đèo Hải Vân hoặc cao tốc La Sơn - Túy Loan về, để xe nổ garanti 45–60 giây cho dầu máy giải nhiệt cho trục turbo trước khi tắt máy.</p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+          <div class="text-purple-400 font-bold mb-1">4. Luôn đổ xăng RON 95 (A95)</div>
+          <p class="text-slate-300">Động cơ Turbo có tỷ số nén cao, tuyệt đối không dùng xăng E5 RON 92. Xăng 92 rất dễ gây kích nổ (knocking) làm hỏng pít-tông và xúp-páp.</p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+          <div class="text-rose-400 font-bold mb-1">5. Dùng dầu nhớt chuẩn Ford 5W-30</div>
+          <p class="text-slate-300">Chỉ dùng dầu tổng hợp toàn phần chuẩn Ford WSS-M2C913-D / WSS-M2C948-B (Castrol Magnatec Pro, Mobil 1). Dầu nhớt đểu sẽ làm kẹt xích cam và hỏng turbo.</p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+          <div class="text-cyan-400 font-bold mb-1">6. Bắn trấu xúp-páp mốc 6–8 vạn</div>
+          <p class="text-slate-300">Động cơ GDI phun trực tiếp bắt buộc phải vệ sinh muội than họng nạp (Walnut Blasting) ở mốc 60.000 – 80.000 km để xe không bị ì ga đầu.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PHẦN 4: CHECKLIST BẢO DƯỠNG THỰC TẾ -->
+    <section class="card-glass rounded-2xl p-6 border-slate-800">
+      <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-3">
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+          <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+          <span>Checklist Tự Theo Dõi Bảo Dưỡng Cho Chủ Xe Territory</span>
+        </h3>
+        <span class="text-xs text-slate-400 font-mono">Tích chọn để ghi nhớ</span>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-3 text-xs">
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
+          <input type="checkbox" id="chk1" class="checkbox-custom mt-0.5">
+          <label for="chk1" class="cursor-pointer text-slate-300">Mỗi 7.500 – 8.000 km: Thay nhớt Castrol 5W-30 + lọc nhớt</label>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
+          <input type="checkbox" id="chk2" class="checkbox-custom mt-0.5">
+          <label for="chk2" class="cursor-pointer text-slate-300">Mốc 30.000 km (hiện tại): Vệ sinh lọc gió, vệ sinh phanh 4 bánh tại Dana Ford</label>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
+          <input type="checkbox" id="chk3" class="checkbox-custom mt-0.5">
+          <label for="chk3" class="cursor-pointer text-slate-300">Mốc 50.000 km: Thay dầu hộp số ly hợp kép ướt chuyên dụng (DCTF)</label>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
+          <input type="checkbox" id="chk4" class="checkbox-custom mt-0.5">
+          <label for="chk4" class="cursor-pointer text-slate-300">Mốc 70.000 km: Bắn trấu vệ sinh muội than xúp-páp nạp GDI</label>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
+          <input type="checkbox" id="chk5" class="checkbox-custom mt-0.5">
+          <label for="chk5" class="cursor-pointer text-slate-300">Mốc 80.000 km: Thay cụm bugi Iridium, thay nước làm mát két nước</label>
+        </div>
+        <div class="flex items-start gap-2.5 p-2.5 rounded-lg bg-slate-900/60 border border-slate-800">
+          <input type="checkbox" id="chk6" class="checkbox-custom mt-0.5">
+          <label for="chk6" class="cursor-pointer text-slate-300">Mốc 100.000 km: Kiểm tra phuộc nhún, thay cao su gầm, kiểm tra phớt turbo</label>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs font-medium shadow-2xl flex items-center gap-2">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    <span id="toast-msg">Đã copy thành công!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950 py-6 px-4 text-center text-xs text-slate-500 font-mono">
+    Thẩm định kỹ thuật ô tô độc lập • Hệ thống Brain Artifacts Hub • Ford Territory Titanium X 2025
+  </footer>
+
+  <script>
+    function copyCurrentPath() {
+      const fullPath = '/Users/mac/Desktop/Brain/research/do-ben-dong-co-hop-so-ford-territory/index.html';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullPath).then(() => showToast('Đã copy đường dẫn file HTML!')).catch(() => fallbackCopy(fullPath));
+      } else {
+        fallbackCopy(fullPath);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('Đã copy đường dẫn file HTML!');
+      } catch (e) {
+        showToast('Không thể copy: ' + text);
+      }
+      document.body.removeChild(ta);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-msg');
+      toastMsg.innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

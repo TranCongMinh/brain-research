@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khám Nghĩa Vụ Quân Sự: Cận 1 Mắt 3.25D, 1 Mắt 2.25D Có Khả Năng Trúng Tuyển Không?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #070b14; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    .card-glass {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(51, 65, 85, 0.5);
+    }
+    .card-glass:hover {
+      border-color: rgba(96, 165, 250, 0.4);
+    }
+    .checkbox-custom:checked + label {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-[#070b14] text-slate-100 font-sans antialiased selection:bg-emerald-600 selection:text-white min-h-screen">
+
+  <!-- Top Sticky Navigation Bar -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#070b14]/85 border-b border-slate-800/80 px-4 sm:px-8 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition bg-emerald-950/60 border border-emerald-800/60 px-3 py-1.5 rounded-lg">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        <span>Artifacts Dashboard</span>
+      </a>
+      <span class="text-slate-600">|</span>
+      <span class="text-xs font-medium text-slate-300 hidden sm:inline">Phân Tích Pháp Lý Cận Thị &amp; Nghĩa Vụ Quân Sự</span>
+    </div>
+
+    <div class="flex items-center gap-2.5">
+      <button onclick="window.print()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+        <span>In PDF</span>
+      </button>
+      <button onclick="copyText('/Users/mac/Desktop/Brain/research/can-thi-kham-nghia-vu-quan-su/index.html', 'Đã copy đường dẫn HTML')" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs text-white font-medium transition flex items-center gap-1.5 shadow-sm shadow-emerald-500/20">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+        <span>Copy Path</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="border-b border-slate-800 bg-gradient-to-b from-slate-900/60 to-transparent py-10 px-4 sm:px-8">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex flex-wrap items-center gap-2 mb-3">
+        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-emerald-900/60 text-emerald-300 border border-emerald-700/60 uppercase tracking-wider">Cẩm Nang Pháp Lý Thực Chiến</span>
+        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-blue-900/60 text-blue-300 border border-blue-700/60">Thông tư 105/2023/TT-BQP</span>
+        <span class="px-2.5 py-1 text-xs font-bold rounded-md bg-amber-900/60 text-amber-300 border border-amber-700/60">Áp dụng tuyển quân 2024–2026</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+        1 Mắt Cận 3.25D, 1 Mắt 2.25D: <br class="hidden sm:inline"><span class="text-emerald-400">Có Khả Năng Trúng Tuyển NVQS Không?</span>
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-300 leading-relaxed mb-6">
+        Thẩm định chi tiết theo khung pháp lý mới nhất: <strong class="text-white">Luật Nghĩa vụ quân sự 2015</strong>, <strong class="text-white">Thông tư 105/2023/TT-BQP</strong> (thay thế TTLT 16/2016 từ 01/01/2024) và <strong class="text-white">Thông tư 148/2018/TT-BQP</strong>. Phân tích chấm điểm, bẫy đo khám và hướng dẫn thực thi bảo vệ quyền lợi hợp pháp.
+      </p>
+
+      <!-- 3 Direct Highlights -->
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div class="card-glass rounded-xl p-4 border-l-4 border-l-emerald-500">
+          <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-1">Kết Luận Trực Diện</div>
+          <div class="text-base font-bold text-white">Khả năng trúng tuyển: GẦN NHƯ 0%</div>
+          <div class="text-xs text-slate-400 mt-1">Mắt 3.25D bị chấm <strong>Điểm 4</strong>. Xếp loại sức khỏe chung là <strong>Loại 4</strong> $\rightarrow$ Không đủ tiêu chuẩn gọi nhập ngũ.</div>
+        </div>
+
+        <div class="card-glass rounded-xl p-4 border-l-4 border-l-blue-500">
+          <div class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-1">Căn Cứ Kép Tuyển Quân</div>
+          <div class="text-base font-bold text-white">Vượt ngưỡng cận 1.5 Diop</div>
+          <div class="text-xs text-slate-400 mt-1">Khoản 3 Điều 4 Thông tư 148/2018 quy định: Tạm hoãn công dân mắc tật cận thị từ 1.5D trở lên. Bạn cận 3.25D &amp; 2.25D.</div>
+        </div>
+
+        <div class="card-glass rounded-xl p-4 border-l-4 border-l-rose-500">
+          <div class="text-xs font-bold text-rose-400 uppercase tracking-wider mb-1">Lưu Ý Sống Còn</div>
+          <div class="text-base font-bold text-rose-300">Vẫn BẮT BUỘC phải đi khám</div>
+          <div class="text-xs text-slate-400 mt-1">Tuyệt đối không tự ý ở nhà! Tự ý trốn khám tuyển bị phạt <strong>25 - 35 triệu VNĐ</strong> (Nghị định 120/2021/NĐ-CP).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Layout -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-8 py-10 space-y-12">
+
+    <!-- Interactive Simulator / Calculator Section -->
+    <section class="card-glass rounded-2xl p-6 sm:p-8 border border-emerald-500/30 bg-emerald-950/10 shadow-xl">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        </div>
+        <div>
+          <h2 class="text-xl sm:text-2xl font-bold text-white">Bộ Giả Lập Chấm Điểm Mắt NVQS Tự Động</h2>
+          <p class="text-xs sm:text-sm text-slate-400">Theo chuẩn Phụ lục I - Bảng số 2 Thông tư 105/2023/TT-BQP</p>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-6 mb-6">
+        <!-- Mắt Phải -->
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-800">
+          <label class="block text-xs font-semibold uppercase text-slate-400 tracking-wider mb-2">Độ cận Mắt 1 (Diop / Độ)</label>
+          <div class="flex items-center gap-3">
+            <input type="number" step="0.25" min="0" max="15" id="input-eye1" value="3.25" oninput="calculateNVQS()"
+              class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-xl font-bold text-emerald-400 focus:outline-none focus:border-emerald-500">
+            <span class="text-slate-400 font-mono text-sm">Diop</span>
+          </div>
+          <div id="badge-eye1" class="mt-3 text-xs px-2.5 py-1 rounded bg-slate-800 text-slate-300 font-mono inline-block">
+            Đánh giá: Điểm 4 (Cận 3D - dưới 4D)
+          </div>
+        </div>
+
+        <!-- Mắt Trái -->
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-800">
+          <label class="block text-xs font-semibold uppercase text-slate-400 tracking-wider mb-2">Độ cận Mắt 2 (Diop / Độ)</label>
+          <div class="flex items-center gap-3">
+            <input type="number" step="0.25" min="0" max="15" id="input-eye2" value="2.25" oninput="calculateNVQS()"
+              class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-xl font-bold text-blue-400 focus:outline-none focus:border-blue-500">
+            <span class="text-slate-400 font-mono text-sm">Diop</span>
+          </div>
+          <div id="badge-eye2" class="mt-3 text-xs px-2.5 py-1 rounded bg-slate-800 text-slate-300 font-mono inline-block">
+            Đánh giá: Điểm 2–3 (Dưới 3D theo thị lực sau chỉnh kính)
+          </div>
+        </div>
+      </div>
+
+      <!-- Result Banner -->
+      <div id="result-box" class="p-5 rounded-xl border border-emerald-500/50 bg-emerald-950/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <div class="text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1">Kết luận phân loại sức khỏe:</div>
+          <div id="result-health-type" class="text-2xl font-black text-white">SỨC KHỎE LOẠI 4 (KHÔNG ĐỦ TIÊU CHUẨN GỌI NHẬP NGŨ)</div>
+          <div id="result-desc" class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+            Do có 1 mắt cận 3.25 Diop (nằm trong khung 3D - dưới 4D) bị chấm <strong>Điểm 4</strong>. Theo Điều 6 Thông tư 105/2023, sức khỏe tổng quát lấy theo chỉ tiêu thấp nhất $\rightarrow$ Xếp Loại 4. Bạn thuộc diện <strong>TẠM HOÃN GỌI NHẬP NGŨ</strong> theo Điều 41 Luật NVQS 2015.
+          </div>
+        </div>
+        <div class="shrink-0">
+          <span id="result-status-tag" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold text-sm">
+            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            TẠM HOÃN NVQS
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deep Legal Analysis & Scoring Table -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm border border-blue-500/30">1</span>
+        <h2 class="text-2xl font-bold text-white">Căn Cứ Pháp Lý &amp; Thang Điểm Chấm Mắt Chi Tiết</h2>
+      </div>
+
+      <div class="card-glass rounded-xl overflow-hidden border border-slate-800">
+        <div class="p-4 bg-slate-900/60 border-b border-slate-800 flex justify-between items-center">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Bảng số 2 - Phụ lục I (Ban hành kèm Thông tư 105/2023/TT-BQP)</span>
+          <span class="text-xs text-emerald-400 font-mono">Hiệu lực từ 01/01/2024</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm text-slate-300">
+            <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-slate-800">
+              <tr>
+                <th class="px-5 py-3">Tình trạng tật cận thị</th>
+                <th class="px-5 py-3">Khoảng độ (Diop)</th>
+                <th class="px-5 py-3 text-center">Điểm số</th>
+                <th class="px-5 py-3">Xếp loại sức khỏe</th>
+                <th class="px-5 py-3">Khả năng tuyển quân</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60 font-mono text-xs">
+              <tr class="hover:bg-slate-800/30">
+                <td class="px-5 py-3 font-sans font-medium text-white">Cận thị nhẹ (Mắt 2 của bạn: 2.25D)</td>
+                <td class="px-5 py-3 text-blue-400">&lt; -3.0D</td>
+                <td class="px-5 py-3 text-center font-bold text-slate-200">2 – 3</td>
+                <td class="px-5 py-3 font-sans">Loại 2 hoặc Loại 3 (tùy thị lực có kính)</td>
+                <td class="px-5 py-3 font-sans text-amber-400">Xem xét tiêu chuẩn Thông tư 148</td>
+              </tr>
+              <tr class="bg-emerald-950/20 border-l-4 border-l-emerald-500 hover:bg-emerald-950/30">
+                <td class="px-5 py-3 font-sans font-bold text-white flex items-center gap-2">
+                  <span>Cận thị trung bình (Mắt 1 của bạn: 3.25D)</span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-mono">Trường hợp bạn</span>
+                </td>
+                <td class="px-5 py-3 text-emerald-300 font-bold">-3.0D đến &lt; -4.0D</td>
+                <td class="px-5 py-3 text-center font-bold text-emerald-400 text-sm">Điểm 4</td>
+                <td class="px-5 py-3 font-sans font-bold text-emerald-300">Sức khỏe Loại 4</td>
+                <td class="px-5 py-3 font-sans font-bold text-emerald-400">KHÔNG GỌI NHẬP NGŨ</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="px-5 py-3 font-sans font-medium text-white">Cận thị nặng</td>
+                <td class="px-5 py-3 text-rose-400">-4.0D đến &lt; -5.0D</td>
+                <td class="px-5 py-3 text-center font-bold text-rose-400">Điểm 5</td>
+                <td class="px-5 py-3 font-sans text-rose-300">Sức khỏe Loại 5</td>
+                <td class="px-5 py-3 font-sans text-slate-400">Không gọi nhập ngũ</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="px-5 py-3 font-sans font-medium text-white">Cận thị rất nặng</td>
+                <td class="px-5 py-3 text-rose-400">&ge; -5.0D</td>
+                <td class="px-5 py-3 text-center font-bold text-rose-400">Điểm 6</td>
+                <td class="px-5 py-3 font-sans text-rose-300">Sức khỏe Loại 6</td>
+                <td class="px-5 py-3 font-sans text-slate-400">Miễn hoặc hoãn tuyệt đối</td>
+              </tr>
+              <tr class="hover:bg-slate-800/30">
+                <td class="px-5 py-3 font-sans font-medium text-slate-400">Cận thị đã mổ mắt (Laser/Phakic)</td>
+                <td class="px-5 py-3 text-slate-400">Đã can thiệp</td>
+                <td class="px-5 py-3 text-center text-slate-400">+1 điểm</td>
+                <td class="px-5 py-3 font-sans text-slate-400">Thị lực không kính + tăng 1 điểm</td>
+                <td class="px-5 py-3 font-sans text-slate-400">Khám thực tế</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4 text-xs leading-relaxed text-slate-300">
+        <div class="card-glass rounded-xl p-4">
+          <div class="font-bold text-white mb-1 flex items-center gap-1.5 text-sm">
+            <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Nguyên Tắc "Chỉ Tiêu Thấp Nhất"
+          </div>
+          Theo Khoản 2 Điều 6 Thông tư 105/2023, phân loại sức khỏe không lấy điểm trung bình mà lấy theo <strong>chỉ tiêu bị điểm xấu nhất</strong>. Dù tất cả các chỉ tiêu khác (chiều cao, cân nặng, tim mạch, huyết áp) đạt Loại 1, chỉ cần 1 mắt 3.25D bị điểm 4 thì phân loại chung lập tức rơi vào Loại 4.
+        </div>
+
+        <div class="card-glass rounded-xl p-4">
+          <div class="font-bold text-white mb-1 flex items-center gap-1.5 text-sm">
+            <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            Tiêu Chuẩn Tuyển Chọn Của Bộ Quốc Phòng
+          </div>
+          Điểm a Khoản 3 Điều 4 Thông tư 148/2018/TT-BQP nêu rõ: Chỉ tuyển chọn những công dân có sức khỏe Loại 1, 2, 3. Đồng thời tại Điểm c: Không gọi nhập ngũ công dân có tật khúc xạ cận thị từ 1.5 diop trở lên. Mắt bạn (3.25D &amp; 2.25D) hoàn toàn thuộc diện được tạm hoãn.
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Checklist Section -->
+    <section class="space-y-6">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-sm border border-emerald-500/30">2</span>
+          <h2 class="text-2xl font-bold text-white">Checklist Giấy Tờ Cần Mang Theo Khi Đi Khám</h2>
+        </div>
+        <div id="checklist-counter" class="text-xs font-mono bg-slate-800 text-slate-300 px-3 py-1 rounded-full border border-slate-700">
+          Đã chuẩn bị: 0/6 mục
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        <!-- Nhóm Y Tế -->
+        <div class="card-glass rounded-xl p-5 border border-slate-800">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-emerald-400 mb-4 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Hồ Sơ Y Tế Chứng Minh Cận Thị (Cốt lõi)
+          </h3>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <input type="checkbox" id="chk-1" onchange="updateChecklist()" class="checkbox-custom mt-1 rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-0">
+              <label for="chk-1" class="text-xs text-slate-200 cursor-pointer select-none">
+                <strong class="text-white block mb-0.5">Phiếu đo khúc xạ tự động (Bản gốc)</strong>
+                Phiếu in ra từ máy tự động tại Bệnh viện Mắt (có thông số SPH 3.25 và 2.25, CYL, AXIS).
+              </label>
+            </div>
+            <div class="flex items-start gap-3">
+              <input type="checkbox" id="chk-2" onchange="updateChecklist()" class="checkbox-custom mt-1 rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-0">
+              <label for="chk-2" class="text-xs text-slate-200 cursor-pointer select-none">
+                <strong class="text-white block mb-0.5">Sổ khám bệnh / Giấy chứng nhận thị lực có dấu đỏ</strong>
+                Có chữ ký của Bác sĩ Chuyên khoa Mắt và mộc tròn của Bệnh viện tuyến tỉnh/TW (khám trong 1–3 tháng).
+              </label>
+            </div>
+            <div class="flex items-start gap-3">
+              <input type="checkbox" id="chk-3" onchange="updateChecklist()" class="checkbox-custom mt-1 rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-0">
+              <label for="chk-3" class="text-xs text-slate-200 cursor-pointer select-none">
+                <strong class="text-white block mb-0.5">Cặp kính cận đang sử dụng</strong>
+                Mang đúng chiếc kính có độ vừa mắt để Hội đồng kiểm tra thị lực sau khi chỉnh kính.
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nhóm Thủ Tục Hành Chính -->
+        <div class="card-glass rounded-xl p-5 border border-slate-800">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-blue-400 mb-4 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/></svg>
+            Giấy Tờ Tùy Thân &amp; Thủ Tục Hành Chính
+          </h3>
+          <div class="space-y-3">
+            <div class="flex items-start gap-3">
+              <input type="checkbox" id="chk-4" onchange="updateChecklist()" class="checkbox-custom mt-1 rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-0">
+              <label for="chk-4" class="text-xs text-slate-200 cursor-pointer select-none">
+                <strong class="text-white block mb-0.5">Lệnh gọi khám sức khỏe NVQS (Bản gốc)</strong>
+                Do Ban chỉ huy quân sự cấp huyện ký gửi về địa phương.
+              </label>
+            </div>
+            <div class="flex items-start gap-3">
+              <input type="checkbox" id="chk-5" onchange="updateChecklist()" class="checkbox-custom mt-1 rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-0">
+              <label for="chk-5" class="text-xs text-slate-200 cursor-pointer select-none">
+                <strong class="text-white block mb-0.5">CCCD gắn chip / VNeID mức 2</strong>
+                Để cán bộ đối chiếu định danh công dân tại bàn tiếp đón.
+              </label>
+            </div>
+            <div class="flex items-start gap-3">
+              <input type="checkbox" id="chk-6" onchange="updateChecklist()" class="checkbox-custom mt-1 rounded bg-slate-800 border-slate-700 text-emerald-500 focus:ring-0">
+              <label for="chk-6" class="text-xs text-slate-200 cursor-pointer select-none">
+                <strong class="text-white block mb-0.5">Bút mực xanh/đen &amp; Túi hồ sơ tài liệu</strong>
+                Bảo quản phẳng phiu các phiếu khám mắt để trình ngay khi vào phòng khám chuyên khoa Mắt.
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step-by-Step Visual Process Timeline -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-sm border border-amber-500/30">3</span>
+        <h2 class="text-2xl font-bold text-white">Quy Trình 4 Bước Đi Khám Tuyển &amp; Xử Lý Thực Tế</h2>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Step 1 -->
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-slate-600 relative">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 text-xs font-bold rounded bg-slate-800 text-slate-300 font-mono">BƯỚC 1</span>
+              <h3 class="text-base font-bold text-white">Khám Sơ Tuyển Tại Trạm Y Tế Xã / Phường (Tháng 10 – 11)</h3>
+            </div>
+            <span class="text-xs text-slate-400 font-mono">Địa điểm: Trạm y tế xã/phường</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Bác sĩ xã kiểm tra sơ bộ thể lực (chiều cao, cân nặng, vòng ngực) và đo thị lực sơ bộ bằng bảng chữ cái. Bạn xuất trình giấy khám mắt và đeo kính để kiểm tra. Bác sĩ sẽ đánh dấu "Mắc tật khúc xạ" và chuyển hồ sơ lên danh sách khám tuyển cấp huyện.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-emerald-500 relative bg-emerald-950/10">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 text-xs font-bold rounded bg-emerald-800 text-emerald-200 font-mono">BƯỚC 2 (QUYẾT ĐỊNH)</span>
+              <h3 class="text-base font-bold text-white">Khám Tuyển Tại Hội Đồng Khám Sức Khỏe Huyện (Tháng 11 – 12)</h3>
+            </div>
+            <span class="text-xs text-emerald-400 font-mono">Địa điểm: Trung tâm Y tế huyện</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            Đây là vòng khám có giá trị pháp lý quyết định. Tại phòng khám Mắt, bác sĩ chuyên khoa sẽ:
+          </p>
+          <div class="grid sm:grid-cols-3 gap-3 text-xs">
+            <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+              <div class="font-bold text-slate-200 mb-1">1. Đo máy khúc xạ tự động</div>
+              Máy in phiếu kết quả độ cận thực tế của từng mắt (SPH, CYL).
+            </div>
+            <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+              <div class="font-bold text-slate-200 mb-1">2. Thử kính mẫu</div>
+              Lắp mắt kính tương ứng 3.25D và 2.25D để đọc bảng thị lực 10/10.
+            </div>
+            <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+              <div class="font-bold text-slate-200 mb-1">3. Chấm điểm phiếu khám</div>
+              Bác sĩ ghi nhận Mắt 1: 3.25D $\rightarrow$ Điểm 4. Sức khỏe Mắt: Loại 4.
+            </div>
+          </div>
+          <div class="mt-3 p-2.5 rounded-lg bg-emerald-900/30 border border-emerald-700/50 text-[11px] text-emerald-200">
+            <strong>Mẹo thực chiến:</strong> Hãy chủ động chào hỏi lịch sự và đưa phiếu đo khúc xạ bệnh viện ngoài cho Bác sĩ xem ngay khi ngồi vào bàn khám: <em>"Dạ thưa bác sĩ, em có phiếu đo khúc xạ tại BV Mắt gần đây, một mắt 3.25D và một mắt 2.25D, em gửi bác sĩ xem đối chiếu ạ."</em>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-amber-500 relative">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 text-xs font-bold rounded bg-amber-800 text-amber-200 font-mono">BƯỚC 3</span>
+              <h3 class="text-base font-bold text-white">Xử Lý Nếu Bác Sĩ Nhỏ Thuốc Liệt Điều Tiết</h3>
+            </div>
+            <span class="text-xs text-amber-400 font-mono">Quy trình y khoa bắt buộc nếu nghi ngờ</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Nếu bác sĩ nghi ngờ bạn bị "cận thị giả" (do co quắp cơ thể mi vì thức khuya), họ sẽ nhỏ thuốc giãn đồng tử (như Cyclopentolate) và hẹn đo lại sau 30-45 phút. 
+            <strong>Yên tâm:</strong> Sau khi liệt điều tiết, mắt cận thật 3.25D cùng lắm chỉ giảm 0.25D - 0.5D (về ~2.75D - 3.0D). Với mức này, bạn vẫn vượt xa ngưỡng 1.5D của Thông tư 148 và vẫn thuộc diện tạm hoãn.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-blue-500 relative">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 text-xs font-bold rounded bg-blue-800 text-blue-200 font-mono">BƯỚC 4</span>
+              <h3 class="text-base font-bold text-white">Nhận Kết Luận Phân Loại &amp; Quyết Định Tạm Hoãn Nhập Ngũ</h3>
+            </div>
+            <span class="text-xs text-blue-400 font-mono">Ban CHQS cấp Huyện / UBND Huyện</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Hội đồng NVQS huyện sẽ họp xét duyệt và Chủ tịch UBND cấp huyện ra thông báo / quyết định Tạm hoãn gọi nhập ngũ do không đủ tiêu chuẩn sức khỏe theo Điểm a Khoản 1 Điều 41 Luật NVQS. Tạm hoãn có giá trị theo từng năm; các năm tiếp theo bạn vẫn sẽ được gửi lệnh gọi khám lại cho đến khi hết tuổi NVQS (25 tuổi, hoặc 27 tuổi nếu học ĐH/CĐ).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cost and Fine Comparison Table -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 font-bold flex items-center justify-center text-sm border border-purple-500/30">4</span>
+        <h2 class="text-2xl font-bold text-white">Bảng Chi Phí &amp; Chế Độ / Mức Phạt Pháp Lý</h2>
+      </div>
+
+      <div class="card-glass rounded-xl overflow-hidden border border-slate-800">
+        <table class="w-full text-left text-sm text-slate-300">
+          <thead class="text-xs uppercase bg-slate-900/80 text-slate-400 border-b border-slate-800">
+            <tr>
+              <th class="px-5 py-3">Hạng mục</th>
+              <th class="px-5 py-3">Mức tiền quy định</th>
+              <th class="px-5 py-3">Bên chịu trách nhiệm</th>
+              <th class="px-5 py-3">Căn cứ pháp lý</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 text-xs">
+            <tr>
+              <td class="px-5 py-3 font-semibold text-white">Khám đo mắt tại Bệnh viện Mắt công lập</td>
+              <td class="px-5 py-3 text-emerald-400 font-mono">50.000 – 150.000 VNĐ</td>
+              <td class="px-5 py-3">Công dân tự thanh toán</td>
+              <td class="px-5 py-3 text-slate-400">Khám theo yêu cầu dịch vụ</td>
+            </tr>
+            <tr class="bg-slate-900/40">
+              <td class="px-5 py-3 font-semibold text-emerald-300">Toàn bộ chi phí khám NVQS tại Hội đồng</td>
+              <td class="px-5 py-3 text-emerald-400 font-mono font-bold">0 VNĐ (Miễn phí 100%)</td>
+              <td class="px-5 py-3 text-emerald-300">Ngân sách Nhà nước chi trả</td>
+              <td class="px-5 py-3 text-slate-400">Điều 10 Thông tư 105/2023/TT-BQP</td>
+            </tr>
+            <tr>
+              <td class="px-5 py-3 font-semibold text-white">Phụ cấp tiền ăn, tàu xe đi lại khi đi khám</td>
+              <td class="px-5 py-3 text-slate-200 font-mono">Chi trả theo chế độ</td>
+              <td class="px-5 py-3">Ban CHQS huyện chi trả</td>
+              <td class="px-5 py-3 text-slate-400">Nghị định 13/2016/NĐ-CP</td>
+            </tr>
+            <tr class="bg-rose-950/20 text-rose-300">
+              <td class="px-5 py-3 font-semibold text-rose-300">Phạt tiền: Không có mặt khám SƠ TUYỂN</td>
+              <td class="px-5 py-3 text-rose-400 font-mono font-bold">10.000.000 – 15.000.000 VNĐ</td>
+              <td class="px-5 py-3">Công dân vi phạm nộp Kho bạc</td>
+              <td class="px-5 py-3 text-rose-400">Khoản 7 Điều 1 NĐ 120/2021/NĐ-CP</td>
+            </tr>
+            <tr class="bg-rose-950/30 text-rose-300">
+              <td class="px-5 py-3 font-semibold text-rose-200">Phạt tiền: Không có mặt KHÁM TUYỂN HUYỆN</td>
+              <td class="px-5 py-3 text-rose-400 font-mono font-bold">25.000.000 – 35.000.000 VNĐ</td>
+              <td class="px-5 py-3">Công dân vi phạm nộp Kho bạc</td>
+              <td class="px-5 py-3 text-rose-400">Khoản 8 Điều 1 NĐ 120/2021/NĐ-CP</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Caution Cards / Red Team Section -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-rose-500/20 text-rose-400 font-bold flex items-center justify-center text-sm border border-rose-500/30">5</span>
+        <h2 class="text-2xl font-bold text-white">Thẻ Cảnh Báo Rủi Ro Sống Còn (Gotchas &amp; Red Team)</h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <!-- Caution 1 -->
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-rose-500 bg-rose-950/10">
+          <div class="flex items-center gap-2 text-rose-400 font-bold text-sm mb-2">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            Bẫy 1: Tự ý bỏ khám vì tưởng cận là tự động ở nhà
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Giấy đo mắt ở ngoài chỉ mang tính đối chiếu. Pháp luật quy định kết luận hợp pháp duy nhất là kết luận của Hội đồng khám NVQS huyện. Nếu bạn không đi khám theo lệnh gọi, bạn sẽ bị phạt từ <strong>25 - 35 triệu đồng</strong> và vẫn bị cưỡng chế khám lại vào đợt sau.
+          </p>
+        </div>
+
+        <!-- Caution 2 -->
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-amber-500 bg-amber-950/10">
+          <div class="flex items-center gap-2 text-amber-400 font-bold text-sm mb-2">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Bẫy 2: Địa phương ép chỉ tiêu, đo qua loa
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-2">
+            Một số nơi thiếu quân số có thể khám sơ sài hoặc cố tình chỉ đo thị lực có kính rồi ghi Loại 3.
+          </p>
+          <div class="text-[11px] text-amber-200 bg-amber-900/40 p-2.5 rounded-lg border border-amber-700/40">
+            <strong>Cách giải quyết:</strong> Đưa ngay giấy khám có mộc đỏ của Bệnh viện Mắt cấp tỉnh. Nếu vẫn bị ghi sai, làm đơn khiếu nại trong vòng 3 ngày gửi Chủ tịch UBND huyện yêu cầu phúc tra tại <strong>Hội đồng Giám định Y khoa cấp Tỉnh</strong>.
+          </div>
+        </div>
+
+        <!-- Caution 3 -->
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-blue-500 bg-blue-950/10">
+          <div class="flex items-center gap-2 text-blue-400 font-bold text-sm mb-2">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            Bẫy 3: Nghĩa vụ Công an nhân dân (CAND) càng không tuyển
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Nếu bạn đang phân vân giữa NVQS và Công an: Tiêu chuẩn của Bộ Công an (Thông tư 62/2023/TT-BCA) yêu cầu thị lực mắt không kính tối thiểu 9/10 hoặc tật khúc xạ không quá 1.5 Diop. Với độ cận 3.25D và 2.25D, bạn <strong>100% không thể đi nghĩa vụ Công an</strong>.
+          </p>
+        </div>
+
+        <!-- Caution 4 -->
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-emerald-500 bg-emerald-950/10">
+          <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm mb-2">
+            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            Bẫy 4: Quyết định tạm hoãn chỉ có giá trị theo năm
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Năm nay bạn được hoãn không có nghĩa là được miễn vĩnh viễn. Luật quy định hàng năm địa phương vẫn có quyền gọi khám lại để kiểm tra xem bạn đã mổ mắt chữa cận hay chưa cho đến hết tuổi gọi nhập ngũ (25 tuổi, hoặc 27 tuổi nếu học Đại học/Cao đẳng).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Real Cases & Scenarios -->
+    <section class="space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-red-500/20 text-red-400 font-bold flex items-center justify-center text-sm border border-red-500/30">6</span>
+        <h2 class="text-2xl font-bold text-white">Điều Tra Thực Tế: Có Case Nào Cận 2.5D – 3.5D Vẫn Trúng Tuyển Không?</h2>
+      </div>
+
+      <!-- Real-world verdict banner -->
+      <div class="card-glass rounded-xl p-5 border-l-4 border-l-amber-500 bg-amber-950/20">
+        <div class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-1">Thực Tế Tuyển Quân Tại Địa Phương</div>
+        <div class="text-base font-bold text-white mb-2">
+          Câu trả lời thẳng thắn: <span class="text-amber-300">CÓ! Thực tế đã ghi nhận không ít trường hợp cận từ 2.5D đến trên 3.0D vẫn nhận Lệnh gọi nhập ngũ.</span>
+        </div>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Tuy nhiên, 100% các trường hợp này <strong>không phải do pháp luật cho phép</strong>, mà xuất phát từ <strong>4 kịch bản sai lệch quy trình hoặc hiện tượng y khoa</strong> dưới đây:
+        </p>
+      </div>
+
+      <!-- 4 Scenarios Grid -->
+      <div class="grid sm:grid-cols-2 gap-4">
+        <!-- Scenario 1 -->
+        <div class="card-glass rounded-xl p-5 border border-slate-800 bg-slate-900/60">
+          <div class="flex items-center gap-2 text-rose-400 font-bold text-sm mb-2">
+            <span class="w-6 h-6 rounded-full bg-rose-500/20 text-rose-300 flex items-center justify-center text-xs">1</span>
+            Hiện Tượng "Cận Thị Giả" Bị Nhỏ Thuốc Tụt Độ
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            Trước ngày khám, nhiều bạn thức khuya, dùng điện thoại quá độ khiến cơ thể mi mắt co quắp liên tục. Khi đo ở tiệm kính ngoài máy báo <strong>3.25D</strong>.
+          </p>
+          <div class="p-2.5 rounded-lg bg-rose-950/30 border border-rose-800/40 text-[11px] text-rose-200">
+            <strong>Hậu quả:</strong> Bác sĩ Hội đồng nhỏ thuốc liệt điều tiết (Cyclopentolate). Sau 45 phút cơ mi giãn, độ cận thật tụt xuống chỉ còn <strong>1.25D</strong> (&lt; 1.5D) $\rightarrow$ Đạt Sức khỏe Loại 2–3 $\rightarrow$ <strong>Trúng tuyển hợp pháp!</strong>
+          </div>
+        </div>
+
+        <!-- Scenario 2 -->
+        <div class="card-glass rounded-xl p-5 border border-slate-800 bg-slate-900/60">
+          <div class="flex items-center gap-2 text-amber-400 font-bold text-sm mb-2">
+            <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center text-xs">2</span>
+            Hội Đồng Cấp Huyện Khám Ẩu / "Ép Chỉ Tiêu"
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            Một số địa phương vùng thiếu quân số, áp lực hoàn thành 100% chỉ tiêu giao quân rất lớn. Bác sĩ không dùng máy đo khúc xạ tự động mà chỉ cho che mắt đọc bảng chữ.
+          </p>
+          <div class="p-2.5 rounded-lg bg-amber-950/30 border border-amber-800/40 text-[11px] text-amber-200">
+            <strong>Hậu quả:</strong> Cho thử kính mẫu nhìn rõ 10/10 rồi tự tiện phê "Loại 3". Thanh niên không nắm luật, không mang giấy đối chiếu nên chấp nhận chịu trận và dính lệnh nhập ngũ oan.
+          </div>
+        </div>
+
+        <!-- Scenario 3 -->
+        <div class="card-glass rounded-xl p-5 border border-slate-800 bg-slate-900/60">
+          <div class="flex items-center gap-2 text-blue-400 font-bold text-sm mb-2">
+            <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-300 flex items-center justify-center text-xs">3</span>
+            Trúng Tuyển Nhưng Bị "TRẢ QUÂN VỀ ĐỊA PHƯƠNG"
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            Đây là trường hợp báo chí (Báo Tuổi Trẻ, Thanh Niên) từng phản ánh: Cấp huyện khám sai sót cho thanh niên cận nặng nhập ngũ.
+          </p>
+          <div class="p-2.5 rounded-lg bg-blue-950/30 border border-blue-800/40 text-[11px] text-blue-200">
+            <strong>Hậu quả:</strong> Sau khi vào đơn vị quân đội <strong>7 – 15 ngày</strong>, Quân y Trung đoàn khám phúc tra bằng máy chuẩn, phát hiện Mắt 3.25D (Loại 4) $\rightarrow$ <strong>Lập biên bản trả quân về địa phương</strong>, gây dở dang công việc, học tập.
+          </div>
+        </div>
+
+        <!-- Scenario 4 -->
+        <div class="card-glass rounded-xl p-5 border border-slate-800 bg-slate-900/60">
+          <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm mb-2">
+            <span class="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-xs">4</span>
+            Tự Nguyện Viết Đơn Tình Nguyện Nhập Ngũ
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            Nhiều thanh niên có nguyện vọng vào môi trường quân đội để rèn luyện bản thân, thi chuyển sĩ quan hoặc lấy chính sách hỗ trợ học nghề sau khi xuất ngũ.
+          </p>
+          <div class="p-2.5 rounded-lg bg-emerald-950/30 border border-emerald-800/40 text-[11px] text-emerald-200">
+            <strong>Kết quả:</strong> Khi có đơn tình nguyện và thị lực sau chỉnh kính đạt 9-10/10, địa phương thiếu chỉ tiêu có thể linh động xem xét cho nhập ngũ theo nguyện vọng cá nhân.
+          </div>
+        </div>
+      </div>
+
+      <!-- Self-Defense Guide -->
+      <div class="card-glass rounded-xl p-5 border border-emerald-500/40 bg-emerald-950/15">
+        <h3 class="text-sm font-bold text-emerald-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          3 Bước "Vũ Khí Tự Vệ Hợp Pháp" Để Không Bị Ép Trúng Tuyển Oan
+        </h3>
+        <div class="grid sm:grid-cols-3 gap-3 text-xs text-slate-300">
+          <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+            <div class="font-bold text-white mb-1">1. Đo Liệt Điều Tiết Trước</div>
+            Đến Bệnh viện Mắt tuyến tỉnh đo khúc xạ có nhỏ thuốc để biết chắc độ cận thật. Nếu sau nhỏ thuốc mắt 3.25D vẫn trên 2.75D, bạn chắc chắn 100% được tạm hoãn.
+          </div>
+          <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+            <div class="font-bold text-white mb-1">2. Yêu Cầu Xem Phiếu Đo Máy</div>
+            Tại bàn khám huyện, kiên quyết đề nghị bác sĩ cho đo máy khúc xạ tự động và cho xem giấy in kết quả trước khi ghi vào phiếu sức khỏe.
+          </div>
+          <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-800">
+            <div class="font-bold text-white mb-1">3. Khiếu Nại Lên Cấp Tỉnh</div>
+            Nếu bị cố tình ghi sai Loại 3: Làm đơn khiếu nại trong 03 ngày gửi Chủ tịch UBND huyện yêu cầu phúc tra tại Hội đồng Giám định Y khoa cấp Tỉnh. Kết luận cấp Tỉnh là tối cao.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Copy & Directory Section -->
+    <section class="card-glass rounded-2xl p-6 border border-slate-800">
+      <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+        Nút Copy Nhanh Tra Cứu &amp; Địa Chỉ Khám Mắt Cấp Tỉnh Uy Tín
+      </h2>
+
+      <div class="grid sm:grid-cols-3 gap-3">
+        <!-- BV Mắt TW -->
+        <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-white mb-1">Bệnh viện Mắt TW (Hà Nội)</div>
+            <div class="text-[11px] text-slate-400">85 Bà Triệu, Q. Hai Bà Trưng</div>
+          </div>
+          <button onclick="copyText('85 Bà Triệu, Hai Bà Trưng, Hà Nội - ĐT: 02438263966', 'Đã copy địa chỉ BV Mắt TW')" class="mt-3 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 flex items-center justify-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+            <span>Copy Địa Chỉ</span>
+          </button>
+        </div>
+
+        <!-- BV Mắt Đà Nẵng -->
+        <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-white mb-1">Bệnh viện Mắt Đà Nẵng</div>
+            <div class="text-[11px] text-slate-400">68 Phan Đăng Lưu, Hòa Cường Bắc</div>
+          </div>
+          <button onclick="copyText('68 Phan Đăng Lưu, Hòa Cường Bắc, Hải Châu, Đà Nẵng - ĐT: 02363624283', 'Đã copy địa chỉ BV Mắt Đà Nẵng')" class="mt-3 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 flex items-center justify-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+            <span>Copy Địa Chỉ</span>
+          </button>
+        </div>
+
+        <!-- BV Mắt TP.HCM -->
+        <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-white mb-1">Bệnh viện Mắt TP.HCM</div>
+            <div class="text-[11px] text-slate-400">280 Điện Biên Phủ, Võ Thị Sáu, Q.3</div>
+          </div>
+          <button onclick="copyText('280 Điện Biên Phủ, Võ Thị Sáu, Quận 3, TP.HCM - ĐT: 02839325713', 'Đã copy địa chỉ BV Mắt TP.HCM')" class="mt-3 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 flex items-center justify-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+            <span>Copy Địa Chỉ</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 py-8 px-4 text-center text-xs text-slate-500">
+    Hệ thống tư vấn &amp; nghiên cứu chuyên sâu Loki — Dữ liệu căn cứ theo Thông tư 105/2023/TT-BQP và Luật Nghĩa vụ quân sự 2015.
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs font-medium shadow-2xl flex items-center gap-2">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+    <span id="toast-msg">Đã sao chép vào bộ nhớ tạm!</span>
+  </div>
+
+  <!-- Interactive JavaScript Logic -->
+  <script>
+    function copyText(text, msg) {
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toast-msg');
+        toastMsg.textContent = msg || 'Đã sao chép thành công!';
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        setTimeout(() => {
+          toast.classList.add('translate-y-20', 'opacity-0');
+        }, 2200);
+      });
+    }
+
+    function calculateNVQS() {
+      const e1 = parseFloat(document.getElementById('input-eye1').value) || 0;
+      const e2 = parseFloat(document.getElementById('input-eye2').value) || 0;
+
+      function scoreEye(d) {
+        if (d <= 0) return { score: 1, text: 'Điểm 1 (Thị lực bình thường)' };
+        if (d < 3.0) return { score: 3, text: 'Điểm 2–3 (Dưới 3D theo thị lực sau chỉnh kính)' };
+        if (d < 4.0) return { score: 4, text: 'Điểm 4 (Cận 3D đến dưới 4D)' };
+        if (d < 5.0) return { score: 5, text: 'Điểm 5 (Cận 4D đến dưới 5D)' };
+        return { score: 6, text: 'Điểm 6 (Cận 5D trở lên)' };
+      }
+
+      const res1 = scoreEye(e1);
+      const res2 = scoreEye(e2);
+
+      document.getElementById('badge-eye1').textContent = `Đánh giá: ${res1.text}`;
+      document.getElementById('badge-eye2').textContent = `Đánh giá: ${res2.text}`;
+
+      const maxScore = Math.max(res1.score, res2.score);
+      const resBox = document.getElementById('result-box');
+      const resTitle = document.getElementById('result-health-type');
+      const resDesc = document.getElementById('result-desc');
+      const resTag = document.getElementById('result-status-tag');
+
+      if (maxScore >= 4) {
+        resTitle.textContent = `SỨC KHỎE LOẠI ${maxScore} (KHÔNG ĐỦ TIÊU CHUẨN GỌI NHẬP NGŨ)`;
+        resDesc.innerHTML = `Do có ít nhất một mắt đạt <strong>Điểm ${maxScore}</strong> (Độ cận lớn nhất: ${Math.max(e1, e2)} Diop). Theo Điều 6 Thông tư 105/2023, phân loại chung lấy theo chỉ tiêu điểm kém nhất $\\rightarrow$ <strong>Loại ${maxScore}</strong>. Công dân thuộc diện <strong>TẠM HOÃN GỌI NHẬP NGŨ</strong> theo Luật NVQS 2015.`;
+        resTag.className = "inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold text-sm";
+        resTag.innerHTML = `<svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> TẠM HOÃN NVQS`;
+      } else if (e1 >= 1.5 || e2 >= 1.5) {
+        resTitle.textContent = `SỨC KHỎE LOẠI ${maxScore} (TẬT KHÚC XẠ &ge; 1.5 DIOP)`;
+        resDesc.innerHTML = `Cận thị dưới 3D đạt điểm ${maxScore}, nhưng do độ cận &ge; 1.5 Diop, theo Điểm c Khoản 3 Điều 4 Thông tư 148/2018/TT-BQP, công dân vẫn được <strong>TẠM HOÃN GỌI NHẬP NGŨ</strong> vì mắc tật khúc xạ về mắt.`;
+        resTag.className = "inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-blue-500/20 text-blue-300 border border-blue-500/40 font-bold text-sm";
+        resTag.innerHTML = `<svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> TẠM HOÃN (TT 148)`;
+      } else {
+        resTitle.textContent = `SỨC KHỎE LOẠI ${maxScore} (ĐỦ ĐIỀU KIỆN SỨC KHỎE NHẬP NGŨ)`;
+        resDesc.innerHTML = `Cận thị dưới 1.5 Diop và các chỉ tiêu đạt điểm ${maxScore} (thuộc Loại 1-3). Nếu các tiêu chuẩn chính trị, văn hóa khác đều đạt, công dân <strong>CÓ THỂ BỊ GỌI NHẬP NGŨ</strong>.`;
+        resTag.className = "inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold text-sm";
+        resTag.innerHTML = `<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> ĐỦ TIÊU CHUẨN`;
+      }
+    }
+
+    function updateChecklist() {
+      const total = 6;
+      let checked = 0;
+      for (let i = 1; i <= total; i++) {
+        const el = document.getElementById(`chk-${i}`);
+        if (el && el.checked) checked++;
+      }
+      document.getElementById('checklist-counter').textContent = `Đã chuẩn bị: ${checked}/${total} mục`;
+    }
+
+    // Run on init
+    calculateNVQS();
+  </script>
+</body>
+</html>

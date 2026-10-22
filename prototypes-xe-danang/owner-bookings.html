@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý booking — XeDaNang</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@5.7.47/daisyui.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', system-ui, sans-serif; }</style>
+</head>
+<body class="bg-base-100 text-base-content">
+
+  <div class="navbar bg-base-100 shadow-sm px-6 sticky top-0 z-40">
+    <div class="flex-1">
+      <a href="index.html" class="text-xl font-bold text-primary">🚗 XeDaNang</a>
+    </div>
+    <div class="hidden md:flex gap-2 items-center">
+      <a href="index.html" class="btn btn-ghost btn-sm">Tìm xe</a>
+      <a href="owner-listing.html" class="btn btn-ghost btn-sm">Đăng xe của bạn</a>
+      <a href="owner-bookings.html" class="btn btn-ghost btn-sm btn-active">Quản lý booking</a>
+      <a href="profile.html?id=1" class="btn btn-ghost btn-sm">Hồ sơ</a>
+      <button class="btn btn-primary btn-sm" onclick="openLoginModal()">Đăng nhập</button>
+    </div>
+  </div>
+
+  <div class="px-6 py-8 max-w-4xl mx-auto">
+    <h1 class="text-2xl font-bold mb-1">Quản lý booking</h1>
+    <p class="text-base-content/60 mb-6">Xác nhận yêu cầu đặt xe và đánh dấu hoàn tất sau khi giao/nhận xe.</p>
+
+    <div class="card bg-primary text-primary-content mb-6">
+      <div class="card-body p-4 flex-row items-center justify-between">
+        <div>
+          <p class="font-semibold" id="commission-summary">Kỳ này: 0 chuyến hoàn tất · Hoa hồng: 0đ</p>
+          <p class="text-xs opacity-80">Hoa hồng 10% / chuyến — thanh toán theo kỳ, không trừ qua tiền thuê xe.</p>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="document.getElementById('invoice-modal').showModal()">Xem chi tiết invoice</button>
+      </div>
+    </div>
+
+    <div role="tablist" class="tabs tabs-boxed mb-6" id="tabs"></div>
+    <div id="booking-list" class="space-y-3"></div>
+  </div>
+
+  <dialog id="invoice-modal" class="modal">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg mb-2">Chi tiết hoa hồng kỳ này</h3>
+      <div id="invoice-body" class="text-sm"></div>
+      <div class="modal-action"><form method="dialog"><button class="btn btn-sm">Đóng</button></form></div>
+    </div>
+  </dialog>
+
+  <dialog id="review-modal" class="modal">
+    <div class="modal-box max-w-sm">
+      <h3 class="font-bold text-lg mb-2">Đánh giá người thuê</h3>
+      <div class="rating mb-3" id="review-stars">
+        ${[1,2,3,4,5].map(()=>'').join("")}
+      </div>
+      <select id="review-rating" class="select select-bordered select-sm w-full mb-3">
+        <option value="5">★★★★★ Tuyệt vời</option>
+        <option value="4">★★★★ Tốt</option>
+        <option value="3">★★★ Bình thường</option>
+      </select>
+      <textarea id="review-comment" class="textarea textarea-bordered w-full" rows="3" placeholder="Nhận xét..."></textarea>
+      <div class="modal-action">
+        <form method="dialog"><button class="btn btn-ghost btn-sm">Hủy</button></form>
+        <button class="btn btn-primary btn-sm" onclick="submitReview()">Gửi đánh giá</button>
+      </div>
+    </div>
+  </dialog>
+
+  <footer class="bg-base-200 py-10 px-6 mt-10">
+    <div class="max-w-6xl mx-auto text-center text-sm text-base-content/50">
+      🚗 XeDaNang — nền tảng trung gian kết nối người thuê &amp; chủ xe tại Đà Nẵng.
+    </div>
+  </footer>
+
+  <script src="shared.js"></script>
+  <script>
+    let activeTab = "pending";
+    let reviewTargetBookingId = null;
+    const TAB_DEFS = [
+      { key: "pending", label: "Chờ xác nhận" },
+      { key: "confirmed", label: "Đã xác nhận" },
+      { key: "completed", label: "Hoàn tất" },
+      { key: "cancelled", label: "Đã huỷ" },
+    ];
+
+    function myBookings() {
+      const myCarIds = getCars().filter(c => c.ownerId === CURRENT_USER_ID).map(c => c.id);
+      return getBookings().filter(b => myCarIds.includes(b.carId));
+    }
+
+    function renderTabs() {
+      const all = myBookings();
+      document.getElementById("tabs").innerHTML = TAB_DEFS.map(t => {
+        const count = all.filter(b => b.status === t.key).length;
+        return `<a role="tab" class="tab ${activeTab === t.key ? 'tab-active' : ''}" onclick="setTab('${t.key}')">${t.label} (${count})</a>`;
+      }).join("");
+    }
+
+    function setTab(key) { activeTab = key; renderTabs(); renderList(); }
+
+    function bookingRowHtml(b) {
+      const car = getCars().find(c => c.id === b.carId);
+      const renter = getUserById(b.renterId);
+      const days = daysBetween(b.startDate, b.endDate);
+      const total = days * car.pricePerDay;
+      let actions = "";
+      if (b.status === "pending") {
+        actions = `<button class="btn btn-success btn-sm" onclick="setStatus(${b.id},'confirmed')">Chấp nhận</button>
+                   <button class="btn btn-error btn-outline btn-sm" onclick="setStatus(${b.id},'cancelled')">Từ chối</button>`;
+      } else if (b.status === "confirmed") {
+        actions = `<button class="btn btn-primary btn-sm" onclick="setStatus(${b.id},'completed')">Đánh dấu hoàn tất chuyến</button>`;
+      } else if (b.status === "completed") {
+        actions = `<button class="btn btn-outline btn-sm" onclick="openReview(${b.id})">Viết đánh giá</button>`;
+      } else {
+        actions = `<span class="text-sm text-base-content/40">Đã huỷ</span>`;
+      }
+      return `
+        <div class="card bg-base-100 border border-base-200">
+          <div class="card-body p-4 flex-row items-center gap-4">
+            <div class="h-14 w-14 bg-base-200 rounded-box flex items-center justify-center text-2xl">🚙</div>
+            <div class="flex-1">
+              <p class="font-semibold">${car.title} · ${renter.name}</p>
+              <p class="text-xs text-base-content/60">${b.startDate} → ${b.endDate} (${days} ngày) · ${formatVND(total)}</p>
+            </div>
+            <div class="flex gap-2 flex-wrap justify-end">${actions}</div>
+          </div>
+        </div>`;
+    }
+
+    function renderList() {
+      const list = myBookings().filter(b => b.status === activeTab);
+      document.getElementById("booking-list").innerHTML = list.length
+        ? list.map(bookingRowHtml).join("")
+        : '<p class="text-sm text-base-content/50 text-center py-10">Không có booking ở mục này.</p>';
+    }
+
+    function setStatus(id, status) {
+      const bookings = getBookings();
+      const b = bookings.find(x => x.id === id);
+      b.status = status;
+      saveBookings(bookings);
+      renderTabs(); renderList(); renderCommissionSummary();
+      const msg = status === "confirmed" ? "Đã chấp nhận booking"
+                : status === "cancelled" ? "Đã từ chối booking"
+                : "Đã đánh dấu hoàn tất chuyến";
+      showToast(msg);
+    }
+
+    function renderCommissionSummary() {
+      const completed = myBookings().filter(b => b.status === "completed");
+      const total = completed.reduce((sum, b) => {
+        const car = getCars().find(c => c.id === b.carId);
+        return sum + daysBetween(b.startDate, b.endDate) * car.pricePerDay;
+      }, 0);
+      const commission = Math.round(total * COMMISSION_RATE);
+      document.getElementById("commission-summary").textContent =
+        `Kỳ này: ${completed.length} chuyến hoàn tất · Hoa hồng: ${formatVND(commission)}`;
+      document.getElementById("invoice-body").innerHTML = completed.length
+        ? completed.map(b => {
+            const car = getCars().find(c => c.id === b.carId);
+            const t = daysBetween(b.startDate, b.endDate) * car.pricePerDay;
+            return `<div class="flex justify-between py-1 border-b border-base-200">
+              <span>${car.title} (${b.startDate}→${b.endDate})</span>
+              <span>${formatVND(Math.round(t * COMMISSION_RATE))}</span>
+            </div>`;
+          }).join("") + `<div class="flex justify-between py-2 font-semibold"><span>Tổng hoa hồng</span><span>${formatVND(commission)}</span></div>`
+        : '<p class="text-base-content/50">Chưa có chuyến hoàn tất trong kỳ này.</p>';
+    }
+
+    function openReview(bookingId) {
+      reviewTargetBookingId = bookingId;
+      document.getElementById("review-modal").showModal();
+    }
+
+    function submitReview() {
+      const b = getBookings().find(x => x.id === reviewTargetBookingId);
+      const reviews = getReviews();
+      const newId = Math.max(0, ...reviews.map(r => r.id)) + 1;
+      reviews.push({
+        id: newId, bookingId: b.id, revieweeId: b.renterId, direction: "owner_to_renter",
+        rating: Number(document.getElementById("review-rating").value),
+        comment: document.getElementById("review-comment").value || "Khách thuê ổn.",
+        authorName: getUserById(CURRENT_USER_ID).name,
+      });
+      saveReviews(reviews);
+      document.getElementById("review-modal").close();
+      showToast("Đã gửi đánh giá cho người thuê");
+    }
+
+    renderTabs();
+    renderList();
+    renderCommissionSummary();
+  </script>
+</body>
+</html>

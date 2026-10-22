@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng tin — BrokerConnect</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>body { font-family: 'Inter', system-ui, sans-serif; }</style>
+</head>
+<body class="bg-base-100 text-base-content">
+
+  <div class="drawer lg:drawer-open">
+    <input id="app-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content flex flex-col min-h-screen">
+
+      <div class="navbar bg-base-100 border-b border-base-200 px-4 lg:px-6 gap-2">
+        <div class="flex-none lg:hidden">
+          <label for="app-drawer" class="btn btn-square btn-ghost btn-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+          </label>
+        </div>
+        <div class="flex-1 flex items-center gap-2">
+          <select id="group-filter" class="select select-bordered select-sm max-w-xs"></select>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="create-listing.html" class="btn btn-primary btn-sm">+ Đăng tin</a>
+          <button class="btn btn-ghost btn-circle btn-sm" onclick="showToast('Chưa có thông báo mới','info')">🔔</button>
+          <div class="dropdown dropdown-end">
+            <label tabindex="0" class="avatar placeholder cursor-pointer">
+              <div class="bg-primary text-primary-content w-8 rounded-full"><span class="text-xs" id="user-initial">N</span></div>
+            </label>
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box shadow-lg w-40 mt-2 z-30">
+              <li><a href="profile.html">Hồ sơ</a></li>
+              <li><a href="index.html">Đăng xuất</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <main class="flex-1 p-4 lg:p-6 bg-base-200/30">
+        <div class="flex flex-wrap gap-2 mb-4">
+          <select id="type-filter" class="select select-bordered select-sm">
+            <option value="">Tất cả loại</option>
+            <option value="thue">Nhà thuê</option>
+            <option value="xe">Xe</option>
+          </select>
+          <select id="sort-filter" class="select select-bordered select-sm">
+            <option value="new">Mới nhất</option>
+            <option value="commission">Hoa hồng cao nhất</option>
+          </select>
+        </div>
+
+        <div id="listing-grid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+
+        <div id="empty-state" class="hidden flex-col items-center justify-center py-16 px-6 text-center">
+          <div class="text-6xl mb-4">📭</div>
+          <h3 class="text-lg font-semibold mb-2">Chưa có tin nào trong nhóm này</h3>
+          <p class="text-base-content/60 mb-6 max-w-sm mx-auto">Hãy là người đầu tiên đăng tin cho nhóm này.</p>
+          <a href="create-listing.html" class="btn btn-primary btn-sm">+ Đăng tin</a>
+        </div>
+      </main>
+    </div>
+
+    <div class="drawer-side z-20">
+      <label for="app-drawer" class="drawer-overlay"></label>
+      <aside class="w-64 min-h-screen bg-base-100 border-r border-base-200 p-4 flex flex-col">
+        <a href="feed.html" class="text-xl font-bold px-2 mb-8 text-primary">🤝 BrokerConnect</a>
+        <ul class="menu flex-1 gap-1">
+          <li><a href="feed.html" class="active">📋 Bảng tin</a></li>
+          <li><a href="my-deals.html">🤝 Deal của tôi</a></li>
+          <li><a href="profile.html">👤 Hồ sơ</a></li>
+        </ul>
+        <div class="divider text-xs">Nhóm của tôi</div>
+        <ul class="menu" id="my-groups-menu"></ul>
+        <div class="mt-auto pt-4">
+          <a href="#" id="reset-demo-data" class="text-xs text-base-content/40 hover:text-base-content/70">↺ Reset dữ liệu demo</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script>
+    function populateGroupFilter() {
+      const sel = document.getElementById('group-filter');
+      const groups = api.myGroups();
+      const preselect = qs('group');
+      sel.innerHTML = groups.map(g =>
+        '<option value="' + g.id + '"' + (g.id === preselect ? ' selected' : '') + '>' +
+        (g.category === 'thue' ? '🏠' : '🚗') + ' ' + g.name + '</option>'
+      ).join('');
+    }
+
+    function listingCard(listing) {
+      const owner = api.broker(listing.ownerId);
+      const priceStr = fmtVND(listing.price) + '/' + listing.priceUnit;
+      const metaStr = listing.type === 'thue'
+        ? (listing.area + 'm² · ' + listing.rooms + ' phòng')
+        : (listing.plate || '');
+      return (
+        '<div class="card bg-base-100 shadow-sm border border-base-200">' +
+          '<div class="card-body">' +
+            '<div class="flex items-center justify-between">' +
+              '<span class="badge badge-outline badge-sm">' + (listing.type === 'thue' ? '🏠 Nhà thuê' : '🚗 Xe') + '</span>' +
+              '<span class="badge badge-primary badge-sm">HH ' + listing.commissionPct + '%</span>' +
+            '</div>' +
+            '<h3 class="card-title text-base mt-2">' + listing.title + '</h3>' +
+            '<p class="text-sm text-base-content/60">' + priceStr + (metaStr ? ' · ' + metaStr : '') + '</p>' +
+            '<div class="flex items-center gap-2 mt-2 text-sm">' +
+              '<div class="avatar placeholder"><div class="bg-neutral text-neutral-content w-6 rounded-full"><span class="text-xs">' + owner.name.charAt(0) + '</span></div></div>' +
+              '<span>' + owner.name + '</span>' +
+              (owner.verified ? '<span class="text-success" title="Đã xác minh">✔</span>' : '') +
+              '<span class="text-base-content/50">⭐ ' + owner.rating.toFixed(1) + '</span>' +
+            '</div>' +
+            '<div class="card-actions justify-end mt-3">' +
+              '<a href="listing-detail.html?id=' + listing.id + '" class="btn btn-primary btn-sm">Xem chi tiết</a>' +
+            '</div>' +
+          '</div>' +
+        '</div>'
+      );
+    }
+
+    function renderListings() {
+      const groupId = document.getElementById('group-filter').value;
+      const type = document.getElementById('type-filter').value;
+      const sort = document.getElementById('sort-filter').value;
+      let items = api.listings({ groupId: groupId || undefined, type: type || undefined });
+      if (sort === 'commission') items = items.slice().sort((a, b) => b.commissionPct - a.commissionPct);
+
+      const grid = document.getElementById('listing-grid');
+      const empty = document.getElementById('empty-state');
+      if (!items.length) {
+        grid.innerHTML = '';
+        grid.classList.add('hidden');
+        empty.classList.remove('hidden');
+        empty.classList.add('flex');
+      } else {
+        grid.classList.remove('hidden');
+        empty.classList.add('hidden');
+        empty.classList.remove('flex');
+        grid.innerHTML = items.map(listingCard).join('');
+      }
+    }
+
+    populateGroupFilter();
+    renderListings();
+    document.getElementById('group-filter').addEventListener('change', renderListings);
+    document.getElementById('type-filter').addEventListener('change', renderListings);
+    document.getElementById('sort-filter').addEventListener('change', renderListings);
+  </script>
+</body>
+</html>

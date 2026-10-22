@@ -1,0 +1,855 @@
+<title>Sông Hàn Match</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#F3F6F5; --surface:#FFFFFF; --surface-sunken:#E8EDEB; --border:#DCE4E1;
+    --ink:#15201D; --ink-2:#4E5F5A; --ink-3:#87948F;
+    --accent:#0C6B68; --accent-strong:#094F4D; --accent-soft:#E1F0EE; --accent-ink:#FFFFFF;
+    --success:#3F7D44; --success-soft:#E6F2E4;
+    --warning:#A3690A; --warning-soft:#FAF0DC;
+    --critical:#AE3B2E; --critical-soft:#FAE7E3;
+    --shadow:0 1px 2px rgba(15,32,29,.06),0 8px 24px -12px rgba(15,32,29,.22);
+    --r-s:8px; --r-m:14px; --r-l:22px;
+    --font-d:'Be Vietnam Pro','Segoe UI',sans-serif;
+    --font-b:'Be Vietnam Pro','Segoe UI',sans-serif;
+    --font-m:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0D1513; --surface:#152220; --surface-sunken:#0A100F; --border:#233330;
+      --ink:#E9F1EE; --ink-2:#AAC0BA; --ink-3:#6C8580;
+      --accent:#4FC2B6; --accent-strong:#79D7CC; --accent-soft:#163430; --accent-ink:#06211D;
+      --success:#86C77F; --success-soft:#17291A;
+      --warning:#E3A94D; --warning-soft:#2E220F;
+      --critical:#E2887B; --critical-soft:#32160F;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -12px rgba(0,0,0,.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0D1513; --surface:#152220; --surface-sunken:#0A100F; --border:#233330;
+    --ink:#E9F1EE; --ink-2:#AAC0BA; --ink-3:#6C8580;
+    --accent:#4FC2B6; --accent-strong:#79D7CC; --accent-soft:#163430; --accent-ink:#06211D;
+    --success:#86C77F; --success-soft:#17291A;
+    --warning:#E3A94D; --warning-soft:#2E220F;
+    --critical:#E2887B; --critical-soft:#32160F;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -12px rgba(0,0,0,.55);
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font-b);}
+  .page{max-width:1180px;margin:0 auto;padding:22px 20px 56px;}
+  h1,h2,h3{font-family:var(--font-d);text-wrap:balance;margin:0;}
+  button{font-family:inherit;cursor:pointer;}
+  ::-webkit-scrollbar{width:8px;height:8px;}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px;}
+
+  header.top{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;justify-content:space-between;margin-bottom:6px;}
+  .brand{display:flex;gap:12px;align-items:center;}
+  .logo{width:38px;height:38px;border-radius:11px;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-family:var(--font-m);font-weight:600;font-size:13px;flex-shrink:0;}
+  .brand h1{font-size:19px;font-weight:700;}
+  .brand .tag{font-size:12.5px;color:var(--ink-3);margin-top:2px;}
+  .top-right{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+  .badge{font-size:11px;font-weight:600;letter-spacing:.03em;padding:5px 10px;border-radius:999px;background:var(--warning-soft);color:var(--warning);}
+  .reset-btn{font-size:12.5px;font-weight:600;color:var(--ink-2);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:7px 13px;}
+  .reset-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .intro{color:var(--ink-2);font-size:13.5px;max-width:72ch;line-height:1.55;margin:4px 0 22px;}
+
+  .tabs{display:inline-flex;background:var(--surface-sunken);padding:4px;border-radius:var(--r-m);gap:4px;margin-bottom:22px;}
+  .tab-btn{padding:9px 16px;border:none;background:transparent;border-radius:calc(var(--r-m) - 4px);font-weight:600;font-size:13.5px;color:var(--ink-2);}
+  .tab-btn.active{background:var(--surface);color:var(--ink);box-shadow:var(--shadow);}
+
+  section[hidden]{display:none!important;}
+
+  /* ---- Telegram panel ---- */
+  .phone-wrap{display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap;}
+  .phone{width:400px;max-width:100%;background:var(--surface);border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;height:680px;}
+  .phone-header{background:var(--accent);color:var(--accent-ink);padding:14px 16px;display:flex;gap:10px;align-items:center;flex-shrink:0;}
+  .phone-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+  .phone-title{font-weight:700;font-size:14.5px;}
+  .phone-sub{font-size:11.5px;opacity:.82;}
+  .chat{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px;background:var(--surface-sunken);}
+  .date-divider{align-self:center;font-size:11px;color:var(--ink-3);background:var(--surface);border:1px solid var(--border);padding:4px 12px;border-radius:999px;margin-bottom:4px;}
+  .bubble{max-width:88%;padding:11px 13px;border-radius:14px;font-size:13.3px;line-height:1.45;box-shadow:0 1px 1px rgba(0,0,0,.05);transition:opacity .2s;}
+  .bubble.bot{align-self:flex-start;background:var(--surface);border-bottom-left-radius:4px;}
+  .bubble.admin{align-self:flex-end;background:var(--accent);color:var(--accent-ink);border-bottom-right-radius:4px;font-family:var(--font-m);font-size:12.5px;}
+  .bubble.sys{align-self:center;background:transparent;color:var(--ink-3);font-size:11.5px;padding:2px 8px;box-shadow:none;}
+  .bubble time{display:block;font-size:10px;color:var(--ink-3);margin-top:5px;font-family:var(--font-m);}
+  .bubble.admin time{color:rgba(255,255,255,.78);}
+  .bubble.dismissed{opacity:.45;}
+
+  .card-row{display:flex;gap:6px;font-size:12.5px;color:var(--ink-2);margin-top:2px;}
+  .card-row b{color:var(--ink);font-weight:600;}
+  .card-head{display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap;}
+  .card-title{font-weight:700;font-size:13.8px;}
+  .score-pill{font-family:var(--font-m);font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent-strong);}
+  .pill{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap;}
+  .pill-active{background:var(--accent-soft);color:var(--accent-strong);}
+  .pill-review{background:var(--warning-soft);color:var(--warning);}
+  .pill-dead{background:var(--critical-soft);color:var(--critical);}
+  .pill-pending{background:var(--warning-soft);color:var(--warning);}
+  .pill-closed{background:var(--success-soft);color:var(--success);}
+  .pill-dismissed{background:var(--surface-sunken);color:var(--ink-3);}
+  .pill-below{background:var(--surface-sunken);color:var(--ink-3);}
+
+  .btn-row{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap;}
+  .chip-btn{font-size:11.8px;font-weight:600;padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--ink-2);}
+  .chip-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .chip-btn.danger:hover{border-color:var(--critical);color:var(--critical);}
+  .chip-btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);}
+  .chip-btn.primary:hover{opacity:.9;color:var(--accent-ink);}
+  .chip-btn[disabled]{opacity:.4;cursor:not-allowed;}
+  .footnote{margin-top:8px;font-size:11.8px;color:var(--ink-3);}
+  .footnote.ok{color:var(--success);}
+  .detail-panel{margin-top:8px;padding:8px 10px;background:var(--surface-sunken);border-radius:var(--r-s);font-size:12px;color:var(--ink-2);display:none;}
+  .detail-panel.open{display:block;}
+  .edit-form{margin-top:9px;display:grid;gap:7px;}
+  .edit-form label{font-size:11px;color:var(--ink-3);display:block;margin-bottom:2px;}
+  .edit-form input{width:100%;padding:6px 9px;border:1px solid var(--border);border-radius:var(--r-s);background:var(--surface);color:var(--ink);font-family:var(--font-b);font-size:12.5px;}
+  .edit-form{display:none;}
+  .edit-form.open{display:grid;}
+
+  .quick-chips{display:flex;gap:6px;overflow-x:auto;padding:9px 12px 0;flex-shrink:0;}
+  .qc{white-space:nowrap;padding:6px 11px;border-radius:999px;border:1px solid var(--border);background:var(--surface);font-family:var(--font-m);font-size:11.5px;color:var(--ink-2);}
+  .qc:hover{border-color:var(--accent);color:var(--accent);}
+  .input-row{display:flex;gap:8px;padding:10px 12px 14px;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0;}
+  .input-row input{flex:1;border:1px solid var(--border);border-radius:999px;padding:9px 14px;background:var(--surface-sunken);color:var(--ink);font-family:var(--font-b);font-size:13px;}
+  .input-row input:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .send-btn{width:38px;height:38px;border-radius:50%;background:var(--accent);color:var(--accent-ink);border:none;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+  .send-btn:hover{opacity:.9;}
+
+  .notes{flex:1;min-width:250px;display:flex;flex-direction:column;gap:12px;}
+  .note{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-m);padding:13px 15px;}
+  .note .k{font-family:var(--font-m);font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);font-weight:600;}
+  .note p{margin:.4em 0 0;color:var(--ink-2);font-size:13px;line-height:1.5;}
+
+  /* ---- Dashboard ---- */
+  .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px;}
+  .stat-tile{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-m);padding:15px 17px;text-align:left;}
+  .stat-tile .label{font-size:11.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em;font-weight:600;}
+  .stat-tile .value{font-family:var(--font-m);font-weight:700;font-size:26px;margin-top:6px;font-variant-numeric:tabular-nums;color:var(--ink);}
+  .stat-tile .sub{font-size:11.8px;color:var(--ink-2);margin-top:3px;}
+
+  .subtabs{display:flex;gap:20px;border-bottom:1px solid var(--border);margin-bottom:14px;flex-wrap:wrap;}
+  .subtab{padding:9px 2px;font-weight:600;font-size:13.5px;color:var(--ink-3);border:none;background:none;border-bottom:2px solid transparent;}
+  .subtab.active{color:var(--ink);border-color:var(--accent);}
+
+  .filters{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+  .f-chip{font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--border);background:var(--surface);color:var(--ink-2);}
+  .f-chip.active{background:var(--accent-soft);color:var(--accent-strong);border-color:var(--accent-soft);}
+  .f-chip:hover{border-color:var(--accent);}
+
+  .table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r-m);background:var(--surface);}
+  table.data{width:100%;border-collapse:collapse;font-size:13.2px;min-width:640px;}
+  table.data thead th{text-align:left;font-size:10.8px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3);padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap;}
+  table.data tbody td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;}
+  table.data tbody tr.row-main{cursor:pointer;}
+  table.data tbody tr.row-main:hover{background:var(--surface-sunken);}
+  table.data tbody tr:last-child td{border-bottom:none;}
+  tr.row-detail td{background:var(--surface-sunken);padding:14px 16px;color:var(--ink-2);font-size:12.5px;}
+  .num{font-family:var(--font-m);font-variant-numeric:tabular-nums;}
+  .muted{color:var(--ink-3);}
+
+  .bar-row{display:flex;align-items:center;gap:8px;margin:5px 0;}
+  .bar-label{width:88px;font-size:11.3px;color:var(--ink-3);flex-shrink:0;}
+  .bar-track{flex:1;height:6px;border-radius:4px;background:var(--border);overflow:hidden;}
+  .bar-fill{height:100%;background:var(--accent);border-radius:4px;}
+  .bar-val{width:50px;text-align:right;font-family:var(--font-m);font-size:11.3px;color:var(--ink-2);flex-shrink:0;}
+
+  /* ---- Business page ---- */
+  .biz-eyebrow{font-family:var(--font-m);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:600;}
+  .biz-section{margin-bottom:32px;}
+  .biz-section h2{font-size:20px;font-weight:700;margin-top:6px;}
+  .biz-section p{color:var(--ink-2);font-size:14px;line-height:1.65;max-width:70ch;margin:10px 0 0;}
+  .biz-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:14px;}
+  .biz-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-m);padding:16px 18px;}
+  .biz-card h3{font-size:14.5px;font-weight:700;margin-bottom:4px;}
+  .biz-card p{font-size:13px;margin-top:4px;max-width:none;}
+  .roadmap{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;}
+  .stage{flex:1;min-width:200px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-m);padding:16px;}
+  .stage .n{font-family:var(--font-m);font-size:12px;color:var(--accent);font-weight:700;}
+  .stage h3{font-size:14px;font-weight:700;margin-top:4px;}
+  .stage p{font-size:12.5px;margin-top:4px;max-width:none;color:var(--ink-2);}
+  .risk-list{display:grid;gap:8px;margin-top:14px;}
+  .risk-item{display:flex;gap:10px;align-items:flex-start;background:var(--critical-soft);border-radius:var(--r-s);padding:10px 12px;}
+  .risk-item .dot{color:var(--critical);font-weight:700;flex-shrink:0;}
+  .risk-item p{margin:0;font-size:13px;color:var(--ink);max-width:none;}
+
+  /* ---- Pipeline ---- */
+  .flow-row{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin-bottom:30px;}
+  .flow-step{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-m);padding:14px 15px;flex:1;min-width:150px;}
+  .flow-step .n{font-family:var(--font-m);font-size:11px;color:var(--accent);font-weight:700;}
+  .flow-step h3{font-size:13.3px;font-weight:700;margin-top:4px;}
+  .flow-step p{font-size:12px;color:var(--ink-2);margin-top:4px;max-width:none;}
+  .flow-arrow{display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:20px;padding:0 8px;flex-shrink:0;}
+  .arrow-v{display:none;}
+  @media (max-width:880px){ .flow-row{flex-direction:column;} .arrow-h{display:none;} .arrow-v{display:block;text-align:center;} }
+  .lifecycle{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:10px;}
+  .lifecycle .lc-arrow{color:var(--ink-3);font-size:13px;}
+
+  /* ---- Settings & log ---- */
+  .settings-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+  .settings-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-m);padding:16px 18px;}
+  .settings-card h3{font-size:13.5px;font-weight:700;margin-bottom:10px;}
+  .settings-card .hint{font-size:12px;color:var(--ink-3);margin-top:8px;}
+  .range-row{display:flex;align-items:center;gap:10px;}
+  .range-row input[type=range]{flex:1;accent-color:var(--accent);}
+  .group-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);}
+  .group-row:last-child{border-bottom:none;}
+  .group-row .name{font-size:13px;}
+  .group-row .meta{font-size:11.5px;color:var(--ink-3);}
+  .switch{position:relative;width:38px;height:22px;flex-shrink:0;}
+  .switch input{opacity:0;width:0;height:0;position:absolute;}
+  .switch .slider{position:absolute;inset:0;background:var(--border);border-radius:999px;transition:background .15s;cursor:pointer;}
+  .switch .slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;top:3px;background:var(--surface);border-radius:50%;transition:transform .15s;}
+  .switch input:checked + .slider{background:var(--accent);}
+  .switch input:checked + .slider::before{transform:translateX(16px);}
+
+  .timeline{display:flex;flex-direction:column;gap:0;}
+  .log-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+  .log-item:last-child{border-bottom:none;}
+  .log-item .t{font-family:var(--font-m);font-size:11.5px;color:var(--ink-3);width:48px;flex-shrink:0;padding-top:1px;}
+  .log-item .text{font-size:13px;color:var(--ink);}
+
+  .form-bubble{display:grid;gap:7px;min-width:220px;margin-top:4px;}
+  .form-bubble label{font-size:11px;color:var(--ink-3);display:block;margin-bottom:2px;}
+  .form-bubble input,.form-bubble select{width:100%;padding:6px 9px;border:1px solid var(--border);border-radius:var(--r-s);background:var(--surface);color:var(--ink);font-family:var(--font-b);font-size:12.5px;}
+
+  @media (prefers-reduced-motion: reduce){ .bubble{transition:none;} }
+  @media (max-width: 760px){ .phone{height:560px;} }
+</style>
+
+<div class="page">
+  <header class="top">
+    <div class="brand">
+      <div class="logo">SH</div>
+      <div>
+        <h1>Sông Hàn Match</h1>
+        <div class="tag">Môi giới tự động · căn hộ Đà Nẵng cho người nước ngoài</div>
+      </div>
+    </div>
+    <div class="top-right">
+      <span class="badge">Mock UI — chưa nối backend</span>
+      <button class="reset-btn" onclick="location.reload()">↺ Reset demo</button>
+    </div>
+  </header>
+  <p class="intro">Minh hoạ ý tưởng: bot Telegram báo match cho admin theo thời gian thực, dashboard theo dõi toàn bộ tin đăng — nhu cầu — match — hoa hồng. Mọi dữ liệu dưới đây là dữ liệu mẫu, thao tác chạy hoàn toàn trên trình duyệt (chưa có server/API thật).</p>
+
+  <div class="tabs">
+    <button class="tab-btn active" id="tab-biz" onclick="showTab('biz')">💼 Mô hình kinh doanh</button>
+    <button class="tab-btn" id="tab-tg" onclick="showTab('tg')">📱 Telegram Bot</button>
+    <button class="tab-btn" id="tab-flow" onclick="showTab('flow')">🔄 Quy trình</button>
+    <button class="tab-btn" id="tab-db" onclick="showTab('db')">📊 Dashboard admin</button>
+  </div>
+
+  <!-- ===== BUSINESS PANEL ===== -->
+  <section id="panel-biz">
+    <div class="biz-section">
+      <div class="biz-eyebrow">Vấn đề &amp; giải pháp</div>
+      <h2>Người nước ngoài khó tìm nhà, chủ nhà khó tìm khách</h2>
+      <p>Người nước ngoài ở lại Đà Nẵng dài hạn — digital nomad, chuyên gia, giáo viên tiếng Anh, người nghỉ hưu — thường không rành khu vực, vướng rào cản ngôn ngữ, và dễ bị báo giá cao hơn người Việt. Ngược lại, chủ nhà có căn hộ trống lại đăng tin rải rác trên hàng chục hội nhóm Facebook, ít ai trong số đó có khách nước ngoài theo dõi.</p>
+      <div class="biz-grid">
+        <div class="biz-card">
+          <h3>🏠 Phía người bán/cho thuê</h3>
+          <p>Chủ nhà, môi giới nhỏ lẻ tại An Thượng, Mỹ Khê, Sơn Trà, Hải Châu, Ngũ Hành Sơn — đăng tin trên Facebook group, không chủ động tiếp cận được khách nước ngoài.</p>
+        </div>
+        <div class="biz-card">
+          <h3>🧳 Phía người mua/thuê</h3>
+          <p>Người nước ngoài sống dài hạn tại Đà Nẵng, cần căn hộ phù hợp ngân sách — nhưng không biết hỏi ai, không đọc được tin đăng tiếng Việt.</p>
+        </div>
+        <div class="biz-card">
+          <h3>🤝 Vai trò của hệ thống</h3>
+          <p>Gom lead 2 chiều tự động, chấm điểm độ phù hợp, báo ngay cho admin (broker) qua Telegram để xác nhận và giới thiệu — giữ chất lượng match mà không cần dò từng bài đăng thủ công.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="biz-section">
+      <div class="biz-eyebrow">Mô hình doanh thu</div>
+      <h2>Hoa hồng trên mỗi deal chốt thành công</h2>
+      <p>Thu hoa hồng từ chủ nhà khi deal chốt thành công (phổ biến trong môi giới BĐS tại Việt Nam: 50–100% tiền thuê tháng đầu, tuỳ thoả thuận) — không thu phí người thuê, giữ trải nghiệm phía người nước ngoài miễn phí để họ sẵn sàng dùng dịch vụ.</p>
+      <div class="stat-row" style="margin-top:16px">
+        <div class="stat-tile"><div class="label">Tin đăng thử nghiệm</div><div class="value num">5</div><div class="sub">tháng vận hành đầu tiên</div></div>
+        <div class="stat-tile"><div class="label">Nhu cầu thu thập</div><div class="value num">4</div><div class="sub">người nước ngoài</div></div>
+        <div class="stat-tile"><div class="label">Match ≥ 70 điểm</div><div class="value num">3</div><div class="sub">trên tổng 4 cặp chấm điểm</div></div>
+        <div class="stat-tile"><div class="label">Hoa hồng tháng 10</div><div class="value num">2.100.000đ</div><div class="sub">2 deal đã chốt — xem tab Dashboard</div></div>
+      </div>
+    </div>
+
+    <div class="biz-section">
+      <div class="biz-eyebrow">Lộ trình</div>
+      <h2>Bắt đầu hẹp, mở rộng theo bằng chứng</h2>
+      <div class="roadmap">
+        <div class="stage"><div class="n">Giai đoạn 1 — hiện tại</div><h3>Căn hộ Đà Nẵng cho người nước ngoài</h3><p>Chứng minh mô hình hoạt động với 1 admin, 1 mảng duy nhất trước khi mở rộng.</p></div>
+        <div class="stage"><div class="n">Giai đoạn 2</div><h3>Thêm mảng sản phẩm khác</h3><p>Xe máy, đồ nội thất, dịch vụ... dùng chung engine chấm điểm, chỉ đổi alias/trọng số theo mảng.</p></div>
+        <div class="stage"><div class="n">Giai đoạn 3</div><h3>Mời thêm cộng tác viên</h3><p>Nhiều broker cùng dùng nền tảng, chia hoa hồng theo khu vực phụ trách.</p></div>
+      </div>
+    </div>
+
+    <div class="biz-section">
+      <div class="biz-eyebrow">Rủi ro cần chấp nhận trước</div>
+      <h2>Không phải lỗi kỹ thuật — là đánh đổi nghiệp vụ</h2>
+      <div class="risk-list">
+        <div class="risk-item"><span class="dot">●</span><p>Scrape Facebook group bằng tài khoản cá nhân vi phạm Điều khoản dịch vụ của Facebook, có rủi ro bị khoá tài khoản.</p></div>
+        <div class="risk-item"><span class="dot">●</span><p>Một admin xử lý thủ công mọi deal — giới hạn tự nhiên số lượng deal có thể chốt mỗi tháng.</p></div>
+        <div class="risk-item"><span class="dot">●</span><p>Parse dữ liệu từ bài đăng không bao giờ chính xác 100% — cần bước duyệt tin trước khi vào vòng match.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TELEGRAM PANEL ===== -->
+  <section id="panel-tg" hidden>
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-header">
+          <div class="phone-avatar">🤖</div>
+          <div>
+            <div class="phone-title">Sông Hàn Match Bot</div>
+            <div class="phone-sub">đang hoạt động</div>
+          </div>
+        </div>
+        <div class="chat" id="chat">
+
+          <div class="date-divider">Hôm nay, 5 thg 10</div>
+
+          <div class="bubble bot">
+            <div class="card-head">
+              <span class="card-title">🔔 MATCH #214</span>
+              <span class="score-pill">92%</span>
+              <span class="pill pill-closed">Đã chốt</span>
+            </div>
+            <div class="card-row">🏠 <b>2PN · An Thượng</b> · 65m²</div>
+            <div class="card-row">💰 Người bán muốn: <b>12.000.000đ</b>/tháng</div>
+            <div class="card-row">👤 Mark H. (Úc) chấp nhận: <b>10–13tr</b></div>
+            <div class="footnote ok">📌 Đã liên hệ &amp; chốt lúc 10:30 · hoa hồng 1.200.000đ</div>
+            <time>09:14</time>
+          </div>
+
+          <div class="bubble bot" id="bubble-198">
+            <div class="card-head">
+              <span class="card-title">🔔 MATCH #198</span>
+              <span class="score-pill">81%</span>
+              <span class="pill pill-pending" id="pill-198">Đang chờ</span>
+            </div>
+            <div class="card-row">🏠 <b>Studio · Mỹ Khê</b> · 32m²</div>
+            <div class="card-row">💰 Người bán muốn: <b>7.500.000đ</b>/tháng</div>
+            <div class="card-row">👤 Elena K. (Nga) chấp nhận: <b>7–9tr</b></div>
+            <div class="btn-row" id="actions-198">
+              <button class="chip-btn" onclick="toggleParty('198','seller')">👤 Xem seller</button>
+              <button class="chip-btn" onclick="toggleParty('198','buyer')">👤 Xem buyer</button>
+              <button class="chip-btn danger" onclick="dismissMatch198()">✕ Bỏ qua</button>
+            </div>
+            <div class="detail-panel" id="detail-198-seller">📇 Người bán: Anh Phúc · 0935 2xx xxx (Zalo) — tin #L-102.</div>
+            <div class="detail-panel" id="detail-198-buyer">📇 Người mua: Elena K. · +7 9xx xxx xx xx (Telegram @elena_k) — nhu cầu #R-202.</div>
+            <time>09:41</time>
+          </div>
+
+          <div class="bubble admin">/duyet_tin<time>10:02</time></div>
+          <div class="bubble bot">
+            <div class="card-head">
+              <span class="card-title">📝 Tin #L-103</span>
+              <span class="pill pill-active">Đã duyệt</span>
+            </div>
+            <div class="card-row">Trích: "can ho 1pn gan cau Rong, moi hoan thien, 9tr/thang..."</div>
+            <div class="card-row">Đã nhận diện: <b>1PN · Hải Châu · 9.000.000đ</b></div>
+            <div class="footnote ok">✅ Bạn đã duyệt lúc 10:03</div>
+            <time>10:02</time>
+          </div>
+
+          <div class="bubble admin">/pending<time>10:15</time></div>
+          <div class="bubble bot">
+            <div class="card-row"><b>#214</b> — 92% — 2PN An Thượng</div>
+            <div class="card-row"><b>#198</b> — 81% — Studio Mỹ Khê</div>
+            <div class="card-row"><b>#203</b> — 76% — 3PN Sơn Trà</div>
+            <div class="footnote">3 match đang chờ xử lý</div>
+            <time>10:15</time>
+          </div>
+
+          <div class="bubble admin">/deal_xong 214 1200000<time>10:30</time></div>
+          <div class="bubble bot">
+            <div class="card-row">✅ Đã chốt deal <b>#214</b></div>
+            <div class="card-row">Hoa hồng: <b>1.200.000đ</b></div>
+            <div class="footnote">Trạng thái match #214 → closed</div>
+            <time>10:30</time>
+          </div>
+
+          <div class="date-divider">Vừa xong</div>
+
+          <div class="bubble bot" id="bubble-l105">
+            <div class="card-head">
+              <span class="card-title">📝 Tin mới #L-105</span>
+              <span class="pill pill-review" id="pill-l105">needs_review</span>
+            </div>
+            <div class="card-row">Trích: "2pn ngu hanh son gan fpt, 10.5tr, co the thuong luong..."</div>
+            <div class="card-row">Bot đoán: <b id="l105-guess">2PN · Ngũ Hành Sơn · 10.500.000đ</b></div>
+            <div class="btn-row" id="actions-l105">
+              <button class="chip-btn primary" onclick="approveL105()">✅ Duyệt</button>
+              <button class="chip-btn" onclick="toggleEditL105()">✏️ Sửa</button>
+              <button class="chip-btn danger" onclick="killL105()">❌ Huỷ</button>
+            </div>
+            <div class="edit-form" id="edit-l105">
+              <div><label>Khu vực</label><input id="ef-area" value="Ngũ Hành Sơn"></div>
+              <div><label>Giá (đ/tháng)</label><input id="ef-price" value="10500000"></div>
+              <div><label>Loại hình</label><input id="ef-type" value="2PN"></div>
+              <button class="chip-btn primary" style="width:fit-content" onclick="saveL105Edit()">💾 Lưu</button>
+            </div>
+            <time id="l105-time">11:05</time>
+          </div>
+
+        </div>
+        <div class="quick-chips">
+          <button class="qc" onclick="runCommand('/pending')">/pending</button>
+          <button class="qc" onclick="runCommand('/them_nguoiban')">/them_nguoiban</button>
+          <button class="qc" onclick="runCommand('/them_nguoimua')">/them_nguoimua</button>
+          <button class="qc" onclick="runCommand('/deal_xong 203 2500000')">/deal_xong 203 2500000</button>
+        </div>
+        <div class="input-row">
+          <input id="chat-input" type="text" placeholder="Nhập lệnh, vd /pending..." onkeydown="if(event.key==='Enter')submitInput()">
+          <button class="send-btn" onclick="submitInput()">➤</button>
+        </div>
+      </div>
+
+      <div class="notes">
+        <div class="note">
+          <div class="k">/duyet_tin</div>
+          <p>Mọi tin scraper quét về luôn ở trạng thái <code>needs_review</code>. Admin duyệt hoặc sửa trước khi vào vòng match — tránh match rác do bot đọc sai giá/khu vực.</p>
+        </div>
+        <div class="note">
+          <div class="k">Ngưỡng 70 điểm</div>
+          <p>Chỉ match đạt từ 70 điểm trở lên mới được báo ngay. Match thấp hơn (như #187, 58 điểm) vẫn lưu lại trong dashboard để sau này tinh chỉnh trọng số.</p>
+        </div>
+        <div class="note">
+          <div class="k">Một admin, một kênh</div>
+          <p>Không có người dùng khác trong hệ thống — mọi thao tác xem/liên hệ/chốt deal đều đi qua đúng Telegram của broker.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PIPELINE PANEL ===== -->
+  <section id="panel-flow" hidden>
+    <div class="biz-eyebrow">Toàn bộ pipeline</div>
+    <h2 style="margin:6px 0 16px">Từ bài đăng Facebook đến hoa hồng vào túi</h2>
+    <div class="flow-row">
+      <div class="flow-step"><div class="n">01</div><h3>Thu thập lead</h3><p>Scraper quét group Facebook + admin nhập tay lead từ quan hệ cá nhân.</p></div>
+      <div class="flow-arrow"><span class="arrow-h">→</span><span class="arrow-v">↓</span></div>
+      <div class="flow-step"><div class="n">02</div><h3>Lưu DB — needs_review</h3><p>Mọi tin scraper quét về đều ở trạng thái chờ duyệt, chưa vào vòng match.</p></div>
+      <div class="flow-arrow"><span class="arrow-h">→</span><span class="arrow-v">↓</span></div>
+      <div class="flow-step"><div class="n">03</div><h3>Admin duyệt/sửa</h3><p>Qua lệnh <code>/duyet_tin</code> — tránh match rác do parse sai giá/khu vực.</p></div>
+      <div class="flow-arrow"><span class="arrow-h">→</span><span class="arrow-v">↓</span></div>
+      <div class="flow-step"><div class="n">04</div><h3>Matcher chấm điểm</h3><p>Giá 35% · Khu vực 30% · Loại hình 20% · Ngày 15% → điểm 0–100.</p></div>
+      <div class="flow-arrow"><span class="arrow-h">→</span><span class="arrow-v">↓</span></div>
+      <div class="flow-step"><div class="n">05</div><h3>≥ 70 điểm → báo Telegram</h3><p>Dưới ngưỡng vẫn lưu lại để tinh chỉnh trọng số, không làm phiền admin.</p></div>
+      <div class="flow-arrow"><span class="arrow-h">→</span><span class="arrow-v">↓</span></div>
+      <div class="flow-step"><div class="n">06</div><h3>Admin chốt deal</h3><p>Liên hệ 2 bên ngoài hệ thống, ghi nhận hoa hồng qua <code>/deal_xong</code>.</p></div>
+    </div>
+
+    <h2 style="font-size:16px;margin-bottom:6px">Vòng đời một tin đăng</h2>
+    <div class="lifecycle">
+      <span class="pill pill-review">needs_review</span><span class="lc-arrow">→</span>
+      <span class="pill pill-active">active</span><span class="lc-arrow">→ (có match)</span>
+      <span class="pill pill-closed">matched/closed</span>
+      <span class="lc-arrow">hoặc</span><span class="pill pill-dead">dead</span>
+    </div>
+
+    <h2 style="font-size:16px;margin:22px 0 6px">Vòng đời một match</h2>
+    <div class="lifecycle">
+      <span class="pill pill-pending">pending (≥70đ)</span><span class="lc-arrow">→</span>
+      <span class="pill pill-closed">closed</span>
+      <span class="lc-arrow">hoặc</span><span class="pill pill-dismissed">dismissed</span>
+    </div>
+    <div class="lifecycle" style="margin-top:8px">
+      <span class="pill pill-below">below_threshold (&lt;70đ)</span>
+      <span class="lc-arrow">— lưu lại, không báo Telegram</span>
+    </div>
+  </section>
+
+  <!-- ===== DASHBOARD PANEL ===== -->
+  <section id="panel-db" hidden>
+    <div class="stat-row">
+      <div class="stat-tile"><div class="label">Tin đăng</div><div class="value num" id="stat-listings">—</div><div class="sub" id="stat-listings-sub">—</div></div>
+      <div class="stat-tile"><div class="label">Nhu cầu mua/thuê</div><div class="value num" id="stat-requests">—</div><div class="sub">Người nước ngoài đang tìm</div></div>
+      <div class="stat-tile"><div class="label">Match đang chờ</div><div class="value num" id="stat-pending">—</div><div class="sub">≥ 70 điểm, chưa xử lý xong</div></div>
+      <div class="stat-tile"><div class="label">Hoa hồng tháng 10</div><div class="value num" id="stat-commission">—</div><div class="sub" id="stat-commission-sub">—</div></div>
+    </div>
+
+    <div class="subtabs">
+      <button class="subtab active" data-sub="listings" onclick="showSub('listings')">Listings</button>
+      <button class="subtab" data-sub="requests" onclick="showSub('requests')">Requests</button>
+      <button class="subtab" data-sub="matches" onclick="showSub('matches')">Matches</button>
+      <button class="subtab" data-sub="deals" onclick="showSub('deals')">Deals</button>
+      <button class="subtab" data-sub="config" onclick="showSub('config')">Cấu hình</button>
+      <button class="subtab" data-sub="log" onclick="showSub('log')">Nhật ký</button>
+    </div>
+
+    <div id="sub-listings">
+      <div class="filters" id="filter-listings"></div>
+      <div class="table-wrap"><table class="data"><thead><tr>
+        <th>ID</th><th>Khu vực</th><th>Loại hình</th><th>Giá/tháng</th><th>Nguồn</th><th>Trạng thái</th>
+      </tr></thead><tbody id="tbody-listings"></tbody></table></div>
+    </div>
+
+    <div id="sub-requests" hidden>
+      <div class="table-wrap"><table class="data"><thead><tr>
+        <th>ID</th><th>Khách</th><th>Ngân sách</th><th>Khu vực mong muốn</th><th>Loại hình</th><th>Dọn vào</th>
+      </tr></thead><tbody id="tbody-requests"></tbody></table></div>
+    </div>
+
+    <div id="sub-matches" hidden>
+      <div class="filters" id="filter-matches"></div>
+      <div class="table-wrap"><table class="data"><thead><tr>
+        <th>Match</th><th>Căn hộ</th><th>Khách</th><th>Điểm</th><th>Trạng thái</th>
+      </tr></thead><tbody id="tbody-matches"></tbody></table></div>
+    </div>
+
+    <div id="sub-deals" hidden>
+      <div class="table-wrap"><table class="data"><thead><tr>
+        <th>ID</th><th>Nội dung</th><th>Ngày chốt</th><th>Hoa hồng</th>
+      </tr></thead><tbody id="tbody-deals"></tbody></table></div>
+    </div>
+
+    <div id="sub-config" hidden>
+      <div class="settings-grid">
+        <div class="settings-card">
+          <h3>Trọng số chấm điểm match</h3>
+          <div class="bar-row"><div class="bar-label">Giá</div><div class="bar-track"><div class="bar-fill" style="width:35%"></div></div><div class="bar-val">35%</div></div>
+          <div class="bar-row"><div class="bar-label">Khu vực</div><div class="bar-track"><div class="bar-fill" style="width:30%"></div></div><div class="bar-val">30%</div></div>
+          <div class="bar-row"><div class="bar-label">Loại hình</div><div class="bar-track"><div class="bar-fill" style="width:20%"></div></div><div class="bar-val">20%</div></div>
+          <div class="bar-row"><div class="bar-label">Ngày</div><div class="bar-track"><div class="bar-fill" style="width:15%"></div></div><div class="bar-val">15%</div></div>
+          <div class="hint">Cố định trong file config, không sửa trực tiếp trên UI này — tinh chỉnh dựa trên tỷ lệ chốt deal thực tế.</div>
+        </div>
+        <div class="settings-card">
+          <h3>Ngưỡng báo Telegram</h3>
+          <div class="range-row">
+            <input type="range" min="50" max="90" value="70" oninput="updateThreshold(this.value)">
+            <span class="num" id="th-display" style="font-weight:700">70 điểm</span>
+          </div>
+          <div class="hint">Match đạt từ <b id="th-text">70</b> điểm trở lên mới báo ngay cho admin. Kéo thử — đây là xem trước, demo chưa áp lại vào dữ liệu mẫu.</div>
+        </div>
+        <div class="settings-card">
+          <h3>Group Facebook đang theo dõi</h3>
+          <div id="fb-groups"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sub-log" hidden>
+      <div class="table-wrap" style="padding:4px 18px">
+        <div class="timeline" id="log-list"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  const listings = [
+    {id:'L-101', area:'An Thượng', type:'2PN', sqm:65, price:12000000, available:'15/10', source:'fb_group', status:'active', contact:'Chị Hoa · 0905 1xx xxx (Zalo)', raw:'Cho thuê căn hộ 2PN An Thượng, 65m², đầy đủ nội thất, gần biển, ưu tiên khách nước ngoài. Giá 12tr/tháng, cọc 2 tháng.'},
+    {id:'L-102', area:'Mỹ Khê', type:'Studio', sqm:32, price:7500000, available:'Ngay', source:'manual', status:'active', contact:'Anh Phúc · 0935 2xx xxx', raw:'Studio Mỹ Khê, đi bộ ra biển 5 phút, sẵn sàng dọn vào ngay.'},
+    {id:'L-103', area:'Hải Châu', type:'1PN', sqm:45, price:9000000, available:'01/11', source:'fb_group', status:'active', contact:'Anh Đức · 0912 3xx xxx', raw:'can ho 1pn gan cau Rong, moi hoan thien, 9tr/thang, lien he zalo...'},
+    {id:'L-104', area:'Sơn Trà', type:'3PN', sqm:90, price:18000000, available:'01/10', source:'manual', status:'active', contact:'Chị Lan · 0989 4xx xxx', raw:'Căn hộ cao cấp 3PN Sơn Trà, view biển, hồ bơi, full nội thất châu Âu.'},
+    {id:'L-105', area:'Ngũ Hành Sơn', type:'2PN', sqm:58, price:10500000, available:'20/10', source:'fb_group', status:'needs_review', contact:'Anh Sơn · 0978 5xx xxx', raw:'2pn ngu hanh son gan fpt, 10.5tr, co the thuong luong...'},
+  ];
+  const requests = [
+    {id:'R-201', name:'Mark H.', nat:'Úc', budgetMin:10000000, budgetMax:13000000, areas:'An Thượng, Mỹ Khê', type:'2PN', moveIn:'20/10', contact:'Mark H. · +61 4xx xxx xxx (WhatsApp)'},
+    {id:'R-202', name:'Elena K.', nat:'Nga', budgetMin:7000000, budgetMax:9000000, areas:'Mỹ Khê', type:'Studio/1PN', moveIn:'06/10', contact:'Elena K. · Telegram @elena_k'},
+    {id:'R-203', name:'Tom R.', nat:'Anh', budgetMin:15000000, budgetMax:20000000, areas:'Sơn Trà', type:'3PN', moveIn:'01/11', contact:'Tom R. · +44 7xxx xxxxxx'},
+    {id:'R-204', name:'Yuki S.', nat:'Nhật', budgetMin:9000000, budgetMax:11000000, areas:'Hải Châu, Ngũ Hành Sơn', type:'1PN/2PN', moveIn:'linh hoạt', contact:'Yuki S. · LINE'},
+  ];
+  const matches = [
+    {id:214, listingId:'L-101', requestId:'R-201', score:92, status:'closed', bd:{'Giá':[33,35],'Khu vực':[27,30],'Loại hình':[18,20],'Ngày':[14,15]}},
+    {id:198, listingId:'L-102', requestId:'R-202', score:81, status:'pending', bd:{'Giá':[28,35],'Khu vực':[24,30],'Loại hình':[16,20],'Ngày':[13,15]}},
+    {id:203, listingId:'L-104', requestId:'R-203', score:76, status:'pending', bd:{'Giá':[20,35],'Khu vực':[26,30],'Loại hình':[18,20],'Ngày':[12,15]}},
+    {id:187, listingId:'L-105', requestId:'R-204', score:58, status:'below_threshold', bd:{'Giá':[16,35],'Khu vực':[14,30],'Loại hình':[14,20],'Ngày':[14,15]}},
+  ];
+  let deals = [
+    {id:'D-00', label:'2PN An Thượng · khách Úc Mark H.', date:'05/10', month:10, amount:1200000},
+    {id:'D-02', label:'Studio Hải Châu · khách Hàn Quốc', date:'02/10', month:10, amount:900000},
+    {id:'D-01', label:'2PN Mỹ Khê · khách Pháp', date:'28/09', month:9, amount:1500000},
+  ];
+  let activityLog = [
+    {t:'09:14', text:'🔔 Match mới #214 (92%) — 2PN An Thượng × Mark H.'},
+    {t:'09:41', text:'🔔 Match mới #198 (81%) — Studio Mỹ Khê × Elena K.'},
+    {t:'10:02', text:'📝 /duyet_tin — duyệt tin #L-103 (1PN Hải Châu)'},
+    {t:'10:15', text:'📋 /pending — 3 match đang chờ'},
+    {t:'10:30', text:'✅ Chốt deal #214 — hoa hồng 1.200.000đ'},
+    {t:'11:05', text:'📝 Tin mới #L-105 cần duyệt (needs_review)'},
+  ];
+  let fbGroups = [
+    {name:'Da Nang Expats Housing', meta:'18.4k thành viên', status:'active'},
+    {name:'Foreigners in Da Nang – Housing', meta:'9.1k thành viên', status:'active'},
+    {name:'Cho thuê căn hộ Đà Nẵng', meta:'32k thành viên', status:'paused'},
+  ];
+  let nextReqNum = 205, nextListNum = 106;
+
+  const fmt = n => n.toLocaleString('vi-VN') + 'đ';
+  const byId = (arr,id) => arr.find(x=>x.id===id);
+
+  function listingPill(s){
+    return s==='active' ? '<span class="pill pill-active">active</span>'
+      : s==='needs_review' ? '<span class="pill pill-review">needs_review</span>'
+      : '<span class="pill pill-dead">dead</span>';
+  }
+  function matchPill(s){
+    return s==='pending' ? '<span class="pill pill-pending">pending</span>'
+      : s==='closed' ? '<span class="pill pill-closed">closed</span>'
+      : s==='dismissed' ? '<span class="pill pill-dismissed">dismissed</span>'
+      : '<span class="pill pill-below">below_threshold</span>';
+  }
+
+  function showTab(t){
+    ['biz','tg','flow','db'].forEach(k=>{
+      document.getElementById('panel-'+k).hidden = k!==t;
+      document.getElementById('tab-'+k).classList.toggle('active', k===t);
+    });
+  }
+  function showSub(s){
+    ['listings','requests','matches','deals','config','log'].forEach(k=>{
+      document.getElementById('sub-'+k).hidden = k!==s;
+    });
+    document.querySelectorAll('.subtab').forEach(b=>b.classList.toggle('active', b.dataset.sub===s));
+  }
+
+  let listingFilter='all', matchFilter='all';
+  function renderFilters(){
+    const lf = document.getElementById('filter-listings');
+    lf.innerHTML = ['all','active','needs_review','dead'].map(f=>
+      `<button class="f-chip ${listingFilter===f?'active':''}" onclick="setListingFilter('${f}')">${f==='all'?'Tất cả':f}</button>`).join('');
+    const mf = document.getElementById('filter-matches');
+    mf.innerHTML = ['all','pending','closed','dismissed','below_threshold'].map(f=>
+      `<button class="f-chip ${matchFilter===f?'active':''}" onclick="setMatchFilter('${f}')">${f==='all'?'Tất cả':f}</button>`).join('');
+  }
+  function setListingFilter(f){ listingFilter=f; renderFilters(); renderListings(); }
+  function setMatchFilter(f){ matchFilter=f; renderFilters(); renderMatches(); }
+
+  function renderListings(){
+    const rows = listings.filter(l => listingFilter==='all' || l.status===listingFilter);
+    document.getElementById('tbody-listings').innerHTML = rows.map(l => `
+      <tr class="row-main" onclick="toggleDetail('ld-${l.id}')">
+        <td class="num">${l.id}</td><td>${l.area}</td><td>${l.type} · ${l.sqm}m²</td>
+        <td class="num">${fmt(l.price)}</td><td class="muted">${l.source}</td><td>${listingPill(l.status)}</td>
+      </tr>
+      <tr class="row-detail" id="ld-${l.id}" hidden><td colspan="6">
+        <div>${l.raw}</div>
+        <div style="margin-top:6px">📇 ${l.contact} · sẵn sàng từ ${l.available}</div>
+      </td></tr>`).join('');
+  }
+  function renderRequests(){
+    document.getElementById('tbody-requests').innerHTML = requests.map(r => `
+      <tr class="row-main" onclick="toggleDetail('rd-${r.id}')">
+        <td class="num">${r.id}</td><td>${r.name} (${r.nat})</td>
+        <td class="num">${fmt(r.budgetMin)}–${fmt(r.budgetMax)}</td>
+        <td>${r.areas}</td><td>${r.type}</td><td>${r.moveIn}</td>
+      </tr>
+      <tr class="row-detail" id="rd-${r.id}" hidden><td colspan="6">📇 ${r.contact}</td></tr>`).join('');
+  }
+  function renderMatches(){
+    const rows = matches.filter(m => matchFilter==='all' || m.status===matchFilter);
+    document.getElementById('tbody-matches').innerHTML = rows.map(m => {
+      const l = byId(listings,m.listingId), r = byId(requests,m.requestId);
+      const bars = Object.entries(m.bd).map(([k,[v,max]]) => `
+        <div class="bar-row"><div class="bar-label">${k}</div>
+          <div class="bar-track"><div class="bar-fill" style="width:${(v/max*100).toFixed(0)}%"></div></div>
+          <div class="bar-val">${v}/${max}</div></div>`).join('');
+      return `
+        <tr class="row-main" onclick="toggleDetail('md-${m.id}')">
+          <td class="num">#${m.id}</td><td>${l.type} ${l.area}</td><td>${r.name}</td>
+          <td class="num">${m.score}%</td><td>${matchPill(m.status)}</td>
+        </tr>
+        <tr class="row-detail" id="md-${m.id}" hidden><td colspan="5">${bars}</td></tr>`;
+    }).join('');
+  }
+  function renderDeals(){
+    document.getElementById('tbody-deals').innerHTML = deals.map(d => `
+      <tr><td class="num">${d.id}</td><td>${d.label}</td><td class="num">${d.date}</td><td class="num">${fmt(d.amount)}</td></tr>`).join('');
+  }
+  function renderLog(){
+    document.getElementById('log-list').innerHTML = activityLog.map(e =>
+      `<div class="log-item"><div class="t">${e.t}</div><div class="text">${e.text}</div></div>`).join('');
+  }
+  function pushLog(text){
+    activityLog.push({t:'vừa xong', text});
+    renderLog();
+  }
+  function renderSettings(){
+    document.getElementById('fb-groups').innerHTML = fbGroups.map((g,i) => `
+      <div class="group-row">
+        <div><div class="name">${g.name}</div><div class="meta">${g.meta} · ${g.status==='active'?'đang quét':'tạm dừng'}</div></div>
+        <label class="switch"><input type="checkbox" ${g.status==='active'?'checked':''} onchange="toggleGroup(${i})"><span class="slider"></span></label>
+      </div>`).join('');
+  }
+  function toggleGroup(i){
+    fbGroups[i].status = fbGroups[i].status==='active' ? 'paused' : 'active';
+    renderSettings();
+    pushLog(`⚙️ ${fbGroups[i].status==='active'?'Bật lại':'Tạm dừng'} quét group "${fbGroups[i].name}"`);
+  }
+  function updateThreshold(v){
+    document.getElementById('th-display').textContent = v+' điểm';
+    document.getElementById('th-text').textContent = v;
+  }
+  function renderStats(){
+    const activeL = listings.filter(l=>l.status==='active').length;
+    const reviewL = listings.filter(l=>l.status==='needs_review').length;
+    const pendingM = matches.filter(m=>m.status==='pending').length;
+    const commission = deals.filter(d=>d.month===10).reduce((s,d)=>s+d.amount,0);
+    document.getElementById('stat-listings').textContent = listings.length;
+    document.getElementById('stat-listings-sub').textContent = `${activeL} active · ${reviewL} chờ duyệt`;
+    document.getElementById('stat-requests').textContent = requests.length;
+    document.getElementById('stat-pending').textContent = pendingM;
+    document.getElementById('stat-commission').textContent = fmt(commission);
+    document.getElementById('stat-commission-sub').textContent = `${deals.filter(d=>d.month===10).length} deal đã chốt trong tháng`;
+  }
+  function toggleDetail(id){
+    const el = document.getElementById(id);
+    el.hidden = !el.hidden;
+  }
+  function renderAll(){ renderFilters(); renderListings(); renderRequests(); renderMatches(); renderDeals(); renderStats(); renderLog(); renderSettings(); }
+
+  // ---- Telegram interactivity ----
+  const chat = document.getElementById('chat');
+  function scrollChat(){ chat.scrollTop = chat.scrollHeight; }
+  function appendAdmin(text){
+    chat.insertAdjacentHTML('beforeend', `<div class="bubble admin">${text}<time>vừa xong</time></div>`);
+    scrollChat();
+  }
+  function appendBot(html){
+    chat.insertAdjacentHTML('beforeend', `<div class="bubble bot">${html}<time>vừa xong</time></div>`);
+    scrollChat();
+  }
+  function appendSys(text){
+    chat.insertAdjacentHTML('beforeend', `<div class="bubble sys">${text}</div>`);
+    scrollChat();
+  }
+
+  function toggleParty(mid, who){
+    const panel = document.getElementById(`detail-${mid}-${who}`);
+    panel.classList.toggle('open');
+  }
+  function dismissMatch198(){
+    const m = byId(matches,198); m.status='dismissed';
+    document.getElementById('bubble-198').classList.add('dismissed');
+    document.getElementById('pill-198').outerHTML = matchPill('dismissed');
+    document.getElementById('actions-198').innerHTML = '<span class="footnote">Đã bỏ qua</span>';
+    appendSys('🗑️ Đã bỏ qua match #198');
+    pushLog('✕ Bỏ qua match #198 (Studio Mỹ Khê × Elena K.)');
+    renderMatches(); renderStats();
+  }
+  function approveL105(){
+    const l = byId(listings,'L-105'); l.status='active';
+    document.getElementById('pill-l105').outerHTML = '<span class="pill pill-active">active</span>';
+    document.getElementById('actions-l105').innerHTML = '<span class="footnote ok">✅ Đã duyệt lúc vừa xong</span>';
+    appendSys('💡 Tin đã duyệt sẽ được đưa vào vòng match ở lần chạy tiếp theo (demo: không tự tạo match mới ngay).');
+    pushLog('✅ Duyệt tin #L-105 (2PN Ngũ Hành Sơn)');
+    renderAll();
+  }
+  function killL105(){
+    const l = byId(listings,'L-105'); l.status='dead';
+    document.getElementById('bubble-l105').classList.add('dismissed');
+    document.getElementById('pill-l105').outerHTML = '<span class="pill pill-dead">dead</span>';
+    document.getElementById('actions-l105').innerHTML = '<span class="footnote">❌ Đã huỷ tin này</span>';
+    pushLog('❌ Huỷ tin #L-105');
+    renderAll();
+  }
+  function toggleEditL105(){ document.getElementById('edit-l105').classList.toggle('open'); }
+  function saveL105Edit(){
+    const l = byId(listings,'L-105');
+    l.area = document.getElementById('ef-area').value;
+    l.price = parseInt(document.getElementById('ef-price').value,10) || l.price;
+    l.type = document.getElementById('ef-type').value;
+    document.getElementById('l105-guess').textContent = `${l.type} · ${l.area} · ${fmt(l.price)}`;
+    document.getElementById('edit-l105').classList.remove('open');
+    appendSys('✏️ Đã sửa tin #L-105, vẫn chờ duyệt.');
+    pushLog('✏️ Sửa tin #L-105');
+    renderAll();
+  }
+  function closeMatchViaCommand(id, amount){
+    const m = matches.find(x=>x.id===id);
+    if(!m || m.status!=='pending'){ appendBot(`⚠️ Không tìm thấy match #${id} đang chờ xử lý.`); return; }
+    m.status='closed';
+    const l = byId(listings,m.listingId), r = byId(requests,m.requestId);
+    deals.unshift({id:'D-0'+(deals.length+1), label:`${l.type} ${l.area} · khách ${r.nat} ${r.name}`, date:'05/10', month:10, amount});
+    appendBot(`✅ Đã chốt deal <b>#${id}</b><div class="card-row">Hoa hồng: <b>${fmt(amount)}</b></div><div class="footnote">Trạng thái match #${id} → closed</div>`);
+    pushLog(`✅ Chốt deal #${id} — hoa hồng ${fmt(amount)}`);
+    renderAll();
+  }
+  function runCommand(raw){
+    const cmd = raw.trim();
+    appendAdmin(cmd);
+    const dealMatch = cmd.match(/^\/deal_xong\s+(\d+)\s+(\d+)/);
+    if(dealMatch){
+      closeMatchViaCommand(parseInt(dealMatch[1],10), parseInt(dealMatch[2],10));
+    } else if(cmd === '/pending'){
+      const open = matches.filter(m=>m.status==='pending').sort((a,b)=>b.score-a.score);
+      if(open.length===0){ appendBot('✅ Không còn match nào đang chờ.'); }
+      else {
+        const lines = open.map(m=>{
+          const l=byId(listings,m.listingId);
+          return `<div class="card-row"><b>#${m.id}</b> — ${m.score}% — ${l.type} ${l.area}</div>`;
+        }).join('');
+        appendBot(lines + `<div class="footnote">${open.length} match đang chờ xử lý</div>`);
+      }
+    } else if(cmd === '/duyet_tin'){
+      const pending = listings.find(l=>l.status==='needs_review');
+      if(!pending){ appendBot('✅ Không còn tin nào cần duyệt.'); }
+      else { appendBot(`📝 Tin #${pending.id} vẫn đang chờ bạn duyệt ở phía trên.`); }
+    } else if(cmd === '/them_nguoiban'){
+      openSellerForm();
+    } else if(cmd === '/them_nguoimua'){
+      openBuyerForm();
+    } else {
+      appendBot('🤖 Lệnh demo hỗ trợ: /pending · /duyet_tin · /them_nguoiban · /them_nguoimua · /deal_xong &lt;id&gt; &lt;số tiền&gt;');
+    }
+  }
+  function openSellerForm(){
+    const uid = 'sf'+Date.now();
+    appendBot(`📋 Nhập tin người bán/cho thuê mới:
+      <div class="form-bubble">
+        <div><label>Khu vực</label><input id="${uid}-area" placeholder="vd An Thượng"></div>
+        <div><label>Loại hình &amp; số PN</label><input id="${uid}-type" placeholder="vd 2PN"></div>
+        <div><label>Giá/tháng (đ)</label><input id="${uid}-price" type="number" placeholder="vd 10000000"></div>
+        <div><label>Thông tin liên hệ</label><input id="${uid}-contact" placeholder="Tên · SĐT/Zalo"></div>
+        <button class="chip-btn primary" style="width:fit-content" onclick="saveSellerForm('${uid}')">💾 Lưu tin</button>
+      </div>`);
+  }
+  function saveSellerForm(uid){
+    const area = document.getElementById(uid+'-area').value || 'Chưa rõ khu vực';
+    const type = document.getElementById(uid+'-type').value || 'Chưa rõ loại hình';
+    const price = parseInt(document.getElementById(uid+'-price').value,10) || 0;
+    const contact = document.getElementById(uid+'-contact').value || 'Chưa có liên hệ';
+    const id = 'L-'+(nextListNum++);
+    listings.push({id, area, type, sqm:0, price, available:'Chưa rõ', source:'manual', status:'active', contact, raw:`Nhập tay bởi admin: ${type}, ${area}, ${fmt(price)}/tháng.`});
+    appendSys(`✅ Đã lưu tin ${id} (${type} · ${area}) vào hệ thống, trạng thái active.`);
+    pushLog(`➕ Thêm tin người bán ${id} qua /them_nguoiban`);
+    renderAll();
+  }
+  function openBuyerForm(){
+    const uid = 'bf'+Date.now();
+    appendBot(`📋 Nhập nhu cầu người mua/thuê mới:
+      <div class="form-bubble">
+        <div><label>Tên khách &amp; quốc tịch</label><input id="${uid}-name" placeholder="vd Sophie (Pháp)"></div>
+        <div><label>Ngân sách tối đa (đ)</label><input id="${uid}-budget" type="number" placeholder="vd 11000000"></div>
+        <div><label>Khu vực mong muốn</label><input id="${uid}-areas" placeholder="vd Mỹ Khê"></div>
+        <div><label>Loại hình cần</label><input id="${uid}-type" placeholder="vd 1PN"></div>
+        <button class="chip-btn primary" style="width:fit-content" onclick="saveBuyerForm('${uid}')">💾 Lưu nhu cầu</button>
+      </div>`);
+  }
+  function saveBuyerForm(uid){
+    const nameRaw = document.getElementById(uid+'-name').value || 'Khách mới (?)';
+    const budget = parseInt(document.getElementById(uid+'-budget').value,10) || 0;
+    const areas = document.getElementById(uid+'-areas').value || 'Chưa rõ';
+    const type = document.getElementById(uid+'-type').value || 'Chưa rõ';
+    const m = nameRaw.match(/^(.*?)\s*\((.*)\)\s*$/);
+    const name = m ? m[1] : nameRaw, nat = m ? m[2] : '';
+    const id = 'R-'+(nextReqNum++);
+    requests.push({id, name, nat, budgetMin:Math.max(0,budget-2000000), budgetMax:budget, areas, type, moveIn:'Chưa rõ', contact:nameRaw});
+    appendSys(`✅ Đã lưu nhu cầu ${id} (${name}) vào hệ thống.`);
+    pushLog(`➕ Thêm nhu cầu người mua ${id} qua /them_nguoimua`);
+    renderAll();
+  }
+  function submitInput(){
+    const inp = document.getElementById('chat-input');
+    if(!inp.value.trim()) return;
+    runCommand(inp.value);
+    inp.value='';
+  }
+
+  renderAll();
+  scrollChat();
+</script>
