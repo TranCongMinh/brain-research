@@ -45,7 +45,7 @@
   <!-- Top Sticky Navigation Bar -->
   <header class="sticky top-0 z-50 backdrop-blur-md bg-[#070b14]/90 border-b border-slate-800/80 px-4 sm:px-8 py-3.5 flex items-center justify-between">
     <div class="flex items-center gap-3">
-      <a href="../../artifacts-dashboard.html" class="flex items-center gap-2 text-xs font-semibold text-rose-400 hover:text-rose-300 transition bg-rose-950/60 border border-rose-800/60 px-3 py-1.5 rounded-lg">
+      <a href="../../index.html" class="flex items-center gap-2 text-xs font-semibold text-rose-400 hover:text-rose-300 transition bg-rose-950/60 border border-rose-800/60 px-3 py-1.5 rounded-lg">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
         <span>Artifacts Dashboard</span>
       </a>
@@ -686,7 +686,7 @@
       <p class="font-medium text-slate-400">Báo cáo Thẩm Định Chuyên Sâu Pháp Lý Xe Máy Điện VinFast Evo 70 km/h &copy; 2026</p>
       <p class="text-[11px]">Được thực hiện bởi Loki Research Engine &bull; Căn cứ Luật Trật tự ATGT đường bộ 2024 & Điều 264 Bộ luật Hình sự</p>
       <div class="pt-2">
-        <a href="../../artifacts-dashboard.html" class="text-rose-400 hover:underline">Quay lại Artifacts Dashboard</a>
+        <a href="../../index.html" class="text-rose-400 hover:underline">Quay lại Artifacts Dashboard</a>
       </div>
     </div>
   </footer>
@@ -818,10 +818,18 @@
     }
 
     function copyCurrentPath() {
-      const path = window.location.pathname || '/Users/mac/Desktop/Brain/research/phap-ly-thue-xe-dien-vinfast-evo-70kmh-nguoi-nuoc-ngoai/index.html';
-      navigator.clipboard.writeText(path).then(() => {
-        showToast('Đã copy full path file HTML!');
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        showToast('Đã copy link bài viết: ' + window.location.href);
+      }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = window.location.href;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('Đã copy link bài viết!');
       });
+    });
     }
   </script>
 </body>
