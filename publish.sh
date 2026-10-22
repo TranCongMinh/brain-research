@@ -117,6 +117,16 @@ if os.path.exists(cat_file):
 # Keep prototypes and mock-ui
 prototypes = [x for x in existing if x.get("category") == "Prototypes & UI"]
 
+# Normalize prototype paths to relative for GitHub Pages
+for p in prototypes:
+    raw_path = p.get("path", "")
+    if "/mock-ui/" in raw_path:
+        p["path"] = "mock-ui/" + os.path.basename(raw_path)
+    elif "/prototypes-xe-danang/" in raw_path:
+        p["path"] = "prototypes-xe-danang/" + os.path.basename(raw_path)
+    elif "/prototypes/" in raw_path or "interview_copilot" in raw_path:
+        p["path"] = "prototypes/" + os.path.basename(raw_path)
+
 # Combine topics + prototypes
 final_catalog = topics + prototypes
 

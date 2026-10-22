@@ -6,7 +6,7 @@
   <title>Brain Artifacts & Research Control Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -33,12 +33,12 @@
   </script>
   <style>
     ::-webkit-scrollbar { width: 8px; height: 8px; }
-    ::-webkit-scrollbar-track { background: #0f172a; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    ::-webkit-scrollbar-track { background: #070b14; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
     .glass-card {
       background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       border: 1px solid rgba(51, 65, 85, 0.6);
     }
     .glass-card:hover {
@@ -46,8 +46,13 @@
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(59, 130, 246, 0.15);
     }
     .hidden-card-style {
-      border: 1px dashed rgba(244, 63, 94, 0.6) !important;
-      background: rgba(30, 15, 25, 0.6) !important;
+      border: 1px dashed rgba(244, 63, 94, 0.7) !important;
+      background: rgba(30, 15, 25, 0.75) !important;
+      opacity: 0.9;
+    }
+    .deleted-card-style {
+      border: 1px dashed rgba(239, 68, 68, 0.8) !important;
+      background: rgba(45, 10, 15, 0.8) !important;
       opacity: 0.85;
     }
   </style>
@@ -55,7 +60,7 @@
 <body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-blue-600 selection:text-white min-h-screen flex flex-col">
 
   <!-- Top Hero Header -->
-  <header class="border-b border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 px-4 sm:px-8 py-8 lg:py-10">
+  <header class="border-b border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 px-4 sm:px-8 py-8 lg:py-9">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6">
       <div>
         <div class="flex items-center gap-2 mb-2">
@@ -67,38 +72,49 @@
         </div>
         <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight flex items-center gap-3">
           <span>Artifacts & Research Hub</span>
-          <span class="text-xs font-mono font-normal px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-300 border border-emerald-800">HTML Only</span>
+          <span class="text-xs font-mono font-normal px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-300 border border-emerald-800 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            Persistent Memory
+          </span>
         </h1>
-        <p class="text-sm sm:text-base text-slate-400 mt-2 max-w-2xl">
-          Trung tâm quản lý, tìm kiếm và xem trực tiếp tất cả các báo cáo nghiên cứu tương tác & UI prototypes HTML do AI Agents tạo ra. Đã ẩn các file Markdown để giao diện luôn trực quan.
+        <p class="text-sm sm:text-base text-slate-400 mt-2 max-w-2xl leading-relaxed">
+          Trung tâm điều khiển và xem trực tiếp tất cả các báo cáo nghiên cứu tương tác & UI prototypes. Tích hợp bộ nhớ thông minh (Persistent Storage) tự động lưu lại các bài viết bạn đã <strong>Ẩn</strong> hoặc <strong>Xoá</strong> trên trình duyệt này.
         </p>
       </div>
 
-      <!-- Quick Stats -->
+      <!-- Quick Stats with Clickable Memory Filters -->
       <div class="flex flex-wrap items-center gap-3">
-        <div class="bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3 text-center min-w-[100px]">
-          <div class="text-2xl font-black text-blue-400" id="stat-total">27</div>
-          <div class="text-[11px] text-slate-400 uppercase font-medium mt-0.5">Tổng Artifacts HTML</div>
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-2.5 text-center min-w-[95px]">
+          <div class="text-xl font-black text-blue-400" id="stat-active">0</div>
+          <div class="text-[10px] text-slate-400 uppercase font-medium mt-0.5">Đang Hiển Thị</div>
         </div>
-        <div class="bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3 text-center min-w-[100px]">
-          <div class="text-2xl font-black text-emerald-400">9</div>
-          <div class="text-[11px] text-slate-400 uppercase font-medium mt-0.5">Nghiên Cứu</div>
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-2.5 text-center min-w-[95px]">
+          <div class="text-xl font-black text-emerald-400" id="stat-research">0</div>
+          <div class="text-[10px] text-slate-400 uppercase font-medium mt-0.5">Nghiên Cứu</div>
         </div>
-        <div class="bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3 text-center min-w-[100px]">
-          <div class="text-2xl font-black text-purple-400">17</div>
-          <div class="text-[11px] text-slate-400 uppercase font-medium mt-0.5">Prototypes & UI</div>
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-2.5 text-center min-w-[95px]">
+          <div class="text-xl font-black text-purple-400" id="stat-prototypes">0</div>
+          <div class="text-[10px] text-slate-400 uppercase font-medium mt-0.5">Prototypes</div>
         </div>
-        <div class="bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3 text-center min-w-[100px] cursor-pointer hover:border-rose-700 transition" onclick="toggleViewHidden()">
-          <div class="text-2xl font-black text-rose-400" id="stat-hidden">0</div>
-          <div class="text-[11px] text-slate-400 uppercase font-medium mt-0.5">Đã Ẩn</div>
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-2.5 text-center min-w-[95px] cursor-pointer hover:border-rose-700 transition" onclick="setSpecialView('HIDDEN')" title="Bấm để xem các bài đã ẩn">
+          <div class="text-xl font-black text-rose-400" id="stat-hidden">0</div>
+          <div class="text-[10px] text-rose-300 uppercase font-medium mt-0.5 flex items-center justify-center gap-1">
+            <span>👁️ Đã Ẩn</span>
+          </div>
+        </div>
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-2.5 text-center min-w-[95px] cursor-pointer hover:border-red-700 transition" onclick="setSpecialView('DELETED')" title="Bấm để xem thùng rác">
+          <div class="text-xl font-black text-red-500" id="stat-deleted">0</div>
+          <div class="text-[10px] text-red-400 uppercase font-medium mt-0.5 flex items-center justify-center gap-1">
+            <span>🗑️ Thùng Rác</span>
+          </div>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Filter & Search Toolbar -->
-  <div class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80 px-4 sm:px-8 py-4">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
+  <!-- Filter, Search & Memory Toolbar -->
+  <div class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80 px-4 sm:px-8 py-3.5">
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-3.5 items-stretch lg:items-center justify-between">
       
       <!-- Search Input -->
       <div class="relative flex-1 max-w-md">
@@ -107,7 +123,7 @@
           type="text" 
           id="search-input" 
           placeholder="Tìm kiếm bài nghiên cứu, mockup, tags..." 
-          class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-10 py-2.5 text-xs sm:text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+          class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-10 py-2 text-xs sm:text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
           oninput="filterArtifacts()"
         >
         <button id="clear-search" onclick="clearSearch()" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300">
@@ -115,48 +131,85 @@
         </button>
       </div>
 
-      <!-- Categories & Actions -->
+      <!-- Categories & Special Views -->
       <div class="flex flex-wrap items-center gap-2">
-        <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-xl text-xs">
-          <button onclick="setCategory('ALL')" class="cat-btn active px-3 py-1.5 rounded-lg bg-blue-600 text-white font-medium transition" data-cat="ALL">Tất Cả HTML</button>
-          <button onclick="setCategory('Deep Research')" class="cat-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition" data-cat="Deep Research">Nghiên Cứu</button>
-          <button onclick="setCategory('Prototypes & UI')" class="cat-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition" data-cat="Prototypes & UI">Prototypes</button>
-          <button onclick="toggleViewHidden()" id="btn-view-hidden" class="cat-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-rose-300 transition flex items-center gap-1.5" data-cat="HIDDEN">
+        <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-xl text-xs overflow-x-auto">
+          <button onclick="setCategory('ALL')" class="cat-btn active px-3 py-1.5 rounded-lg bg-blue-600 text-white font-medium transition" data-view="ALL">Tất Cả</button>
+          <button onclick="setCategory('Deep Research')" class="cat-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition" data-view="Deep Research">Nghiên Cứu</button>
+          <button onclick="setCategory('Prototypes & UI')" class="cat-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition" data-view="Prototypes & UI">Prototypes</button>
+          
+          <span class="w-[1px] h-4 bg-slate-800 mx-1"></span>
+
+          <!-- Hidden View Button -->
+          <button onclick="setSpecialView('HIDDEN')" id="btn-view-hidden" class="cat-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-rose-300 transition flex items-center gap-1.5" data-view="HIDDEN">
             <svg class="w-3.5 h-3.5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
-            <span>Bài Đã Ẩn</span>
+            <span>Đã Ẩn</span>
             <span id="badge-hidden-count" class="px-1.5 py-0.2 rounded-full text-[10px] bg-rose-950 text-rose-300 border border-rose-800 hidden font-mono">0</span>
+          </button>
+
+          <!-- Deleted / Trash View Button -->
+          <button onclick="setSpecialView('DELETED')" id="btn-view-deleted" class="cat-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-red-400 transition flex items-center gap-1.5" data-view="DELETED">
+            <svg class="w-3.5 h-3.5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            <span>Thùng Rác</span>
+            <span id="badge-deleted-count" class="px-1.5 py-0.2 rounded-full text-[10px] bg-red-950 text-red-300 border border-red-800 hidden font-mono">0</span>
           </button>
         </div>
 
         <!-- Sort Select -->
-        <select id="sort-select" onchange="filterArtifacts()" class="bg-slate-900 border border-slate-800 text-slate-300 text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-blue-500 cursor-pointer">
+        <select id="sort-select" onchange="filterArtifacts()" class="bg-slate-900 border border-slate-800 text-slate-300 text-xs rounded-xl px-3 py-2 focus:outline-none focus:border-blue-500 cursor-pointer">
           <option value="mtime-desc">Mới nhất trước</option>
           <option value="mtime-asc">Cũ nhất trước</option>
           <option value="title-asc">Theo tiêu đề (A-Z)</option>
           <option value="size-desc">Kích thước lớn nhất</option>
         </select>
+
+        <!-- Memory Storage Settings Button -->
+        <button onclick="openMemoryModal()" class="px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white text-xs font-medium transition flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+          <span class="hidden sm:inline">Quản Lý Bộ Nhớ</span>
+        </button>
+
       </div>
 
     </div>
   </div>
 
   <!-- Main Content Grid -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-8 py-8 flex-1 w-full">
+  <main class="max-w-7xl mx-auto px-4 sm:px-8 py-7 flex-1 w-full">
     
-    <!-- Active Status Bar -->
-    <div class="flex items-center justify-between mb-6 text-xs text-slate-400">
+    <!-- Active Status Bar & Action Banner -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 text-xs text-slate-400">
       <div class="flex items-center gap-2">
-        <span id="results-count" class="font-medium text-slate-300">Đang hiển thị 27 kết quả</span>
-        <span id="hidden-mode-alert" class="hidden text-rose-400 font-semibold px-2 py-0.5 rounded bg-rose-950/60 border border-rose-800 flex items-center gap-1">
+        <span id="results-count" class="font-medium text-slate-300">Đang tải dữ liệu...</span>
+        
+        <!-- Hidden Alert Tag -->
+        <span id="hidden-mode-alert" class="hidden text-rose-300 font-semibold px-2.5 py-0.5 rounded-lg bg-rose-950/70 border border-rose-800 flex items-center gap-1.5">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-          Chế độ xem bài viết đã ẩn
+          Chế độ xem các bài đã ẩn
+        </span>
+
+        <!-- Deleted Alert Tag -->
+        <span id="deleted-mode-alert" class="hidden text-red-300 font-semibold px-2.5 py-0.5 rounded-lg bg-red-950/70 border border-red-800 flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          Thùng rác (Bài viết đã xóa)
         </span>
       </div>
       
-      <div id="restore-all-container" class="hidden">
-        <button onclick="restoreAllArticles()" class="text-xs px-3 py-1.5 rounded-lg bg-rose-900/60 hover:bg-rose-800 text-rose-200 border border-rose-700 transition flex items-center gap-1.5">
+      <!-- Special View Bulk Actions -->
+      <div id="bulk-actions-container" class="flex items-center gap-2">
+        <button id="btn-restore-all-hidden" onclick="restoreAllHidden()" class="hidden text-xs px-3 py-1.5 rounded-lg bg-rose-950 hover:bg-rose-900 text-rose-200 border border-rose-800 transition flex items-center gap-1.5 font-medium">
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
           <span>Khôi phục tất cả bài đã ẩn</span>
+        </button>
+
+        <button id="btn-restore-all-deleted" onclick="restoreAllDeleted()" class="hidden text-xs px-3 py-1.5 rounded-lg bg-emerald-950 hover:bg-emerald-900 text-emerald-200 border border-emerald-800 transition flex items-center gap-1.5 font-medium">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span>Khôi phục toàn bộ thùng rác</span>
+        </button>
+
+        <button id="btn-purge-trash" onclick="emptyTrash()" class="hidden text-xs px-3 py-1.5 rounded-lg bg-red-950 hover:bg-red-900 text-red-200 border border-red-800 transition flex items-center gap-1.5 font-medium">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+          <span>Dọn sạch thùng rác</span>
         </button>
       </div>
     </div>
@@ -169,8 +222,8 @@
     <!-- Empty State -->
     <div id="empty-state" class="hidden text-center py-20">
       <svg class="w-12 h-12 text-slate-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      <h3 class="text-lg font-bold text-slate-300" id="empty-title">Không tìm thấy artifact nào khớp</h3>
-      <p class="text-sm text-slate-500 mt-1" id="empty-desc">Thử xóa bộ lọc hoặc đổi từ khóa tìm kiếm khác</p>
+      <h3 class="text-lg font-bold text-slate-300" id="empty-title">Không tìm thấy artifact nào</h3>
+      <p class="text-sm text-slate-500 mt-1" id="empty-desc">Thử xóa bộ lọc hoặc đổi từ khóa tìm kiếm</p>
       <button onclick="resetFilters()" class="mt-4 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs text-white font-medium transition">Đặt lại bộ lọc</button>
     </div>
   </main>
@@ -186,13 +239,13 @@
           <h3 id="modal-title" class="text-base font-bold text-white truncate">Preview Title</h3>
         </div>
         <div class="flex items-center gap-2 flex-shrink-0">
-          <button id="modal-open-btn" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs text-white font-medium transition flex items-center gap-1.5 shadow-sm shadow-blue-500/20">
+          <a id="modal-open-btn" target="_blank" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs text-white font-medium transition flex items-center gap-1.5 shadow-sm shadow-blue-500/20">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-            <span>Mở Trang Riêng</span>
-          </button>
+            <span>Mở Tab Riêng</span>
+          </a>
           <button onclick="copyCurrentModalPath()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 transition flex items-center gap-1.5">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-            <span>Copy Path</span>
+            <span>Copy Link</span>
           </button>
           <button onclick="closeModal()" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -200,7 +253,7 @@
         </div>
       </div>
 
-      <!-- Modal Body (Iframe for HTML) -->
+      <!-- Modal Body (Iframe) -->
       <div class="flex-1 bg-slate-950 overflow-hidden relative">
         <iframe id="modal-iframe" class="w-full h-full border-0" loading="lazy"></iframe>
       </div>
@@ -214,20 +267,94 @@
     </div>
   </div>
 
-  <!-- Toast Notification -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs font-medium shadow-2xl flex items-center gap-2">
-    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-    <span id="toast-msg">Đã copy thành công!</span>
+  <!-- Memory Storage Management Modal -->
+  <div id="memory-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4 sm:p-6">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-xl p-6 shadow-2xl flex flex-col gap-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-lg">💾</span>
+          <h3 class="text-base font-bold text-white">Quản Lý Bộ Nhớ Trình Duyệt (LocalStorage)</h3>
+        </div>
+        <button onclick="closeMemoryModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-300 leading-relaxed">
+        Trang web này sử dụng bộ nhớ cục bộ (<code class="text-cyan-300 font-mono">localStorage</code>) gắn liền với tên miền <code class="text-cyan-300 font-mono">trancongminh.github.io</code>. Mọi thao tác Ẩn và Xoá bài viết được lưu trữ vĩnh viễn trên trình duyệt của bạn và tự động khôi phục mỗi khi bạn mở lại trang.
+      </p>
+
+      <div class="grid grid-cols-2 gap-3 text-xs">
+        <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+          <div class="text-slate-400 mb-1">Bài viết đã Ẩn:</div>
+          <div class="text-lg font-bold text-rose-400 font-mono" id="modal-stat-hidden">0 bài</div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+          <div class="text-slate-400 mb-1">Bài viết trong Thùng Rác:</div>
+          <div class="text-lg font-bold text-red-400 font-mono" id="modal-stat-deleted">0 bài</div>
+        </div>
+      </div>
+
+      <!-- Backup / Restore Buttons -->
+      <div class="space-y-2 pt-2 border-t border-slate-800">
+        <div class="text-xs font-semibold text-slate-300">Sao lưu & Đồng bộ:</div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="exportMemoryBackup()" class="px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs text-white font-medium transition flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            <span>Xuất File Sao Lưu (.JSON)</span>
+          </button>
+          
+          <label class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 font-medium cursor-pointer transition flex items-center gap-1.5 border border-slate-700">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+            <span>Nhập File Sao Lưu</span>
+            <input type="file" id="import-memory-file" accept=".json" class="hidden" onchange="importMemoryBackup(event)">
+          </label>
+        </div>
+      </div>
+
+      <!-- Reset Action -->
+      <div class="pt-2 border-t border-slate-800 flex items-center justify-between">
+        <span class="text-[11px] text-slate-500">Khôi phục toàn bộ bài viết về nguyên bản:</span>
+        <button onclick="resetAllMemory()" class="px-3 py-1.5 rounded-lg bg-red-950/80 hover:bg-red-900 text-xs text-red-300 border border-red-800 transition">
+          Đặt Lại Toàn Bộ
+        </button>
+      </div>
+    </div>
   </div>
+
+  <!-- Interactive Toast Notification with Undo -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs font-medium shadow-2xl flex items-center gap-3">
+    <span id="toast-icon" class="text-base">✔</span>
+    <span id="toast-msg">Đã thực hiện thao tác</span>
+    <button id="toast-undo-btn" class="hidden text-xs font-bold text-amber-400 hover:text-amber-300 underline ml-2">
+      Hoàn tác
+    </button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 py-6 px-4 sm:px-8 text-center text-xs text-slate-500 bg-[#040810]">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>
+        Brain Artifacts & Research Control Center • Persistent Memory Enabled
+      </div>
+      <div class="flex items-center gap-4">
+        <button onclick="openMemoryModal()" class="text-blue-400 hover:underline">Quản Lý Bộ Nhớ</button>
+        <span>•</span>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="hover:text-slate-300 transition">Lên Đầu Trang ↑</button>
+      </div>
+    </div>
+  </footer>
 
   <!-- Main Application Logic Script -->
   <script>
-    const CATALOG = [{"id": "can_thi_kham_nghia_vu_quan_su_html", "title": "Khám Nghĩa Vụ Quân Sự: Cận 1 Mắt 3.25D, 1 Mắt 2.25D Có Khả Năng Trúng Tuyển Không?", "filename": "index.html", "path": "research/can-thi-kham-nghia-vu-quan-su/index.html", "category": "Deep Research", "tags": ["Research"], "summary": "Báo cáo nghiên cứu trực quan về chủ đề Khám Nghĩa Vụ Quân Sự: Cận 1 Mắt 3.25D, 1 Mắt 2.25D Có Khả Năng Trúng Tuyển Không?.", "mtime": "2026-10-22 13:38", "size_kb": 54.9, "is_html": true}, {"id": "deep_review_cv_gia_bao_nguyen_hoang_html", "title": "Loki Deep Review: Thẩm Định & Tối Ưu CV Nguyễn Hoàng Gia Bảo (Chuẩn ATS 2026)", "filename": "index.html", "path": "research/deep-review-cv-gia-bao-nguyen-hoang/index.html", "category": "Deep Research", "tags": ["Research", "CV Review", "Career"], "summary": "Báo cáo nghiên cứu trực quan về chủ đề Loki Deep Review: Thẩm Định & Tối Ưu CV Nguyễn Hoàng Gia Bảo (Chuẩn ATS 2026).", "mtime": "2026-10-22 13:38", "size_kb": 40.2, "is_html": true}, {"id": "dinh_tam_lan_duong_territory_vs_cx5_html", "title": "Nghiên Cứu Chuyên Sâu: Tính Năng Định Tâm Làn Đường & Bo Cua (Territory X vs CX-5 Sport)", "filename": "index.html", "path": "research/dinh-tam-lan-duong-territory-vs-cx5/index.html", "category": "Deep Research", "tags": ["Research", "Ô Tô", "So Sánh"], "summary": "Nghiên cứu kỹ thuật mổ xẻ sự khác biệt bản chất giữa công nghệ **Định tâm làn đường chủ động (Lane Centering - LCC)** và **Hỗ trợ giữ làn thụ động (Lane Keep Assist - LAS)**. Liệu chiếc xe nào có thể tự động bẻ lái ôm cua trên cao tốc?", "mtime": "2026-10-22 13:38", "size_kb": 28.7, "is_html": true}, {"id": "do_ben_dong_co_hop_so_ford_territory_html", "title": "Thẩm Định Kỹ Thuật: Động Cơ & Hộp Số Ford Territory Có Bền 8-10 Năm?", "filename": "index.html", "path": "research/do-ben-dong-co-hop-so-ford-territory/index.html", "category": "Deep Research", "tags": ["Research", "Ô Tô", "So Sánh"], "summary": "Phân tích chuyên sâu về cơ cấu cơ khí của động cơ 1.5L EcoBoost (JX4G15), hộp số ly hợp kép ướt Magna 7DCT300, giải mã \"nỗi sợ PowerShift cũ\" và lộ trình bảo dưỡng bắt buộc để xe vận hành bền bỉ 1 thập kỷ.", "mtime": "2026-10-22 13:38", "size_kb": 24.1, "is_html": true}, {"id": "muse_ai_video_research_html", "title": "Deep Research: Meta Muse Video Automation, Ban Risk & Duration Limits", "filename": "index.html", "path": "research/muse-ai-video-research/index.html", "category": "Deep Research", "tags": ["Research"], "summary": "Báo cáo nghiên cứu trực quan về chủ đề Deep Research: Meta Muse Video Automation, Ban Risk & Duration Limits.", "mtime": "2026-10-22 13:38", "size_kb": 21.8, "is_html": true}, {"id": "phap_ly_thue_xe_dien_vinfast_evo_70kmh_nguoi_nuoc_ngoai_html", "title": "Nghiên Cứu Chuyên Sâu Pháp Lý: Cho Người Nước Ngoài Thuê Xe Máy Điện VinFast Evo (Tốc Độ 70 km/h)", "filename": "index.html", "path": "research/phap-ly-thue-xe-dien-vinfast-evo-70kmh-nguoi-nuoc-ngoai/index.html", "category": "Deep Research", "tags": ["Research", "Xe Điện", "Đà Nẵng"], "summary": "Mổ xẻ bản chất phương tiện theo Luật Giao thông 2024: Vì sao chiếc xe máy điện 70 km/h là Xe Mô Tô Hai Bánh bắt buộc bằng lái A1; phân tích bẫy bằng quốc tế Geneva 1949 & bằng mua online IAA; 2 bản án hình sự thực tế tại TAND TP Đà Nẵng năm 2024 tuyên phạt chủ tiệm cho thuê xe; và quy trình kiểm duy...", "mtime": "2026-10-22 13:38", "size_kb": 58.3, "is_html": true}, {"id": "quy_trinh_mua_xe_cu_da_nang_html", "title": "Cẩm Nang Toàn Diện: Mua Bán Xe Ô Tô Cũ Cá Nhân Tại Đà Nẵng (10/2026)", "filename": "index.html", "path": "research/quy-trinh-mua-xe-cu-da-nang/index.html", "category": "Deep Research", "tags": ["Research", "Xe Điện", "Đà Nẵng"], "summary": "Báo cáo nghiên cứu trực quan về chủ đề Cẩm Nang Toàn Diện: Mua Bán Xe Ô Tô Cũ Cá Nhân Tại Đà Nẵng (10/2026).", "mtime": "2026-10-22 13:38", "size_kb": 42.5, "is_html": true}, {"id": "so_sanh_cx5_sport_vs_territory_x_html", "title": "So Sánh Chuyên Sâu: Ford Territory Titanium X 2025 vs Mazda CX-5 Premium Sport 2024", "filename": "index.html", "path": "research/so-sanh-cx5-sport-vs-territory-x/index.html", "category": "Deep Research", "tags": ["Research", "Ô Tô", "So Sánh"], "summary": "Phân tích đối đầu kỹ thuật, hiệu năng vận hành thực tế, độ rộng khoang gia đình, độ tin cậy cơ khí lâu dài và bảng chấm điểm 10 tiêu chí giúp bạn đưa ra quyết định mua xe sáng suốt nhất.", "mtime": "2026-10-22 13:38", "size_kb": 38.6, "is_html": true}, {"id": "sua_video_cover_guitar_hat_ai_html", "title": "Báo Cáo Nghiên Cứu: AI & Ứng Dụng Sửa Video Cover Guitar & Hát (Video & Âm Nhạc)", "filename": "index.html", "path": "research/sua-video-cover-guitar-hat-ai/index.html", "category": "Deep Research", "tags": ["Research"], "summary": "Báo cáo nghiên cứu trực quan về chủ đề Báo Cáo Nghiên Cứu: AI & Ứng Dụng Sửa Video Cover Guitar & Hát (Video & Âm Nhạc).", "mtime": "2026-10-22 13:38", "size_kb": 33.1, "is_html": true}, {"id": "thue_xe_may_dien_da_nang_vinfast_evo_html", "title": "Nghiên Cứu Chuyên Sâu: Cho Thuê Xe Máy Điện VinFast Tại Đà Nẵng (Khách Nước Ngoài, Pháp Lý, Rủi Ro & Mô Hình 6 Xe)", "filename": "index.html", "path": "research/thue-xe-may-dien-da-nang-vinfast-evo/index.html", "category": "Deep Research", "tags": ["Research", "Xe Điện", "Đà Nẵng"], "summary": "Phân tích chuyên sâu về \"lá chắn pháp lý\" khi cho khách Tây thuê xe (Nghị định 144, Điều 264 Bộ luật Hình sự, bẫy bằng lái quốc tế Geneva vs Vienna), quy định cấm xe Bán đảo Sơn Trà, chính sách bảo hiểm TNDS/vật chất và mô hình tài chính 6 xe VinFast Evo thu hồi vốn trong 10 tháng.", "mtime": "2026-10-22 13:38", "size_kb": 80.7, "is_html": true}, {"id": "tool_scrape_data_google_map_dataset_html", "title": "Nghiên Cứu Toàn Diện: Công Cụ & Kỹ Thuật Cào Dữ Liệu Google Maps Xây Dựng Private Dataset", "filename": "index.html", "path": "research/tool-scrape-data-google-map-dataset/index.html", "category": "Deep Research", "tags": ["Research"], "summary": "Đánh giá toàn diện các giải pháp tự lưu trữ (Open-Source), dịch vụ đám mây (Managed APIs), kỹ thuật vượt bức tường giới hạn 120 kết quả của Google (Quadtree Bounding Box Grid), kiến trúc xoay proxy chống chặn IP, và mô hình cơ sở dữ liệu PostGIS phục vụ phân tích bán kính không gian.", "mtime": "2026-10-22 13:38", "size_kb": 55.4, "is_html": true}, {"id": "prompt-dashboard-mockup_html", "title": "Automation & Data Ingestion Console", "filename": "prompt-dashboard-mockup.html", "path": "/Users/mac/Desktop/Brain/mock-ui/prompt-dashboard-mockup.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Automation & Data Ingestion Console</title>   <style>...", "mtime": "2026-10-06 08:17", "size_kb": 33.6, "is_html": true}, {"id": "search-centric-mockup_html", "title": "Smart Search & Storage Platform - Mockup", "filename": "search-centric-mockup.html", "path": "/Users/mac/Desktop/Brain/mock-ui/search-centric-mockup.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Smart Search & Storage Platform - Mockup</title>   <s...", "mtime": "2026-10-06 07:57", "size_kb": 30.0, "is_html": true}, {"id": "owner-listing_html", "title": "Đăng xe cho thuê — XeDaNang", "filename": "owner-listing.html", "path": "/Users/mac/Desktop/Brain/prototypes-xe-danang/owner-listing.html", "category": "Prototypes & UI", "tags": ["UI/UX", "Xe cộ", "Đà Nẵng"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Đăng xe cho thuê — XeDaNang</title...", "mtime": "2026-10-05 13:19", "size_kb": 10.2, "is_html": true}, {"id": "profile_html", "title": "Hồ sơ — XeDaNang", "filename": "profile.html", "path": "/Users/mac/Desktop/Brain/prototypes-xe-danang/profile.html", "category": "Prototypes & UI", "tags": ["UI/UX", "Xe cộ", "Đà Nẵng"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Hồ sơ — XeDaNang</title>   <link h...", "mtime": "2026-10-05 13:19", "size_kb": 4.7, "is_html": true}, {"id": "owner-bookings_html", "title": "Quản lý booking — XeDaNang", "filename": "owner-bookings.html", "path": "/Users/mac/Desktop/Brain/prototypes-xe-danang/owner-bookings.html", "category": "Prototypes & UI", "tags": ["UI/UX", "Xe cộ", "Đà Nẵng"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Quản lý booking — XeDaNang</title>...", "mtime": "2026-10-05 13:19", "size_kb": 9.2, "is_html": true}, {"id": "index_html", "title": "Tìm xe tại Đà Nẵng — XeDaNang", "filename": "index.html", "path": "/Users/mac/Desktop/Brain/prototypes-xe-danang/index.html", "category": "Prototypes & UI", "tags": ["UI/UX", "Xe cộ", "Đà Nẵng"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Tìm xe tại Đà Nẵng — XeDaNang</tit...", "mtime": "2026-10-05 13:19", "size_kb": 6.8, "is_html": true}, {"id": "detail_html", "title": "Chi tiết xe — XeDaNang", "filename": "detail.html", "path": "/Users/mac/Desktop/Brain/prototypes-xe-danang/detail.html", "category": "Prototypes & UI", "tags": ["UI/UX", "Xe cộ", "Đà Nẵng"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Chi tiết xe — XeDaNang</title>   <...", "mtime": "2026-10-05 13:19", "size_kb": 7.1, "is_html": true}, {"id": "ascii-wireframes_md", "title": "ASCII Wireframes — XeDaNang Prototype", "filename": "ascii-wireframes.md", "path": "/Users/mac/Desktop/Brain/prototypes-xe-danang/wireframes/ascii-wireframes.md", "category": "Prototypes & UI", "tags": ["UI/UX", "Xe cộ", "Đà Nẵng"], "summary": "Báo cáo / artifact được tạo tự động bởi AI agent.", "mtime": "2026-10-05 13:17", "size_kb": 3.4, "is_html": false}, {"id": "index_html", "title": "Sông Hàn Match", "filename": "index.html", "path": "/Users/mac/Desktop/Brain/mock-ui/index.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<title>Sông Hàn Match</title> <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap\"> <style>...", "mtime": "2026-10-05 13:16", "size_kb": 54.3, "is_html": true}, {"id": "profile_html", "title": "Hồ sơ — BrokerConnect", "filename": "profile.html", "path": "/Users/mac/Desktop/Brain/prototypes/profile.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Hồ sơ — BrokerConnect</title>   <s...", "mtime": "2026-10-05 11:30", "size_kb": 7.7, "is_html": true}, {"id": "deal-detail_html", "title": "Chi tiết Deal — BrokerConnect", "filename": "deal-detail.html", "path": "/Users/mac/Desktop/Brain/prototypes/deal-detail.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Chi tiết Deal — BrokerConnect</tit...", "mtime": "2026-10-05 11:30", "size_kb": 8.5, "is_html": true}, {"id": "feed_html", "title": "Bảng tin — BrokerConnect", "filename": "feed.html", "path": "/Users/mac/Desktop/Brain/prototypes/feed.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Bảng tin — BrokerConnect</title>  ...", "mtime": "2026-10-05 11:29", "size_kb": 7.5, "is_html": true}, {"id": "index_html", "title": "Đăng ký — BrokerConnect", "filename": "index.html", "path": "/Users/mac/Desktop/Brain/prototypes/index.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Đăng ký — BrokerConnect</title>   ...", "mtime": "2026-10-05 11:29", "size_kb": 5.8, "is_html": true}, {"id": "listing-detail_html", "title": "Chi tiết tin — BrokerConnect", "filename": "listing-detail.html", "path": "/Users/mac/Desktop/Brain/prototypes/listing-detail.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Chi tiết tin — BrokerConnect</titl...", "mtime": "2026-10-05 11:29", "size_kb": 7.8, "is_html": true}, {"id": "create-listing_html", "title": "Đăng tin mới — BrokerConnect", "filename": "create-listing.html", "path": "/Users/mac/Desktop/Brain/prototypes/create-listing.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Đăng tin mới — BrokerConnect</titl...", "mtime": "2026-10-05 11:29", "size_kb": 8.6, "is_html": true}, {"id": "my-deals_html", "title": "Deal của tôi — BrokerConnect", "filename": "my-deals.html", "path": "/Users/mac/Desktop/Brain/prototypes/my-deals.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Deal của tôi — BrokerConnect</titl...", "mtime": "2026-10-05 11:29", "size_kb": 5.3, "is_html": true}, {"id": "detail_html", "title": "Chi tiết xe — XeDaNang", "filename": "detail.html", "path": "/Users/mac/Desktop/Brain/prototypes/detail.html", "category": "Prototypes & UI", "tags": ["UI/UX", "Xe cộ", "Đà Nẵng"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Chi tiết xe — XeDaNang</title>   <...", "mtime": "2026-10-05 11:25", "size_kb": 7.2, "is_html": true}, {"id": "interview_copilot_html", "title": "AI Application Engineer (Junior & Mid) Interview Copilot", "filename": "interview_copilot.html", "path": "/Users/mac/.gemini/antigravity-cli/brain/bc1f021e-a0a3-4352-bfb7-e487f302db20/interview_copilot.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>AI Application Engineer (Junior & Mid) Interview Copi...", "mtime": "2026-09-22 14:00", "size_kb": 89.3, "is_html": true}];
-    let currentCategory = 'ALL';
-    let isViewingHidden = false;
+    const CATALOG = [{"id": "can_thi_kham_nghia_vu_quan_su_html", "title": "Khám Nghĩa Vụ Quân Sự: Cận 1 Mắt 3.25D, 1 Mắt 2.25D Có Khả Năng Trúng Tuyển Không?", "filename": "index.html", "path": "research/can-thi-kham-nghia-vu-quan-su/index.html", "category": "Deep Research", "tags": ["Research"], "summary": "Báo cáo nghiên cứu trực quan về chủ đề Khám Nghĩa Vụ Quân Sự: Cận 1 Mắt 3.25D, 1 Mắt 2.25D Có Khả Năng Trúng Tuyển Không?.", "mtime": "2026-10-22 13:50", "size_kb": 54.9, "is_html": true}, {"id": "deep_review_cv_gia_bao_nguyen_hoang_html", "title": "Loki Deep Review: Thẩm Định & Tối Ưu CV Nguyễn Hoàng Gia Bảo (Chuẩn ATS 2026)", "filename": "index.html", "path": "research/deep-review-cv-gia-bao-nguyen-hoang/index.html", "category": "Deep Research", "tags": ["Research", "CV Review", "Career"], "summary": "Báo cáo nghiên cứu trực quan về chủ đề Loki Deep Review: Thẩm Định & Tối Ưu CV Nguyễn Hoàng Gia Bảo (Chuẩn ATS 2026).", "mtime": "2026-10-22 13:50", "size_kb": 40.2, "is_html": true}, {"id": "dinh_tam_lan_duong_territory_vs_cx5_html", "title": "Nghiên Cứu Chuyên Sâu: Tính Năng Định Tâm Làn Đường & Bo Cua (Territory X vs CX-5 Sport)", "filename": "index.html", "path": "research/dinh-tam-lan-duong-territory-vs-cx5/index.html", "category": "Deep Research", "tags": ["Research", "Ô Tô", "So Sánh"], "summary": "Nghiên cứu kỹ thuật mổ xẻ sự khác biệt bản chất giữa công nghệ **Định tâm làn đường chủ động (Lane Centering - LCC)** và **Hỗ trợ giữ làn thụ động (Lane Keep Assist - LAS)**. Liệu chiếc xe nào có thể tự động bẻ lái ôm cua trên cao tốc?", "mtime": "2026-10-22 13:50", "size_kb": 28.7, "is_html": true}, {"id": "do_ben_dong_co_hop_so_ford_territory_html", "title": "Thẩm Định Kỹ Thuật: Động Cơ & Hộp Số Ford Territory Có Bền 8-10 Năm?", "filename": "index.html", "path": "research/do-ben-dong-co-hop-so-ford-territory/index.html", "category": "Deep Research", "tags": ["Research", "Ô Tô", "So Sánh"], "summary": "Phân tích chuyên sâu về cơ cấu cơ khí của động cơ 1.5L EcoBoost (JX4G15), hộp số ly hợp kép ướt Magna 7DCT300, giải mã \"nỗi sợ PowerShift cũ\" và lộ trình bảo dưỡng bắt buộc để xe vận hành bền bỉ 1 thập kỷ.", "mtime": "2026-10-22 13:50", "size_kb": 24.1, "is_html": true}, {"id": "muse_ai_video_research_html", "title": "Deep Research: Meta Muse Video Automation, Ban Risk & Duration Limits", "filename": "index.html", "path": "research/muse-ai-video-research/index.html", "category": "Deep Research", "tags": ["Research"], "summary": "Báo cáo nghiên cứu trực quan về chủ đề Deep Research: Meta Muse Video Automation, Ban Risk & Duration Limits.", "mtime": "2026-10-22 13:50", "size_kb": 21.8, "is_html": true}, {"id": "phap_ly_thue_xe_dien_vinfast_evo_70kmh_nguoi_nuoc_ngoai_html", "title": "Nghiên Cứu Chuyên Sâu Pháp Lý: Cho Người Nước Ngoài Thuê Xe Máy Điện VinFast Evo (Tốc Độ 70 km/h)", "filename": "index.html", "path": "research/phap-ly-thue-xe-dien-vinfast-evo-70kmh-nguoi-nuoc-ngoai/index.html", "category": "Deep Research", "tags": ["Research", "Xe Điện", "Đà Nẵng"], "summary": "Mổ xẻ bản chất phương tiện theo Luật Giao thông 2024: Vì sao chiếc xe máy điện 70 km/h là Xe Mô Tô Hai Bánh bắt buộc bằng lái A1; phân tích bẫy bằng quốc tế Geneva 1949 & bằng mua online IAA; 2 bản án hình sự thực tế tại TAND TP Đà Nẵng năm 2024 tuyên phạt chủ tiệm cho thuê xe; và quy trình kiểm duy...", "mtime": "2026-10-22 13:50", "size_kb": 58.3, "is_html": true}, {"id": "quy_trinh_mua_xe_cu_da_nang_html", "title": "Cẩm Nang Toàn Diện: Mua Bán Xe Ô Tô Cũ Cá Nhân Tại Đà Nẵng (10/2026)", "filename": "index.html", "path": "research/quy-trinh-mua-xe-cu-da-nang/index.html", "category": "Deep Research", "tags": ["Research", "Xe Điện", "Đà Nẵng"], "summary": "Báo cáo nghiên cứu trực quan về chủ đề Cẩm Nang Toàn Diện: Mua Bán Xe Ô Tô Cũ Cá Nhân Tại Đà Nẵng (10/2026).", "mtime": "2026-10-22 13:50", "size_kb": 42.5, "is_html": true}, {"id": "so_sanh_cx5_sport_vs_territory_x_html", "title": "So Sánh Chuyên Sâu: Ford Territory Titanium X 2025 vs Mazda CX-5 Premium Sport 2024", "filename": "index.html", "path": "research/so-sanh-cx5-sport-vs-territory-x/index.html", "category": "Deep Research", "tags": ["Research", "Ô Tô", "So Sánh"], "summary": "Phân tích đối đầu kỹ thuật, hiệu năng vận hành thực tế, độ rộng khoang gia đình, độ tin cậy cơ khí lâu dài và bảng chấm điểm 10 tiêu chí giúp bạn đưa ra quyết định mua xe sáng suốt nhất.", "mtime": "2026-10-22 13:50", "size_kb": 38.6, "is_html": true}, {"id": "sua_video_cover_guitar_hat_ai_html", "title": "Báo Cáo Nghiên Cứu: AI & Ứng Dụng Sửa Video Cover Guitar & Hát (Video & Âm Nhạc)", "filename": "index.html", "path": "research/sua-video-cover-guitar-hat-ai/index.html", "category": "Deep Research", "tags": ["Research"], "summary": "Báo cáo nghiên cứu trực quan về chủ đề Báo Cáo Nghiên Cứu: AI & Ứng Dụng Sửa Video Cover Guitar & Hát (Video & Âm Nhạc).", "mtime": "2026-10-22 13:50", "size_kb": 33.1, "is_html": true}, {"id": "thue_xe_may_dien_da_nang_vinfast_evo_html", "title": "Nghiên Cứu Chuyên Sâu: Cho Thuê Xe Máy Điện VinFast Tại Đà Nẵng (Khách Nước Ngoài, Pháp Lý, Rủi Ro & Mô Hình 6 Xe)", "filename": "index.html", "path": "research/thue-xe-may-dien-da-nang-vinfast-evo/index.html", "category": "Deep Research", "tags": ["Research", "Xe Điện", "Đà Nẵng"], "summary": "Phân tích chuyên sâu về \"lá chắn pháp lý\" khi cho khách Tây thuê xe (Nghị định 144, Điều 264 Bộ luật Hình sự, bẫy bằng lái quốc tế Geneva vs Vienna), quy định cấm xe Bán đảo Sơn Trà, chính sách bảo hiểm TNDS/vật chất và mô hình tài chính 6 xe VinFast Evo thu hồi vốn trong 10 tháng.", "mtime": "2026-10-22 13:50", "size_kb": 80.7, "is_html": true}, {"id": "tool_scrape_data_google_map_dataset_html", "title": "Nghiên Cứu Toàn Diện: Công Cụ & Kỹ Thuật Cào Dữ Liệu Google Maps Xây Dựng Private Dataset", "filename": "index.html", "path": "research/tool-scrape-data-google-map-dataset/index.html", "category": "Deep Research", "tags": ["Research"], "summary": "Đánh giá toàn diện các giải pháp tự lưu trữ (Open-Source), dịch vụ đám mây (Managed APIs), kỹ thuật vượt bức tường giới hạn 120 kết quả của Google (Quadtree Bounding Box Grid), kiến trúc xoay proxy chống chặn IP, và mô hình cơ sở dữ liệu PostGIS phục vụ phân tích bán kính không gian.", "mtime": "2026-10-22 13:50", "size_kb": 55.4, "is_html": true}, {"id": "prompt-dashboard-mockup_html", "title": "Automation & Data Ingestion Console", "filename": "prompt-dashboard-mockup.html", "path": "mock-ui/prompt-dashboard-mockup.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Automation & Data Ingestion Console</title>   <style>...", "mtime": "2026-10-06 08:17", "size_kb": 33.6, "is_html": true}, {"id": "search-centric-mockup_html", "title": "Smart Search & Storage Platform - Mockup", "filename": "search-centric-mockup.html", "path": "mock-ui/search-centric-mockup.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Smart Search & Storage Platform - Mockup</title>   <s...", "mtime": "2026-10-06 07:57", "size_kb": 30.0, "is_html": true}, {"id": "owner-listing_html", "title": "Đăng xe cho thuê — XeDaNang", "filename": "owner-listing.html", "path": "prototypes-xe-danang/owner-listing.html", "category": "Prototypes & UI", "tags": ["UI/UX", "Xe cộ", "Đà Nẵng"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Đăng xe cho thuê — XeDaNang</title...", "mtime": "2026-10-05 13:19", "size_kb": 10.2, "is_html": true}, {"id": "profile_html", "title": "Hồ sơ — XeDaNang", "filename": "profile.html", "path": "prototypes-xe-danang/profile.html", "category": "Prototypes & UI", "tags": ["UI/UX", "Xe cộ", "Đà Nẵng"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Hồ sơ — XeDaNang</title>   <link h...", "mtime": "2026-10-05 13:19", "size_kb": 4.7, "is_html": true}, {"id": "owner-bookings_html", "title": "Quản lý booking — XeDaNang", "filename": "owner-bookings.html", "path": "prototypes-xe-danang/owner-bookings.html", "category": "Prototypes & UI", "tags": ["UI/UX", "Xe cộ", "Đà Nẵng"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Quản lý booking — XeDaNang</title>...", "mtime": "2026-10-05 13:19", "size_kb": 9.2, "is_html": true}, {"id": "index_html", "title": "Tìm xe tại Đà Nẵng — XeDaNang", "filename": "index.html", "path": "prototypes-xe-danang/index.html", "category": "Prototypes & UI", "tags": ["UI/UX", "Xe cộ", "Đà Nẵng"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Tìm xe tại Đà Nẵng — XeDaNang</tit...", "mtime": "2026-10-05 13:19", "size_kb": 6.8, "is_html": true}, {"id": "detail_html", "title": "Chi tiết xe — XeDaNang", "filename": "detail.html", "path": "prototypes-xe-danang/detail.html", "category": "Prototypes & UI", "tags": ["UI/UX", "Xe cộ", "Đà Nẵng"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Chi tiết xe — XeDaNang</title>   <...", "mtime": "2026-10-05 13:19", "size_kb": 7.1, "is_html": true}, {"id": "ascii-wireframes_md", "title": "ASCII Wireframes — XeDaNang Prototype", "filename": "ascii-wireframes.md", "path": "prototypes-xe-danang/ascii-wireframes.md", "category": "Prototypes & UI", "tags": ["UI/UX", "Xe cộ", "Đà Nẵng"], "summary": "Báo cáo / artifact được tạo tự động bởi AI agent.", "mtime": "2026-10-05 13:17", "size_kb": 3.4, "is_html": false}, {"id": "index_html", "title": "Sông Hàn Match", "filename": "index.html", "path": "mock-ui/index.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<title>Sông Hàn Match</title> <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap\"> <style>...", "mtime": "2026-10-05 13:16", "size_kb": 54.3, "is_html": true}, {"id": "profile_html", "title": "Hồ sơ — BrokerConnect", "filename": "profile.html", "path": "prototypes/profile.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Hồ sơ — BrokerConnect</title>   <s...", "mtime": "2026-10-05 11:30", "size_kb": 7.7, "is_html": true}, {"id": "deal-detail_html", "title": "Chi tiết Deal — BrokerConnect", "filename": "deal-detail.html", "path": "prototypes/deal-detail.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Chi tiết Deal — BrokerConnect</tit...", "mtime": "2026-10-05 11:30", "size_kb": 8.5, "is_html": true}, {"id": "feed_html", "title": "Bảng tin — BrokerConnect", "filename": "feed.html", "path": "prototypes/feed.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Bảng tin — BrokerConnect</title>  ...", "mtime": "2026-10-05 11:29", "size_kb": 7.5, "is_html": true}, {"id": "index_html", "title": "Đăng ký — BrokerConnect", "filename": "index.html", "path": "prototypes/index.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Đăng ký — BrokerConnect</title>   ...", "mtime": "2026-10-05 11:29", "size_kb": 5.8, "is_html": true}, {"id": "listing-detail_html", "title": "Chi tiết tin — BrokerConnect", "filename": "listing-detail.html", "path": "prototypes/listing-detail.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Chi tiết tin — BrokerConnect</titl...", "mtime": "2026-10-05 11:29", "size_kb": 7.8, "is_html": true}, {"id": "create-listing_html", "title": "Đăng tin mới — BrokerConnect", "filename": "create-listing.html", "path": "prototypes/create-listing.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Đăng tin mới — BrokerConnect</titl...", "mtime": "2026-10-05 11:29", "size_kb": 8.6, "is_html": true}, {"id": "my-deals_html", "title": "Deal của tôi — BrokerConnect", "filename": "my-deals.html", "path": "prototypes/my-deals.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Deal của tôi — BrokerConnect</titl...", "mtime": "2026-10-05 11:29", "size_kb": 5.3, "is_html": true}, {"id": "detail_html", "title": "Chi tiết xe — XeDaNang", "filename": "detail.html", "path": "prototypes/detail.html", "category": "Prototypes & UI", "tags": ["UI/UX", "Xe cộ", "Đà Nẵng"], "summary": "<!DOCTYPE html> <html lang=\"vi\" data-theme=\"light\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>Chi tiết xe — XeDaNang</title>   <...", "mtime": "2026-10-05 11:25", "size_kb": 7.2, "is_html": true}, {"id": "interview_copilot_html", "title": "AI Application Engineer (Junior & Mid) Interview Copilot", "filename": "interview_copilot.html", "path": "prototypes/interview_copilot.html", "category": "Prototypes & UI", "tags": ["UI/UX"], "summary": "<!DOCTYPE html> <html lang=\"vi\"> <head>   <meta charset=\"UTF-8\">   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">   <title>AI Application Engineer (Junior & Mid) Interview Copi...", "mtime": "2026-09-22 14:00", "size_kb": 89.3, "is_html": true}];
+    let currentView = 'ALL'; // 'ALL', 'Deep Research', 'Prototypes & UI', 'HIDDEN', 'DELETED'
     let currentModalItem = null;
+    let lastDeletedId = null;
 
-    // Load hidden articles from localStorage
+    // =========================================================================
+    // PERSISTENT STORAGE HELPERS (localStorage)
+    // =========================================================================
     function getHiddenIds() {
       try {
         const raw = localStorage.getItem('brain_hidden_articles');
@@ -241,16 +368,35 @@
       try {
         localStorage.setItem('brain_hidden_articles', JSON.stringify(ids));
       } catch (e) {}
-      updateHiddenBadge();
+      updateBadgesAndCounters();
     }
 
+    function getDeletedIds() {
+      try {
+        const raw = localStorage.getItem('brain_deleted_articles');
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveDeletedIds(ids) {
+      try {
+        localStorage.setItem('brain_deleted_articles', JSON.stringify(ids));
+      } catch (e) {}
+      updateBadgesAndCounters();
+    }
+
+    // =========================================================================
+    // ARTICLE ACTIONS: HIDE, UNHIDE, DELETE, RESTORE, PURGE
+    // =========================================================================
     function hideArticle(id, e) {
       if (e) e.stopPropagation();
       const hiddenIds = getHiddenIds();
       if (!hiddenIds.includes(id)) {
         hiddenIds.push(id);
         saveHiddenIds(hiddenIds);
-        showToast('Đã ẩn bài viết khỏi danh sách.');
+        showToast('Đã ẩn bài viết. Xem lại ở tab "Đã Ẩn".');
         filterArtifacts();
       }
     }
@@ -260,77 +406,209 @@
       let hiddenIds = getHiddenIds();
       hiddenIds = hiddenIds.filter(x => x !== id);
       saveHiddenIds(hiddenIds);
-      showToast('Đã khôi phục bài viết.');
+      showToast('Đã khôi phục bài viết về danh sách chính.');
       filterArtifacts();
     }
 
-    function restoreAllArticles() {
-      if (confirm('Bạn có chắc muốn khôi phục tất cả bài viết đã ẩn không?')) {
+    function deleteArticle(id, e) {
+      if (e) e.stopPropagation();
+      const deletedIds = getDeletedIds();
+      if (!deletedIds.includes(id)) {
+        deletedIds.push(id);
+        saveDeletedIds(deletedIds);
+        lastDeletedId = id;
+        showToast('Đã chuyển bài viết vào Thùng Rác.', true, () => {
+          undoDelete(id);
+        });
+        filterArtifacts();
+      }
+    }
+
+    function undoDelete(id) {
+      let deletedIds = getDeletedIds();
+      deletedIds = deletedIds.filter(x => x !== id);
+      saveDeletedIds(deletedIds);
+      showToast('Đã hoàn tác xóa bài viết!');
+      filterArtifacts();
+    }
+
+    function restoreFromTrash(id, e) {
+      if (e) e.stopPropagation();
+      let deletedIds = getDeletedIds();
+      deletedIds = deletedIds.filter(x => x !== id);
+      saveDeletedIds(deletedIds);
+      showToast('Đã khôi phục bài viết khỏi thùng rác.');
+      filterArtifacts();
+    }
+
+    function purgePermanently(id, e) {
+      if (e) e.stopPropagation();
+      if (confirm('Bạn có chắc muốn xóa vĩnh viễn bài này khỏi bộ nhớ thùng rác?')) {
+        let deletedIds = getDeletedIds();
+        deletedIds = deletedIds.filter(x => x !== id);
+        saveDeletedIds(deletedIds);
+        showToast('Đã dọn dẹp bài viết.');
+        filterArtifacts();
+      }
+    }
+
+    // Bulk actions
+    function restoreAllHidden() {
+      if (confirm('Khôi phục tất cả bài viết trong danh sách Đã Ẩn?')) {
         saveHiddenIds([]);
-        showToast('Đã khôi phục toàn bộ bài viết.');
-        isViewingHidden = false;
+        showToast('Đã khôi phục toàn bộ bài viết đã ẩn.');
         setCategory('ALL');
       }
     }
 
-    function updateHiddenBadge() {
-      const count = getHiddenIds().length;
-      const statEl = document.getElementById('stat-hidden');
-      const badgeEl = document.getElementById('badge-hidden-count');
-      const restoreBtn = document.getElementById('restore-all-container');
-      
-      if (statEl) statEl.innerText = count;
-      if (badgeEl) {
-        badgeEl.innerText = count;
-        if (count > 0) badgeEl.classList.remove('hidden');
-        else badgeEl.classList.add('hidden');
-      }
-      if (restoreBtn) {
-        if (isViewingHidden && count > 0) restoreBtn.classList.remove('hidden');
-        else restoreBtn.classList.add('hidden');
+    function restoreAllDeleted() {
+      if (confirm('Khôi phục tất cả bài viết trong Thùng Rác?')) {
+        saveDeletedIds([]);
+        showToast('Đã khôi phục toàn bộ bài viết trong thùng rác.');
+        setCategory('ALL');
       }
     }
 
-    function toggleViewHidden() {
-      isViewingHidden = !isViewingHidden;
-      const alertEl = document.getElementById('hidden-mode-alert');
-      const btn = document.getElementById('btn-view-hidden');
-      
-      if (isViewingHidden) {
-        currentCategory = 'HIDDEN';
-        alertEl.classList.remove('hidden');
-        document.querySelectorAll('.cat-btn').forEach(b => {
-          b.className = 'cat-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition';
-        });
-        btn.className = 'cat-btn active px-3 py-1.5 rounded-lg bg-rose-900/60 text-rose-300 border border-rose-700 font-medium transition flex items-center gap-1.5';
-      } else {
-        currentCategory = 'ALL';
-        alertEl.classList.add('hidden');
-        btn.className = 'cat-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-rose-300 transition flex items-center gap-1.5';
-        document.querySelector('[data-cat="ALL"]').className = 'cat-btn active px-3 py-1.5 rounded-lg bg-blue-600 text-white font-medium transition';
+    function emptyTrash() {
+      if (confirm('Dọn sạch thùng rác? Thao tác này sẽ xóa danh sách bài đã xóa.')) {
+        saveDeletedIds([]);
+        showToast('Đã làm trống thùng rác.');
+        filterArtifacts();
       }
-      updateHiddenBadge();
+    }
+
+    // =========================================================================
+    // BADGES & COUNTERS UPDATE
+    // =========================================================================
+    function updateBadgesAndCounters() {
+      const hiddenIds = getHiddenIds();
+      const deletedIds = getDeletedIds();
+
+      const activeArticles = CATALOG.filter(x => !deletedIds.includes(x.id) && !hiddenIds.includes(x.id));
+      const researchArticles = activeArticles.filter(x => x.category === 'Deep Research');
+      const prototypeArticles = activeArticles.filter(x => x.category === 'Prototypes & UI');
+
+      // Update stat cards
+      const statActive = document.getElementById('stat-active');
+      const statResearch = document.getElementById('stat-research');
+      const statPrototypes = document.getElementById('stat-prototypes');
+      const statHidden = document.getElementById('stat-hidden');
+      const statDeleted = document.getElementById('stat-deleted');
+
+      if (statActive) statActive.innerText = activeArticles.length;
+      if (statResearch) statResearch.innerText = researchArticles.length;
+      if (statPrototypes) statPrototypes.innerText = prototypeArticles.length;
+      if (statHidden) statHidden.innerText = hiddenIds.length;
+      if (statDeleted) statDeleted.innerText = deletedIds.length;
+
+      // Update tab badges
+      const badgeHidden = document.getElementById('badge-hidden-count');
+      const badgeDeleted = document.getElementById('badge-deleted-count');
+
+      if (badgeHidden) {
+        badgeHidden.innerText = hiddenIds.length;
+        if (hiddenIds.length > 0) badgeHidden.classList.remove('hidden');
+        else badgeHidden.classList.add('hidden');
+      }
+
+      if (badgeDeleted) {
+        badgeDeleted.innerText = deletedIds.length;
+        if (deletedIds.length > 0) badgeDeleted.classList.remove('hidden');
+        else badgeDeleted.classList.add('hidden');
+      }
+
+      // Update bulk buttons in special views
+      const btnRestoreHidden = document.getElementById('btn-restore-all-hidden');
+      const btnRestoreDeleted = document.getElementById('btn-restore-all-deleted');
+      const btnPurgeTrash = document.getElementById('btn-purge-trash');
+
+      if (btnRestoreHidden) {
+        if (currentView === 'HIDDEN' && hiddenIds.length > 0) btnRestoreHidden.classList.remove('hidden');
+        else btnRestoreHidden.classList.add('hidden');
+      }
+
+      if (btnRestoreDeleted) {
+        if (currentView === 'DELETED' && deletedIds.length > 0) {
+          btnRestoreDeleted.classList.remove('hidden');
+          btnPurgeTrash.classList.remove('hidden');
+        } else {
+          btnRestoreDeleted.classList.add('hidden');
+          btnPurgeTrash.classList.add('hidden');
+        }
+      }
+    }
+
+    // =========================================================================
+    // VIEW SWITCHING (CATEGORIES & SPECIAL MODES)
+    // =========================================================================
+    function setCategory(cat) {
+      currentView = cat;
+      document.getElementById('hidden-mode-alert').classList.add('hidden');
+      document.getElementById('deleted-mode-alert').classList.add('hidden');
+
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        if (btn.getAttribute('data-view') === cat) {
+          btn.className = 'cat-btn active px-3 py-1.5 rounded-lg bg-blue-600 text-white font-medium transition';
+        } else {
+          btn.className = 'cat-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition';
+        }
+      });
+      updateBadgesAndCounters();
       filterArtifacts();
     }
 
+    function setSpecialView(mode) {
+      currentView = mode;
+      const hiddenAlert = document.getElementById('hidden-mode-alert');
+      const deletedAlert = document.getElementById('deleted-mode-alert');
+
+      document.querySelectorAll('.cat-btn').forEach(b => {
+        b.className = 'cat-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition';
+      });
+
+      if (mode === 'HIDDEN') {
+        hiddenAlert.classList.remove('hidden');
+        deletedAlert.classList.add('hidden');
+        document.getElementById('btn-view-hidden').className = 'cat-btn active px-3 py-1.5 rounded-lg bg-rose-900/80 text-rose-200 border border-rose-700 font-medium transition flex items-center gap-1.5';
+      } else if (mode === 'DELETED') {
+        deletedAlert.classList.remove('hidden');
+        hiddenAlert.classList.add('hidden');
+        document.getElementById('btn-view-deleted').className = 'cat-btn active px-3 py-1.5 rounded-lg bg-red-900/80 text-red-200 border border-red-700 font-medium transition flex items-center gap-1.5';
+      }
+      updateBadgesAndCounters();
+      filterArtifacts();
+    }
+
+    // =========================================================================
+    // CARDS RENDERING
+    // =========================================================================
     function renderCards(items) {
       const grid = document.getElementById('cards-grid');
       const empty = document.getElementById('empty-state');
       const countEl = document.getElementById('results-count');
       const hiddenIds = getHiddenIds();
-      
-      countEl.innerText = isViewingHidden 
-        ? `Đang hiển thị ${items.length} bài viết đã ẩn` 
-        : `Đang hiển thị ${items.length} artifacts HTML`;
+      const deletedIds = getDeletedIds();
+
+      if (currentView === 'HIDDEN') {
+        countEl.innerText = `Đang hiển thị ${items.length} bài viết đã ẩn`;
+      } else if (currentView === 'DELETED') {
+        countEl.innerText = `Đang hiển thị ${items.length} bài viết trong thùng rác`;
+      } else {
+        countEl.innerText = `Đang hiển thị ${items.length} artifacts HTML hoạt động`;
+      }
 
       if (items.length === 0) {
         grid.innerHTML = '';
         empty.classList.remove('hidden');
         const emptyTitle = document.getElementById('empty-title');
         const emptyDesc = document.getElementById('empty-desc');
-        if (isViewingHidden) {
+
+        if (currentView === 'HIDDEN') {
           emptyTitle.innerText = 'Chưa có bài viết nào bị ẩn';
-          emptyDesc.innerText = 'Các bài viết bạn bấm "Ẩn" sẽ hiển thị tại đây để bạn có thể khôi phục bất cứ lúc nào.';
+          emptyDesc.innerText = 'Khi bạn bấm biểu tượng 👁️ "Ẩn" ở bất kỳ bài nào, nó sẽ xuất hiện tại đây.';
+        } else if (currentView === 'DELETED') {
+          emptyTitle.innerText = 'Thùng rác trống';
+          emptyDesc.innerText = 'Chưa có bài viết nào bị xóa. Bấm biểu tượng 🗑️ để đưa bài viết vào thùng rác.';
         } else {
           emptyTitle.innerText = 'Không tìm thấy artifact nào khớp';
           emptyDesc.innerText = 'Thử xóa bộ lọc hoặc đổi từ khóa tìm kiếm khác.';
@@ -342,7 +620,11 @@
 
       grid.innerHTML = items.map(item => {
         const isHidden = hiddenIds.includes(item.id);
-        const cardClass = isHidden ? 'glass-card hidden-card-style' : 'glass-card';
+        const isDeleted = deletedIds.includes(item.id);
+
+        let cardStyle = 'glass-card';
+        if (isDeleted) cardStyle = 'glass-card deleted-card-style';
+        else if (isHidden) cardStyle = 'glass-card hidden-card-style';
 
         let catColor = 'bg-slate-800 text-slate-300';
         if (item.category === 'Deep Research') catColor = 'bg-emerald-950 text-emerald-300 border border-emerald-800';
@@ -352,27 +634,52 @@
           `<span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800/80 text-slate-400">#${t}</span>`
         ).join('');
 
-        const isHighlighted = item.id.includes('thue_xe_may_dien') || item.id.includes('dinh_tam_lan');
-        const specialBorder = isHighlighted && !isHidden ? 'ring-1 ring-emerald-500/80 border-emerald-500/50' : '';
+        // Action Toolbar according to card state
+        let actionButtonsHtml = '';
 
-        // Hide vs Restore button
-        const hideBtnHtml = isHidden 
-          ? `<button onclick="unhideArticle('${item.id}', event)" title="Khôi phục bài viết" class="px-2 py-1.5 rounded-lg bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-800 transition flex items-center gap-1 text-[11px] font-semibold">
-               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-               <span>Bỏ Ẩn</span>
-             </button>`
-          : `<button onclick="hideArticle('${item.id}', event)" title="Ẩn bài này" class="p-1.5 rounded-lg bg-slate-800/80 hover:bg-rose-950 hover:text-rose-300 text-slate-400 hover:border hover:border-rose-800 transition">
-               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
-             </button>`;
+        if (isDeleted) {
+          // In Trash Mode
+          actionButtonsHtml = `
+            <button onclick="restoreFromTrash('${item.id}', event)" title="Khôi phục về danh sách chính" class="px-2.5 py-1.5 rounded-lg bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-800 transition flex items-center gap-1 text-[11px] font-semibold">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+              <span>Khôi Phục</span>
+            </button>
+            <button onclick="purgePermanently('${item.id}', event)" title="Xóa vĩnh viễn" class="p-1.5 rounded-lg bg-red-950/80 hover:bg-red-900 text-red-300 border border-red-800 transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          `;
+        } else if (isHidden) {
+          // In Hidden Mode
+          actionButtonsHtml = `
+            <button onclick="unhideArticle('${item.id}', event)" title="Bỏ ẩn bài viết" class="px-2.5 py-1.5 rounded-lg bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-800 transition flex items-center gap-1 text-[11px] font-semibold">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              <span>Bỏ Ẩn</span>
+            </button>
+            <button onclick="deleteArticle('${item.id}', event)" title="Chuyển vào thùng rác" class="p-1.5 rounded-lg bg-slate-800 hover:bg-red-950 text-slate-400 hover:text-red-300 transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          `;
+        } else {
+          // Normal Active Mode
+          actionButtonsHtml = `
+            <button onclick="hideArticle('${item.id}', event)" title="Ẩn bài này (Lưu vào Đã Ẩn)" class="p-1.5 rounded-lg bg-slate-800/80 hover:bg-rose-950 text-slate-400 hover:text-rose-300 hover:border hover:border-rose-800 transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>
+            </button>
+            <button onclick="deleteArticle('${item.id}', event)" title="Xoá bài này (Chuyển vào Thùng rác)" class="p-1.5 rounded-lg bg-slate-800/80 hover:bg-red-950 text-slate-400 hover:text-red-400 hover:border hover:border-red-800 transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          `;
+        }
 
         return `
-          <div class="${cardClass} rounded-2xl p-5 flex flex-col justify-between transition-all duration-200 ${specialBorder}">
+          <div class="${cardStyle} rounded-2xl p-5 flex flex-col justify-between transition-all duration-200">
             <div>
               <div class="flex items-center justify-between gap-2 mb-3">
                 <div class="flex items-center gap-1.5 flex-wrap">
                   <span class="px-2 py-0.5 rounded text-[11px] font-semibold ${catColor}">${item.category}</span>
                   <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-950 text-amber-300 border border-amber-800">HTML</span>
-                  ${isHidden ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-950 text-rose-300 border border-rose-800">ĐÃ ẨN</span>' : ''}
+                  ${isDeleted ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-red-950 text-red-300 border border-red-800">THÙNG RÁC</span>' : ''}
+                  ${isHidden && !isDeleted ? '<span class="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-rose-950 text-rose-300 border border-rose-800">ĐÃ ẨN</span>' : ''}
                 </div>
                 <span class="text-[11px] font-mono text-slate-400">${item.size_kb} KB</span>
               </div>
@@ -396,15 +703,15 @@
               <div class="flex items-center justify-between gap-2 text-xs">
                 <span class="text-slate-400 font-mono text-[11px]">${item.mtime}</span>
                 <div class="flex items-center gap-1.5">
-                  ${hideBtnHtml}
-                  <button onclick="copyPath('${item.path}')" title="Copy link trực tiếp" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition">
+                  ${actionButtonsHtml}
+                  <button onclick="copyPath('${item.path}')" title="Copy link bài viết" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
                   </button>
                   <button onclick="openPreview('${item.id}')" title="Xem nhanh trong popup" class="px-2 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-xs transition">
-                    <span>Xem Nhanh</span>
+                    <span>Xem</span>
                   </button>
                   <a href="${item.path}" target="_blank" title="Mở trang riêng toàn màn hình" class="px-2.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs transition flex items-center gap-1 shadow-sm shadow-blue-500/20">
-                    <span>Mở Tab</span>
+                    <span>Mở</span>
                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                   </a>
                 </div>
@@ -415,27 +722,37 @@
       }).join('');
     }
 
+    // =========================================================================
+    // FILTERING & SEARCH
+    // =========================================================================
     function filterArtifacts() {
       const query = document.getElementById('search-input').value.toLowerCase().trim();
       const sortVal = document.getElementById('sort-select').value;
       const clearBtn = document.getElementById('clear-search');
       const hiddenIds = getHiddenIds();
+      const deletedIds = getDeletedIds();
 
       if (query) clearBtn.classList.remove('hidden');
       else clearBtn.classList.add('hidden');
 
       let filtered = CATALOG.filter(item => {
-        // If viewing hidden, only show hidden items
-        if (isViewingHidden) {
+        // Mode: DELETED (Trash)
+        if (currentView === 'DELETED') {
+          if (!deletedIds.includes(item.id)) return false;
+        } 
+        // Mode: HIDDEN
+        else if (currentView === 'HIDDEN') {
+          if (deletedIds.includes(item.id)) return false;
           if (!hiddenIds.includes(item.id)) return false;
-        } else {
-          // If normal view, exclude hidden items
+        } 
+        // Normal Modes (ALL, Deep Research, Prototypes & UI)
+        else {
+          if (deletedIds.includes(item.id)) return false;
           if (hiddenIds.includes(item.id)) return false;
-          // Filter by category
-          if (currentCategory !== 'ALL' && item.category !== currentCategory) return false;
+          if (currentView !== 'ALL' && item.category !== currentView) return false;
         }
 
-        // Filter by search query
+        // Search query match
         const matchQuery = !query || (
           item.title.toLowerCase().includes(query) ||
           item.summary.toLowerCase().includes(query) ||
@@ -459,21 +776,6 @@
       renderCards(filtered);
     }
 
-    function setCategory(cat) {
-      isViewingHidden = false;
-      currentCategory = cat;
-      document.getElementById('hidden-mode-alert').classList.add('hidden');
-      document.querySelectorAll('.cat-btn').forEach(btn => {
-        if (btn.getAttribute('data-cat') === cat) {
-          btn.className = 'cat-btn active px-3 py-1.5 rounded-lg bg-blue-600 text-white font-medium transition';
-        } else {
-          btn.className = 'cat-btn px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition';
-        }
-      });
-      updateHiddenBadge();
-      filterArtifacts();
-    }
-
     function clearSearch() {
       document.getElementById('search-input').value = '';
       filterArtifacts();
@@ -484,6 +786,9 @@
       setCategory('ALL');
     }
 
+    // =========================================================================
+    // PREVIEW MODAL
+    // =========================================================================
     function openPreview(id) {
       const item = CATALOG.find(x => x.id === id);
       if (!item) return;
@@ -499,7 +804,7 @@
       title.innerText = item.title;
       pathEl.innerText = item.path;
       metaEl.innerText = `${item.size_kb} KB | ${item.mtime}`;
-      openBtn.href = item.path; openBtn.onclick = null;
+      openBtn.href = item.path;
 
       iframe.src = item.path;
       modal.classList.remove('hidden');
@@ -514,11 +819,78 @@
       if (currentModalItem) copyPath(currentModalItem.path);
     }
 
+    // =========================================================================
+    // MEMORY MANAGEMENT MODAL & BACKUP / RESTORE
+    // =========================================================================
+    function openMemoryModal() {
+      const modal = document.getElementById('memory-modal');
+      document.getElementById('modal-stat-hidden').innerText = `${getHiddenIds().length} bài`;
+      document.getElementById('modal-stat-deleted').innerText = `${getDeletedIds().length} bài`;
+      modal.classList.remove('hidden');
+    }
+
+    function closeMemoryModal() {
+      document.getElementById('memory-modal').classList.add('hidden');
+    }
+
+    function exportMemoryBackup() {
+      const backupData = {
+        app: "brain-research-control-center",
+        version: "2.0",
+        timestamp: new Date().toISOString(),
+        hidden: getHiddenIds(),
+        deleted: getDeletedIds()
+      };
+      const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `brain-memory-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Đã tải xuống file sao lưu bộ nhớ!');
+    }
+
+    function importMemoryBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (Array.isArray(data.hidden)) saveHiddenIds(data.hidden);
+          if (Array.isArray(data.deleted)) saveDeletedIds(data.deleted);
+          showToast('Đã nhập và đồng bộ thành công bộ nhớ!');
+          closeMemoryModal();
+          filterArtifacts();
+        } catch (err) {
+          alert('File JSON không hợp lệ!');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function resetAllMemory() {
+      if (confirm('Bạn có chắc muốn đặt lại toàn bộ bộ nhớ? Tất cả bài đã ẩn và đã xóa sẽ được hiển thị trở lại.')) {
+        saveHiddenIds([]);
+        saveDeletedIds([]);
+        closeMemoryModal();
+        showToast('Đã đặt lại toàn bộ bộ nhớ về mặc định!');
+        setCategory('ALL');
+      }
+    }
+
+    // =========================================================================
+    // UTILS: COPY & TOAST
+    // =========================================================================
     function copyPath(path) {
       const fullUrl = new URL(path, window.location.href).href;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(fullUrl).then(() => {
-          showToast('Đã copy link trực tiếp: ' + fullUrl);
+          showToast('Đã copy link: ' + fullUrl);
         }).catch(() => fallbackCopy(fullUrl));
       } else {
         fallbackCopy(fullUrl);
@@ -534,29 +906,49 @@
       ta.select();
       try {
         document.execCommand('copy');
-        showToast('Đã copy full path: ' + path);
+        showToast('Đã copy link: ' + path);
       } catch (err) {
         showToast('Không thể copy: ' + path);
       }
       document.body.removeChild(ta);
     }
 
-    function showToast(msg) {
+    let toastTimer = null;
+    function showToast(msg, canUndo = false, undoCallback = null) {
       const toast = document.getElementById('toast');
       const toastMsg = document.getElementById('toast-msg');
+      const undoBtn = document.getElementById('toast-undo-btn');
+
+      if (toastTimer) clearTimeout(toastTimer);
+
       toastMsg.innerText = msg;
+
+      if (canUndo && undoCallback) {
+        undoBtn.classList.remove('hidden');
+        undoBtn.onclick = () => {
+          undoCallback();
+          toast.classList.add('translate-y-20', 'opacity-0');
+        };
+      } else {
+        undoBtn.classList.add('hidden');
+        undoBtn.onclick = null;
+      }
+
       toast.classList.remove('translate-y-20', 'opacity-0');
-      setTimeout(() => {
+      toastTimer = setTimeout(() => {
         toast.classList.add('translate-y-20', 'opacity-0');
-      }, 3000);
+      }, 3500);
     }
 
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeModal();
+      if (e.key === 'Escape') {
+        closeModal();
+        closeMemoryModal();
+      }
     });
 
-    // Initialize
-    updateHiddenBadge();
+    // Initialize application
+    updateBadgesAndCounters();
     filterArtifacts();
   </script>
 </body>
