@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cẩm Nang DevOps Thực Chiến Cho Backend Developer — Hệ Thống Ipellio Cloud</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Be Vietnam Pro"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+            },
+            accent: {
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #070b14; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    .card-glass {
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(51, 65, 85, 0.65);
+      transition: all 0.25s ease;
+    }
+    .card-glass:hover {
+      border-color: rgba(16, 185, 129, 0.45);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+    .badge-glow {
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.25);
+    }
+    .badge-glow-blue {
+      box-shadow: 0 0 15px rgba(14, 165, 233, 0.25);
+    }
+    .checklist-item input:checked + label {
+      text-decoration: line-through;
+      color: #64748b;
+    }
+    .code-block {
+      background: #030712;
+      border: 1px solid #1f2937;
+    }
+  </style>
+</head>
+<body class="bg-[#070b14] text-slate-100 font-sans antialiased selection:bg-emerald-600 selection:text-white min-h-screen flex flex-col">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-50 backdrop-blur-md bg-[#070b14]/90 border-b border-slate-800/80 px-4 sm:px-8 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center font-bold text-emerald-400">
+        ⚡
+      </div>
+      <div>
+        <h1 class="text-sm font-bold text-white tracking-wide flex items-center gap-2">
+          IPELLIO DEVOPS MASTERY
+          <span class="text-[10px] uppercase font-semibold px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-700">Backend to SRE</span>
+        </h1>
+        <p class="text-[11px] text-slate-400">Sổ tay trực quan hóa hạ tầng & vận hành Cloud thực chiến</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2.5">
+      <a href="archify/ipellio-system-architecture.html" target="_blank" class="text-xs font-semibold text-sky-400 hover:text-sky-300 transition bg-sky-950/60 border border-sky-800/70 px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+        <span>🏛️ Sơ Đồ Kiến Trúc (Archify)</span>
+      </a>
+      <a href="archify/ipellio-cicd-workflow.html" target="_blank" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition bg-emerald-950/60 border border-emerald-800/70 px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+        <span>🔄 Sơ Đồ CI/CD (Archify)</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="relative border-b border-slate-800/60 bg-gradient-to-b from-slate-900/80 via-[#070b14] to-[#070b14] px-4 sm:px-8 pt-8 pb-10 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-medium mb-4">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Dành riêng cho Backend Developer: Từ Code Local đến Quản Trị Toàn Diện Hệ Thống Cloud
+      </div>
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
+        Làm Thế Nào Để Một Backend Dev Có Thể <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-sky-400">Tự Tin Vận Hành Toàn Bộ Hạ Tầng Này?</span>
+      </h2>
+      <p class="text-slate-300 text-sm sm:text-base max-w-4xl leading-relaxed mb-6">
+        Bạn đã hiểu sâu sắc code Python, FastAPI, SQL queries và Celery task. Giờ là lúc mở rộng tầm mắt để kiểm soát 
+        <strong>mạng, proxy, Docker containers, database pooling, background cron, secrets và cơ chế ứng cứu sự cố</strong>. 
+        Không cần bằng cấp DevOps đao to búa lớn — chỉ cần nắm chắc 6 module cốt lõi dưới đây để hoàn toàn làm chủ hệ thống!
+      </p>
+
+      <!-- 4 Quick Metric Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-2">
+        <div class="card-glass p-3.5 sm:p-4 rounded-xl border border-slate-700/60">
+          <div class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Chi phí Hạ tầng Hàng tháng</div>
+          <div class="text-xl sm:text-2xl font-bold text-emerald-400 mt-1">~$40 / tháng</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">Tiết kiệm >85% so với EKS cluster</div>
+        </div>
+        <div class="card-glass p-3.5 sm:p-4 rounded-xl border border-slate-700/60">
+          <div class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Tốc độ CI/CD Build</div>
+          <div class="text-xl sm:text-2xl font-bold text-sky-400 mt-1">~1.5 phút</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">BuildKit Cache + selective paths-filter</div>
+        </div>
+        <div class="card-glass p-3.5 sm:p-4 rounded-xl border border-slate-700/60">
+          <div class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Thời Gian Rollback</div>
+          <div class="text-xl sm:text-2xl font-bold text-amber-400 mt-1">&lt; 30 giây</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">Atomic restore pre-pull Image SHA</div>
+        </div>
+        <div class="card-glass p-3.5 sm:p-4 rounded-xl border border-slate-700/60">
+          <div class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Quy Tắc An Toàn</div>
+          <div class="text-xl sm:text-2xl font-bold text-rose-400 mt-1">Zero Secrets</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">100% inject qua AWS SSM Parameter Store</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Tabs -->
+  <div class="border-b border-slate-800 bg-[#070b14] px-4 sm:px-8 sticky top-[57px] z-40 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto flex items-center gap-1 sm:gap-2 overflow-x-auto py-2.5" id="navTabs">
+      <button onclick="switchTab('tab-mental')" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition bg-emerald-600 text-white" data-target="tab-mental">
+        🎯 1. Tư Duy DevOps & Bản Đồ
+      </button>
+      <button onclick="switchTab('tab-lifecycle')" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition text-slate-400 hover:text-white hover:bg-slate-800/60" data-target="tab-lifecycle">
+        🔄 2. Luồng Request & Dữ Liệu
+      </button>
+      <button onclick="switchTab('tab-containers')" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition text-slate-400 hover:text-white hover:bg-slate-800/60" data-target="tab-containers">
+        🐳 3. Chi Tiết 7 Containers
+      </button>
+      <button onclick="switchTab('tab-runbook')" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition text-slate-400 hover:text-white hover:bg-slate-800/60" data-target="tab-runbook">
+        🚨 4. Sổ Tay 6 Sự Cố Kinh Điển
+      </button>
+      <button onclick="switchTab('tab-checklist')" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition text-slate-400 hover:text-white hover:bg-slate-800/60" data-target="tab-checklist">
+        📋 5. Interactive Checklists
+      </button>
+      <button onclick="switchTab('tab-cheatsheet')" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition text-slate-400 hover:text-white hover:bg-slate-800/60" data-target="tab-cheatsheet">
+        ⚡ 6. CLI Command Matrix
+      </button>
+    </div>
+  </div>
+
+  <!-- Content Sections -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-8 py-8 flex-1 w-full">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: TƯ DUY DEVOPS & BẢN ĐỒ HẠ TẦNG -->
+    <!-- ========================================== -->
+    <section id="tab-mental" class="tab-content block space-y-8">
+      
+      <!-- Mental Shift Box -->
+      <div class="card-glass rounded-2xl p-6 border-l-4 border-l-emerald-500">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          💡 Sự Khác Biệt Giữa "Backend Developer" Và "DevOps Engineer"
+        </h3>
+        <p class="text-sm text-slate-300 mt-2 leading-relaxed">
+          Khi còn ở tư duy Backend thuần túy, bạn thường giả định: <em>"Network luôn thông suốt, RAM luôn vô hạn, database luôn sẵn sàng và tiến trình Uvicorn không bao giờ bị hệ điều hành tiêu diệt."</em><br>
+          Khi chuyển sang vai trò DevOps, bạn suy nghĩ theo nguyên tắc **Phòng Thủ Thực Tế (Defensive Operations)**:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+          <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+            <div class="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-1">1. Phân Vùng Lỗi (Blast Radius)</div>
+            <p class="text-xs text-slate-400">Nếu Celery worker bị tràn RAM do task nặng, nó có làm sập luôn FastAPI không? Tại sao phải gán cờ cgroup RAM limit?</p>
+          </div>
+          <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+            <div class="text-sky-400 font-bold text-xs uppercase tracking-wider mb-1">2. Tính Bất Biến (Immutability)</div>
+            <p class="text-xs text-slate-400">Không bao giờ SSH vào server để sửa code hay gõ <code>pip install</code> thủ công! Mọi thay đổi phải đi qua Git commit -> Docker image -> CI/CD.</p>
+          </div>
+          <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+            <div class="text-amber-400 font-bold text-xs uppercase tracking-wider mb-1">3. Đường Thoát Hiểm (Exit Path)</div>
+            <p class="text-xs text-slate-400">Bất kỳ tính năng mới nào deploy lên cũng phải có kế hoạch Rollback trong 30 giây nếu Alembic fail hoặc API trả về HTTP 500.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 Khái Niệm Sống Còn -->
+      <div>
+        <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+          🧩 7 Khái Niệm Hạ Tầng Cốt Lõi Bạn Phải Nắm Như Lòng Bàn Tay
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          <div class="card-glass p-5 rounded-xl">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-bold text-emerald-400">1. Reverse Proxy & Ingress</span>
+              <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Caddy</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Caddy đóng vai trò "người gác cổng" duy nhất đón traffic port 80/443. Nó đọc Host Header (`api.ipellio.com` hay `workspace.ipellio.com`) để chuyển tiếp nội bộ tới đúng container cổng 8000 hoặc 3000.
+            </p>
+          </div>
+
+          <div class="card-glass p-5 rounded-xl">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-bold text-sky-400">2. Docker Bridge Network</span>
+              <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Network Isolation</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Các container nói chuyện với nhau bằng tên (`http://api-gateway:8000`, `redis://redis:6379`) nhờ Docker DNS nội bộ. KHÔNG container nào (trừ Caddy) mở port ra Internet, tạo lá chắn phòng thủ 100%.
+            </p>
+          </div>
+
+          <div class="card-glass p-5 rounded-xl">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-bold text-amber-400">3. Multi-Queue Worker</span>
+              <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Celery Concurrency</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Worker phân chia lắng nghe các hàng đợi: `sync` (đồng bộ dữ liệu dài hạn) và `workspace_abn` (tra cứu ABN tức thì). Điều này ngăn các task nặng làm nghẽn task người dùng đang đợi.
+            </p>
+          </div>
+
+          <div class="card-glass p-5 rounded-xl">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-bold text-purple-400">4. Memory Eviction Policy</span>
+              <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Redis 7</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Redis bị giới hạn cứng 256MB. Với cờ <code>maxmemory-policy volatile-lru</code>, khi chạm trần, Redis tự xóa cache hết hạn lâu nhất thay vì quăng lỗi crash sập ứng dụng.
+            </p>
+          </div>
+
+          <div class="card-glass p-5 rounded-xl">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-bold text-rose-400">5. Postgres Advisory Lock</span>
+              <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Database Locks</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Lock logic cấp ứng dụng được quản lý ngay trong PostgreSQL bằng <code>pg_try_advisory_lock(key)</code>. Giúp đảm bảo job đồng bộ IP Australia không bao giờ chạy đè lên nhau kể cả khi trigger 2 lần.
+            </p>
+          </div>
+
+          <div class="card-glass p-5 rounded-xl">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm font-bold text-teal-400">6. Atomic Rollback Anchor</span>
+              <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">CI/CD Safety</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Trước khi kéo image mới, GitHub Actions lưu ID sha256 của image đang chạy khỏe mạnh. Nếu smoke test fail, nó tự động re-tag và khởi động lại image cũ chỉ trong vài giây.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Sơ Đồ Kiến Trúc Preview & Button -->
+      <div class="card-glass rounded-2xl p-6 border border-emerald-500/30 bg-gradient-to-r from-emerald-950/20 via-slate-900/60 to-sky-950/20">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h4 class="text-lg font-bold text-white flex items-center gap-2">
+              📊 Khám Phá Sơ Đồ Kiến Trúc Hệ Thống (Interactive Archify)
+            </h4>
+            <p class="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
+              Sơ đồ định dạng vector SVG độc lập, thể hiện rõ đường biên mạng VPC Sydney, vị trí Private Subnet của RDS, cơ chế SSL Caddy, Redis và tác vụ ECS Fargate.
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <a href="archify/ipellio-system-architecture.html" target="_blank" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs tracking-wide transition shadow-lg shadow-emerald-500/20 whitespace-nowrap flex items-center gap-2">
+              <span>Mở Sơ Đồ Động 3 Góc Nhìn ↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: VÒNG ĐỜI REQUEST & DỮ LIỆU -->
+    <!-- ========================================== -->
+    <section id="tab-lifecycle" class="tab-content hidden space-y-8">
+      
+      <div class="card-glass rounded-2xl p-6">
+        <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+          🌊 Hành Trình Của 1 HTTP Request Từ Khách Hàng Đến Cơ Sở Dữ Liệu
+        </h3>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          Theo dõi từng mili-giây và từng trạm dừng chân của một gói tin HTTPS khi người dùng truy cập hoặc gọi API.
+        </p>
+
+        <!-- Step-by-Step Visual Timeline -->
+        <div class="mt-6 space-y-4">
+          
+          <!-- Chặng 1 -->
+          <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center font-bold text-xs flex-shrink-0">
+              1
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-bold text-white">Cloudflare Edge — Tường Lửa & Chấm Dứt SSL Công Khai</span>
+                <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-mono">&lt; 15ms</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">
+                Client gửi request tới <code>https://api.ipellio.com/api/v1/search</code>. Cloudflare giải mã DNS, kiểm tra WAF (chặn SQLi, XSS, bot xấu), giải mã TLS và thiết lập kết nối an toàn tới IP Lightsail.
+              </p>
+              <div class="mt-2 text-[11px] font-mono text-emerald-400 bg-black/40 px-3 py-1.5 rounded border border-slate-800">
+                SSL Mode: Full (Strict) • TLS 1.3 • HTTP/2 Multiplexing
+              </div>
+            </div>
+          </div>
+
+          <!-- Chặng 2 -->
+          <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="w-8 h-8 rounded-full bg-sky-500/20 text-sky-400 border border-sky-500/40 flex items-center justify-center font-bold text-xs flex-shrink-0">
+              2
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-bold text-white">Caddy Reverse Proxy (Lightsail :443 / :80)</span>
+                <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-mono">&lt; 2ms</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">
+                Caddy tiếp nhận request, đọc Host Header <code>api.ipellio.com</code>, thêm các header chuẩn: <code>X-Real-IP</code>, <code>X-Forwarded-For</code> và đẩy vào Docker internal network tới <code>http://api-gateway:8000</code>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Chặng 3 -->
+          <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 flex items-center justify-center font-bold text-xs flex-shrink-0">
+              3
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-bold text-white">FastAPI Core Gateway (Uvicorn ASGI)</span>
+                <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-mono">10ms - 50ms</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">
+                Uvicorn worker tiếp nhận request, Pydantic parse schema & validate payload. Kiểm tra cache trong <code>redis://redis:6379/1</code>. Nếu cache miss, lấy connection từ <code>asyncpg pool</code> query PostgreSQL RDS.
+              </p>
+            </div>
+          </div>
+
+          <!-- Chặng 4 -->
+          <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-900/80 border border-slate-800">
+            <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 flex items-center justify-center font-bold text-xs flex-shrink-0">
+              4
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-bold text-white">AWS RDS PostgreSQL 16 (Sydney Private Subnet)</span>
+                <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-mono">5ms - 25ms</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">
+                Thực thi câu lệnh SQL với index pgvector / btree. Dữ liệu được mã hóa KMS tại đĩa cứng EBS. Trả kết quả về FastAPI -> Ghi cache vào Redis -> Caddy trả HTTP 200 về Client.
+              </p>
+            </div>
+          </div>
+
+          <!-- Chặng 5 (Async Branch) -->
+          <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-900/80 border border-slate-800 border-l-4 border-l-purple-500">
+            <div class="w-8 h-8 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/40 flex items-center justify-center font-bold text-xs flex-shrink-0">
+              5
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-bold text-purple-400">Nhánh Bất Đồng Bộ (Background Task): Celery & Redis</span>
+                <span class="text-[10px] bg-purple-950 text-purple-300 px-2 py-0.5 rounded font-mono">Async Background</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1">
+                Nếu request cần xử lý nặng (ví dụ: tạo file PDF báo cáo nhãn hiệu hoặc tra cứu ABN): FastAPI đẩy task message vào <code>Redis DB 0</code>. Celery worker nhận job, xử lý ngầm và lưu trạng thái vào database. Người dùng nhận response ngay lập tức mà không phải chờ đợi!
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: CHI TIẾT 7 DỊCH VỤ CONTAINERS -->
+    <!-- ========================================== -->
+    <section id="tab-containers" class="tab-content hidden space-y-6">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
+        <div>
+          <h3 class="text-xl font-bold text-white flex items-center gap-2">
+            🐳 Ma Trận 7 Container Dịch Vụ Trên Lightsail
+          </h3>
+          <p class="text-xs text-slate-400">Toàn bộ thông số tài nguyên, entry command và giới hạn an toàn</p>
+        </div>
+        <div class="text-xs text-slate-400 bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800">
+          Tổng RAM Reserved: <span class="text-emerald-400 font-bold">1.4 GB</span> / Host 4.0 GB (Dư 2.6 GB an toàn)
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <!-- Caddy -->
+        <div class="card-glass p-5 rounded-xl border border-slate-700">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+              <span class="font-bold text-sm text-white font-mono">caddy</span>
+            </div>
+            <span class="text-[11px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">Limit: 128M / Res: 64M</span>
+          </div>
+          <div class="mt-3 text-xs text-slate-300">
+            <strong>Vai trò:</strong> Ingress Gateway, chấm dứt SSL, định tuyến subdomain tới các container nội bộ.
+          </div>
+          <div class="mt-2 text-xs text-slate-400 font-mono code-block p-2 rounded">
+            ports: ["80:80", "443:443"]<br>
+            command: caddy run --config /etc/caddy/Caddyfile
+          </div>
+        </div>
+
+        <!-- api-gateway -->
+        <div class="card-glass p-5 rounded-xl border border-slate-700">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-sky-400"></span>
+              <span class="font-bold text-sm text-white font-mono">api-gateway</span>
+            </div>
+            <span class="text-[11px] font-mono text-sky-400 bg-sky-950/60 px-2 py-0.5 rounded border border-sky-800">Limit: 1024M / Res: 384M</span>
+          </div>
+          <div class="mt-3 text-xs text-slate-300">
+            <strong>Vai trò:</strong> FastAPI Core Application, phục vụ REST API, quản lý auth JWT, tương tác PostgreSQL & Redis.
+          </div>
+          <div class="mt-2 text-xs text-slate-400 font-mono code-block p-2 rounded">
+            command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 2 --proxy-headers
+          </div>
+        </div>
+
+        <!-- celery-worker -->
+        <div class="card-glass p-5 rounded-xl border border-slate-700">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+              <span class="font-bold text-sm text-white font-mono">celery-worker</span>
+            </div>
+            <span class="text-[11px] font-mono text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800">Limit: 768M / Res: 256M</span>
+          </div>
+          <div class="mt-3 text-xs text-slate-300">
+            <strong>Vai trò:</strong> Xử lý tác vụ ngầm. Lắng nghe queues: <code>sync</code> và <code>workspace_abn</code>.
+          </div>
+          <div class="mt-2 text-xs text-slate-400 font-mono code-block p-2 rounded">
+            command: celery -A app.core.celery_app worker -l info -Q sync,workspace_abn -c 2 --max-tasks-per-child=50
+          </div>
+        </div>
+
+        <!-- redis -->
+        <div class="card-glass p-5 rounded-xl border border-slate-700">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-rose-400"></span>
+              <span class="font-bold text-sm text-white font-mono">redis</span>
+            </div>
+            <span class="text-[11px] font-mono text-rose-400 bg-rose-950/60 px-2 py-0.5 rounded border border-rose-800">Limit: 256M / Res: 128M</span>
+          </div>
+          <div class="mt-3 text-xs text-slate-300">
+            <strong>Vai trò:</strong> In-memory Broker (DB0), Cache (DB1) và Distributed Locks (DB2).
+          </div>
+          <div class="mt-2 text-xs text-slate-400 font-mono code-block p-2 rounded">
+            command: redis-server --maxmemory 256mb --maxmemory-policy volatile-lru
+          </div>
+        </div>
+
+        <!-- sync-beat -->
+        <div class="card-glass p-5 rounded-xl border border-slate-700">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-purple-400"></span>
+              <span class="font-bold text-sm text-white font-mono">sync-beat</span>
+            </div>
+            <span class="text-[11px] font-mono text-purple-400 bg-purple-950/60 px-2 py-0.5 rounded border border-purple-800">Limit: 256M / Res: 128M</span>
+          </div>
+          <div class="mt-3 text-xs text-slate-300">
+            <strong>Vai trò:</strong> Bắn event theo lịch cron định kỳ vào hàng đợi Redis để worker thực thi.
+          </div>
+          <div class="mt-2 text-xs text-slate-400 font-mono code-block p-2 rounded">
+            command: celery -A app.core.celery_app beat -l info
+          </div>
+        </div>
+
+        <!-- workspace & admin frontends -->
+        <div class="card-glass p-5 rounded-xl border border-slate-700">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-teal-400"></span>
+              <span class="font-bold text-sm text-white font-mono">workspace / admin</span>
+            </div>
+            <span class="text-[11px] font-mono text-teal-400 bg-teal-950/60 px-2 py-0.5 rounded border border-teal-800">Limit: 512M / Res: 256M</span>
+          </div>
+          <div class="mt-3 text-xs text-slate-300">
+            <strong>Vai trò:</strong> Next.js App Router standalone node server, phục vụ SSR và client web UI.
+          </div>
+          <div class="mt-2 text-xs text-slate-400 font-mono code-block p-2 rounded">
+            command: node apps/workspace/server.js (port 3000 nội bộ)
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: SỔ TAY 6 SỰ CỐ KINH ĐIỂN & FIX -->
+    <!-- ========================================== -->
+    <section id="tab-runbook" class="tab-content hidden space-y-6">
+      
+      <div class="mb-4">
+        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+          🚨 Sổ Tay Khắc Phục Sự Cố Khẩn Cấp (Troubleshooting Runbook)
+        </h3>
+        <p class="text-xs text-slate-400">Khi hệ thống gặp lỗi hoặc có alert báo sập, tra cứu ngay tại đây:</p>
+      </div>
+
+      <div class="space-y-4">
+        
+        <!-- Sự cố 1 -->
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-rose-500">
+          <div class="flex items-center justify-between">
+            <h4 class="text-sm font-bold text-white flex items-center gap-2">
+              🔴 Sự cố 1: Container đột ngột biến mất — Exit Code 137 (OOMKilled)
+            </h4>
+            <span class="text-[10px] bg-rose-950 text-rose-300 px-2 py-0.5 rounded border border-rose-800">Mức độ: Nghiêm trọng</span>
+          </div>
+          <p class="text-xs text-slate-300 mt-2">
+            <strong>Nguyên nhân:</strong> Exit code 137 = 128 + 9 (SIGKILL). Linux Kernel Out-Of-Memory Killer đã cưỡng chế hạ sát tiến trình vì vượt quá giới hạn RAM cho phép.
+          </p>
+          <div class="mt-3 p-3 bg-black/50 rounded-lg text-xs font-mono text-slate-300 space-y-1.5 border border-slate-800">
+            <div class="text-slate-400"># 1. Kiểm tra log của kernel để xác nhận OOM:</div>
+            <div class="text-emerald-400">dmesg -T | grep -i oom</div>
+            <div class="text-slate-400"># 2. Kiểm tra bộ nhớ Swap của máy chủ:</div>
+            <div class="text-emerald-400">free -m</div>
+            <div class="text-slate-400"># 3. Tạo ngay swapfile 2GB nếu Swap đang bằng 0 (giải cứu tức thì):</div>
+            <div class="text-emerald-400">sudo fallocate -l 2G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile</div>
+          </div>
+        </div>
+
+        <!-- Sự cố 2 -->
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-amber-500">
+          <div class="flex items-center justify-between">
+            <h4 class="text-sm font-bold text-white flex items-center gap-2">
+              🟠 Sự cố 2: Caddy Báo Lỗi "502 Bad Gateway"
+            </h4>
+            <span class="text-[10px] bg-amber-950 text-amber-300 px-2 py-0.5 rounded border border-amber-800">Mức độ: Cao</span>
+          </div>
+          <p class="text-xs text-slate-300 mt-2">
+            <strong>Nguyên nhân:</strong> Caddy vẫn hoạt động tốt nhưng không thể kết nối tới container backend (FastAPI chưa kịp start xong, bị crash vòng lặp hoặc bind sai port).
+          </p>
+          <div class="mt-3 p-3 bg-black/50 rounded-lg text-xs font-mono text-slate-300 space-y-1.5 border border-slate-800">
+            <div class="text-slate-400"># 1. Kiểm tra xem container api-gateway có đang chạy không:</div>
+            <div class="text-emerald-400">docker compose ps api-gateway</div>
+            <div class="text-slate-400"># 2. Xem 100 dòng log gần nhất để tìm lỗi cú pháp hoặc database error:</div>
+            <div class="text-emerald-400">docker compose logs -n 100 --no-log-prefix api-gateway</div>
+            <div class="text-slate-400"># 3. Test trực tiếp endpoint nội bộ bằng curl:</div>
+            <div class="text-emerald-400">curl -I http://localhost:8000/api/health</div>
+          </div>
+        </div>
+
+        <!-- Sự cố 3 -->
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-purple-500">
+          <div class="flex items-center justify-between">
+            <h4 class="text-sm font-bold text-white flex items-center gap-2">
+              🟣 Sự cố 3: Database Alembic Migration Bị Treo Cứng (Table Lock)
+            </h4>
+            <span class="text-[10px] bg-purple-950 text-purple-300 px-2 py-0.5 rounded border border-purple-800">Mức độ: Nghiêm trọng</span>
+          </div>
+          <p class="text-xs text-slate-300 mt-2">
+            <strong>Nguyên nhân:</strong> Migration chạy lệnh <code>ALTER TABLE</code> trên bảng đang có query SELECT/UPDATE chạy ngầm kéo dài, dẫn đến Postgres giữ <code>AccessExclusiveLock</code> làm nghẽn toàn bộ request mới.
+          </p>
+          <div class="mt-3 p-3 bg-black/50 rounded-lg text-xs font-mono text-slate-300 space-y-1.5 border border-slate-800">
+            <div class="text-slate-400">-- Kết nối psql vào RDS và tìm query đang chiếm lock:</div>
+            <div class="text-emerald-400">SELECT pid, age(clock_timestamp(), query_start), state, query FROM pg_stat_activity WHERE state != 'idle';</div>
+            <div class="text-slate-400">-- Cưỡng chế ngắt transaction đang chặn đường (thay pid thực tế):</div>
+            <div class="text-emerald-400">SELECT pg_terminate_backend(12345);</div>
+          </div>
+        </div>
+
+        <!-- Sự cố 4 -->
+        <div class="card-glass rounded-xl p-5 border-l-4 border-l-sky-500">
+          <div class="flex items-center justify-between">
+            <h4 class="text-sm font-bold text-white flex items-center gap-2">
+              🔵 Sự cố 4: Redis Báo Lỗi "OOM command not allowed when used memory > 'maxmemory'"
+            </h4>
+            <span class="text-[10px] bg-sky-950 text-sky-300 px-2 py-0.5 rounded border border-sky-800">Mức độ: Cao</span>
+          </div>
+          <p class="text-xs text-slate-300 mt-2">
+            <strong>Nguyên nhân:</strong> Redis chạm trần 256MB và chính sách eviction chưa kích hoạt, từ chối mọi lệnh ghi từ Celery.
+          </p>
+          <div class="mt-3 p-3 bg-black/50 rounded-lg text-xs font-mono text-slate-300 space-y-1.5 border border-slate-800">
+            <div class="text-slate-400"># Bật chính sách dọn dẹp LRU nóng ngay lập tức trên Redis đang chạy:</div>
+            <div class="text-emerald-400">docker compose exec redis redis-cli CONFIG SET maxmemory-policy volatile-lru</div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: CHECKLISTS TÁC CHIẾN TỰ ĐỘNG -->
+    <!-- ========================================== -->
+    <section id="tab-checklist" class="tab-content hidden space-y-6">
+      
+      <div class="mb-4">
+        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+          📋 Danh Sách Kiểm Tra Thực Tế (Interactive Checklists)
+        </h3>
+        <p class="text-xs text-slate-400">Tick chọn trực tiếp để theo dõi tiến độ — Trạng thái được lưu tự động trên trình duyệt của bạn</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Checklist 1: Trước Khi Deploy -->
+        <div class="card-glass rounded-xl p-5 border border-emerald-500/40">
+          <h4 class="text-sm font-bold text-emerald-400 flex items-center gap-2 mb-3">
+            🚀 1. Checklist Trước Khi Bấm Merge Lên Main (Production Deploy)
+          </h4>
+          <div class="space-y-2.5 text-xs text-slate-300">
+            <div class="checklist-item flex items-center gap-2.5">
+              <input type="checkbox" id="chk_deploy_1" class="w-4 h-4 rounded text-emerald-500 bg-slate-900 border-slate-700">
+              <label for="chk_deploy_1">Alembic migration là tương thích ngược (không xóa cột cũ ngay lập tức).</label>
+            </div>
+            <div class="checklist-item flex items-center gap-2.5">
+              <input type="checkbox" id="chk_deploy_2" class="w-4 h-4 rounded text-emerald-500 bg-slate-900 border-slate-700">
+              <label for="chk_deploy_2">Nếu có biến môi trường mới, đã thêm vào AWS SSM Parameter Store.</label>
+            </div>
+            <div class="checklist-item flex items-center gap-2.5">
+              <input type="checkbox" id="chk_deploy_3" class="w-4 h-4 rounded text-emerald-500 bg-slate-900 border-slate-700">
+              <label for="chk_deploy_3">Đã chạy thử unit test và typecheck local pass 100%.</label>
+            </div>
+            <div class="checklist-item flex items-center gap-2.5">
+              <input type="checkbox" id="chk_deploy_4" class="w-4 h-4 rounded text-emerald-500 bg-slate-900 border-slate-700">
+              <label for="chk_deploy_4">Đã xác nhận dung lượng đĩa server còn trống tối thiểu 20% (<code>df -h</code>).</label>
+            </div>
+            <div class="checklist-item flex items-center gap-2.5">
+              <input type="checkbox" id="chk_deploy_5" class="w-4 h-4 rounded text-emerald-500 bg-slate-900 border-slate-700">
+              <label for="chk_deploy_5">Pre-pull image SHA đã được ghi nhận sẵn sàng cho Rollback.</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Checklist 2: Khám Sức Khỏe Hàng Tuần -->
+        <div class="card-glass rounded-xl p-5 border border-sky-500/40">
+          <h4 class="text-sm font-bold text-sky-400 flex items-center gap-2 mb-3">
+            🩺 2. Checklist Khám Sức Khỏe Hệ Thống Định Kỳ (Weekly Routine)
+          </h4>
+          <div class="space-y-2.5 text-xs text-slate-300">
+            <div class="checklist-item flex items-center gap-2.5">
+              <input type="checkbox" id="chk_health_1" class="w-4 h-4 rounded text-sky-500 bg-slate-900 border-slate-700">
+              <label for="chk_health_1">Dọn dẹp Docker images rác không dùng đến (<code>docker image prune -af</code>).</label>
+            </div>
+            <div class="checklist-item flex items-center gap-2.5">
+              <input type="checkbox" id="chk_health_2" class="w-4 h-4 rounded text-sky-500 bg-slate-900 border-slate-700">
+              <label for="chk_health_2">Kiểm tra bản backup S3 đêm qua có tồn tại với dung lượng > 0 byte.</label>
+            </div>
+            <div class="checklist-item flex items-center gap-2.5">
+              <input type="checkbox" id="chk_health_3" class="w-4 h-4 rounded text-sky-500 bg-slate-900 border-slate-700">
+              <label for="chk_health_3">Xem log CloudWatch Task Definition <code>ipau-sync</code> có chạy thành công 17:00 UTC.</label>
+            </div>
+            <div class="checklist-item flex items-center gap-2.5">
+              <input type="checkbox" id="chk_health_4" class="w-4 h-4 rounded text-sky-500 bg-slate-900 border-slate-700">
+              <label for="chk_health_4">Kiểm tra kết nối RDS qua CloudWatch xem có bị rò rỉ connection pool không.</label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 6: CHEATSHEET BẢNG LỆNH CLI -->
+    <!-- ========================================== -->
+    <section id="tab-cheatsheet" class="tab-content hidden space-y-6">
+      
+      <div class="mb-4">
+        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+          ⚡ Bảng Lệnh CLI Vận Hành Thường Dùng (1-Click Copy)
+        </h3>
+        <p class="text-xs text-slate-400">Bấm vào biểu tượng Copy để sao chép lệnh ngay lập tức:</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <!-- Nhóm 1: Docker Compose -->
+        <div class="card-glass p-5 rounded-xl">
+          <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-3">🐳 Thao Tác Docker Compose</div>
+          <div class="space-y-3">
+            <div>
+              <div class="text-[11px] text-slate-400 mb-1">Kiểm tra trạng thái các container:</div>
+              <div class="flex items-center justify-between code-block px-3 py-2 rounded text-xs font-mono text-emerald-400">
+                <code>docker compose ps</code>
+                <button onclick="copyToClipboard('docker compose ps')" class="text-slate-400 hover:text-white text-xs">📋</button>
+              </div>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400 mb-1">Xem log theo thời gian thực (ví dụ api-gateway):</div>
+              <div class="flex items-center justify-between code-block px-3 py-2 rounded text-xs font-mono text-emerald-400">
+                <code>docker compose logs -f --tail=100 api-gateway</code>
+                <button onclick="copyToClipboard('docker compose logs -f --tail=100 api-gateway')" class="text-slate-400 hover:text-white text-xs">📋</button>
+              </div>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400 mb-1">Xem mức tiêu thụ RAM / CPU của toàn bộ dịch vụ:</div>
+              <div class="flex items-center justify-between code-block px-3 py-2 rounded text-xs font-mono text-emerald-400">
+                <code>docker stats --no-stream</code>
+                <button onclick="copyToClipboard('docker stats --no-stream')" class="text-slate-400 hover:text-white text-xs">📋</button>
+              </div>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400 mb-1">Dọn dẹp triệt để images rác và containers mồ côi:</div>
+              <div class="flex items-center justify-between code-block px-3 py-2 rounded text-xs font-mono text-emerald-400">
+                <code>docker image prune -af --filter "until=72h"</code>
+                <button onclick="copyToClipboard('docker image prune -af --filter \"until=72h\"')" class="text-slate-400 hover:text-white text-xs">📋</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nhóm 2: Caddy & Secrets -->
+        <div class="card-glass p-5 rounded-xl">
+          <div class="text-xs font-bold text-sky-400 uppercase tracking-wider mb-3">🌐 Caddy Ingress & Secrets</div>
+          <div class="space-y-3">
+            <div>
+              <div class="text-[11px] text-slate-400 mb-1">Kiểm tra cú pháp Caddyfile trước khi áp dụng:</div>
+              <div class="flex items-center justify-between code-block px-3 py-2 rounded text-xs font-mono text-sky-400">
+                <code>docker compose exec caddy caddy validate --config /etc/caddy/Caddyfile</code>
+                <button onclick="copyToClipboard('docker compose exec caddy caddy validate --config /etc/caddy/Caddyfile')" class="text-slate-400 hover:text-white text-xs">📋</button>
+              </div>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400 mb-1">Reload Caddy mượt mà không làm rớt kết nối:</div>
+              <div class="flex items-center justify-between code-block px-3 py-2 rounded text-xs font-mono text-sky-400">
+                <code>docker compose exec caddy caddy reload --config /etc/caddy/Caddyfile</code>
+                <button onclick="copyToClipboard('docker compose exec caddy caddy reload --config /etc/caddy/Caddyfile')" class="text-slate-400 hover:text-white text-xs">📋</button>
+              </div>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400 mb-1">Kéo toàn bộ biến môi trường từ AWS SSM Parameter Store:</div>
+              <div class="flex items-center justify-between code-block px-3 py-2 rounded text-xs font-mono text-sky-400">
+                <code>bash scripts/env-pull.sh</code>
+                <button onclick="copyToClipboard('bash scripts/env-pull.sh')" class="text-slate-400 hover:text-white text-xs">📋</button>
+              </div>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-400 mb-1">Kiểm tra kết nối Redis Broker Celery:</div>
+              <div class="flex items-center justify-between code-block px-3 py-2 rounded text-xs font-mono text-sky-400">
+                <code>docker compose exec redis redis-cli ping</code>
+                <button onclick="copyToClipboard('docker compose exec redis redis-cli ping')" class="text-slate-400 hover:text-white text-xs">📋</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Sticky Toast Notification -->
+  <div id="toast" class="fixed bottom-5 right-5 bg-emerald-600 text-white text-xs font-bold px-4 py-2.5 rounded-lg shadow-xl opacity-0 pointer-events-none transition-all duration-300 transform translate-y-2 z-50">
+    Đã sao chép vào bộ nhớ tạm!
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 bg-[#040711] py-6 px-4 sm:px-8 text-center text-xs text-slate-500">
+    Ipellio Infrastructure Operations Guide • Verified for Production Environment • Created with Loki Skill
+  </footer>
+
+  <script>
+    // Tab switching logic
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('block'));
+      
+      const target = document.getElementById(tabId);
+      if (target) {
+        target.classList.remove('hidden');
+        target.classList.add('block');
+      }
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        if (btn.getAttribute('data-target') === tabId) {
+          btn.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-slate-800/60');
+          btn.classList.add('bg-emerald-600', 'text-white');
+        } else {
+          btn.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-slate-800/60');
+          btn.classList.remove('bg-emerald-600', 'text-white');
+        }
+      });
+    }
+
+    // Copy to clipboard
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.remove('opacity-0', 'translate-y-2', 'pointer-events-none');
+        toast.classList.add('opacity-100', 'translate-y-0');
+        setTimeout(() => {
+          toast.classList.add('opacity-0', 'translate-y-2', 'pointer-events-none');
+          toast.classList.remove('opacity-100', 'translate-y-0');
+        }, 2000);
+      });
+    }
+
+    // Auto save and restore checklist states
+    document.addEventListener('DOMContentLoaded', () => {
+      const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+      checkboxes.forEach(chk => {
+        const saved = localStorage.getItem('ipellio_chk_' + chk.id);
+        if (saved === 'true') chk.checked = true;
+        chk.addEventListener('change', () => {
+          localStorage.setItem('ipellio_chk_' + chk.id, chk.checked);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
