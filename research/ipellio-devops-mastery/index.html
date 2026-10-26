@@ -263,21 +263,68 @@
       </div>
 
       <!-- Sơ Đồ Kiến Trúc Preview & Button -->
-      <div class="card-glass rounded-2xl p-6 border border-emerald-500/30 bg-gradient-to-r from-emerald-950/20 via-slate-900/60 to-sky-950/20">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <h4 class="text-lg font-bold text-white flex items-center gap-2">
-              📊 Khám Phá Sơ Đồ Kiến Trúc Hệ Thống (Interactive Archify)
-            </h4>
-            <p class="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
-              Sơ đồ định dạng vector SVG độc lập, thể hiện rõ đường biên mạng VPC Sydney, vị trí Private Subnet của RDS, cơ chế SSL Caddy, Redis và tác vụ ECS Fargate.
-            </p>
+      <div class="card-glass rounded-2xl p-6 border border-emerald-500/40 bg-gradient-to-r from-emerald-950/30 via-slate-900/80 to-sky-950/30">
+        <div class="mb-4">
+          <h4 class="text-lg font-bold text-white flex items-center gap-2">
+            📂 DANH SÁCH 2 SƠ ĐỒ ĐỘNG & LỆNH MỞ TRỰC TIẾP TRÊN MAC
+          </h4>
+          <p class="text-xs text-slate-300 mt-1 max-w-3xl leading-relaxed">
+            Dưới đây là đường dẫn file tuyệt đối và câu lệnh Terminal để bạn có thể mở ngay lập tức trên trình duyệt của máy Mac:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- Sơ đồ 1 -->
+          <div class="bg-black/60 p-4 rounded-xl border border-slate-700/80 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                <span>🏛️ 1. Sơ đồ Kiến trúc Hệ Thống (System Architecture)</span>
+              </span>
+              <a href="archify/ipellio-system-architecture.html" target="_blank" class="text-[11px] bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-2.5 py-1 rounded transition">
+                Mở Tab Mới ↗
+              </a>
+            </div>
+            <div class="text-[11px] text-slate-400">
+              <span class="text-slate-500 font-mono">File:</span> 
+              <code class="text-emerald-300 font-mono text-[10.5px] select-all break-all">/Users/mac/Desktop/Ipellio/docs/archify/ipellio-system-architecture.html</code>
+            </div>
+            <div class="pt-1">
+              <div class="text-[10px] text-slate-400 mb-1">Chạy lệnh này trong Terminal để mở ngay:</div>
+              <div class="flex items-center justify-between code-block px-2.5 py-1.5 rounded text-[11px] font-mono text-emerald-300">
+                <code class="break-all">open /Users/mac/Desktop/Ipellio/docs/archify/ipellio-system-architecture.html</code>
+                <button onclick="copyToClipboard('open /Users/mac/Desktop/Ipellio/docs/archify/ipellio-system-architecture.html')" class="ml-2 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] whitespace-nowrap">
+                  📋 Copy
+                </button>
+              </div>
+            </div>
           </div>
-          <div class="flex items-center gap-3">
-            <a href="archify/ipellio-system-architecture.html" target="_blank" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs tracking-wide transition shadow-lg shadow-emerald-500/20 whitespace-nowrap flex items-center gap-2">
-              <span>Mở Sơ Đồ Động 3 Góc Nhìn ↗</span>
-            </a>
+
+          <!-- Sơ đồ 2 -->
+          <div class="bg-black/60 p-4 rounded-xl border border-slate-700/80 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-sky-400 flex items-center gap-1.5">
+                <span>🔄 2. Sơ đồ Vòng đời CI/CD (Deployment Workflow)</span>
+              </span>
+              <a href="archify/ipellio-cicd-workflow.html" target="_blank" class="text-[11px] bg-sky-600 hover:bg-sky-500 text-white font-semibold px-2.5 py-1 rounded transition">
+                Mở Tab Mới ↗
+              </a>
+            </div>
+            <div class="text-[11px] text-slate-400">
+              <span class="text-slate-500 font-mono">File:</span> 
+              <code class="text-sky-300 font-mono text-[10.5px] select-all break-all">/Users/mac/Desktop/Ipellio/docs/archify/ipellio-cicd-workflow.html</code>
+            </div>
+            <div class="pt-1">
+              <div class="text-[10px] text-slate-400 mb-1">Chạy lệnh này trong Terminal để mở ngay:</div>
+              <div class="flex items-center justify-between code-block px-2.5 py-1.5 rounded text-[11px] font-mono text-sky-300">
+                <code class="break-all">open /Users/mac/Desktop/Ipellio/docs/archify/ipellio-cicd-workflow.html</code>
+                <button onclick="copyToClipboard('open /Users/mac/Desktop/Ipellio/docs/archify/ipellio-cicd-workflow.html')" class="ml-2 px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] whitespace-nowrap">
+                  📋 Copy
+                </button>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
 
